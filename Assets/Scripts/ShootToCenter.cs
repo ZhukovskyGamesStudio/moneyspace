@@ -5,7 +5,10 @@ public class ShootToCenter : MonoBehaviour {
     private LaserBullet _laserBulletPrefab;
 
     [SerializeField]
-    private float _bulletSpeed = 5;
+    private float _bulletSpeed = 35;
+
+    [SerializeField]
+    private bool _isMouseTarget = false;
 
     public void Update() {
         if (Input.GetMouseButtonDown(0)) {
@@ -14,8 +17,10 @@ public class ShootToCenter : MonoBehaviour {
     }
 
     private void Shoot() {
-        LaserBullet b = Instantiate(_laserBulletPrefab);
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+        LaserBullet b = Instantiate(_laserBulletPrefab, transform.position, Quaternion.identity);
+        Vector3 screenPos = _isMouseTarget ? Input.mousePosition : new Vector3(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        transform.forward = ray.direction;
         Vector3 point = ray.GetPoint(100);
 
         b.Init(point - transform.position, _bulletSpeed);
