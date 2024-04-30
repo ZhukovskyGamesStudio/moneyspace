@@ -7,7 +7,7 @@ public class LaserBullet : MonoBehaviour {
         transform.forward = dir;
         _speed = speed;
 
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 3);
     }
 
     private void FixedUpdate() {

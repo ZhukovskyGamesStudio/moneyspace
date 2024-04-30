@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1692487309509605756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.89500004}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.54745, y: 0.54745, z: 0.54745}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,6 +137,7 @@ Transform:
   m_Children:
   - {fileID: 5727709942867569992}
   - {fileID: 6078866572439180600}
+  - {fileID: 7753699336655180262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &692451109817540512
@@ -153,6 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserBulletPrefab: {fileID: 6512998662561676273, guid: c6b2ad86e65d7af47a790bb44fc09f07, type: 3}
   _bulletSpeed: 5
+  _shootPoint: {fileID: 7753699336655180262}
+  _isMouseTarget: 0
+  _horizontalShift: 5
 --- !u!1 &6807266247406962592
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 6807266247406962592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.651}
+  m_LocalPosition: {x: 0, y: 0, z: 0.244}
   m_LocalScale: {x: 0.21454018, y: 0.21454018, z: 0.9154}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -258,3 +262,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8066869896823617627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7753699336655180262}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7753699336655180262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066869896823617627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.712}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5037659562029416345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
