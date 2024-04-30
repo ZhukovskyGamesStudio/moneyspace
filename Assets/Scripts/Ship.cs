@@ -81,11 +81,11 @@ public class Ship : MonoBehaviour {
     private Vector3 TrySideRotate() {
         Vector3 sideRot = Vector3.zero;
         if (Input.GetKey(KeyCode.E)) {
-            sideRot += Vector3.forward;
+            sideRot += Vector3.back;
         }
 
         if (Input.GetKey(KeyCode.Q)) {
-            sideRot += Vector3.back;
+            sideRot += Vector3.forward;
         }
 
         return sideRot * _horRotation;
