@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Screen = UnityEngine.Device.Screen;
 
@@ -7,34 +6,27 @@ public class Ship : MonoBehaviour {
     private float _shipMaxSpeed = 3;
 
     [SerializeField]
-    private float _rotationLerp = 0.1f;
-
-    [SerializeField]
-    private float _minAngle = 10f;
-
-    [SerializeField]
     private float _accelerationSpeed = 4f;
 
-    private float _shipSpeed = 0;
+    [SerializeField]
+    private float _horRotation = 1, _vertRotation = 1;
+    
+    [SerializeField]
+    private float _minVertAngle = 10, _minHorAngle = 10;
 
     [SerializeField]
-    private float _rotationAcceleration = 40f;
-
-    private float _rotationSpeed = 0;
+    private float _modelRotation = 30f;
+    
+    [SerializeField]
+    private float _modelMovement = 30f;
 
     [SerializeField]
     private Transform _model;
 
-    [SerializeField]
-    private bool _isModelRotating;
-    [SerializeField]
-    private float _modelRotateMultiplier = 1/3f;
-    
-    [SerializeField]
-    private float _justFloat = 30f;
-    
-    [SerializeField]
-    private float _horRotation = 1, _vertRotation = 1;
+    private float _shipSpeed = 0;
+
+    private float _rotationSpeed = 0;
+
     private void Start() {
         Cursor.lockState = CursorLockMode.Confined;
         _shipSpeed = _shipMaxSpeed / 2;
@@ -68,45 +60,38 @@ public class Ship : MonoBehaviour {
 
     private void RotateForward(Vector3 dir) {
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
-        /*
-        Quaternion targetRot = Quaternion.LookRotation(dir, transform.up);
-        float rotSpeed = _rotationAcceleration * Mathf.Abs(_shipSpeed) / _shipMaxSpeed;
-        
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, _rotationLerp * rotSpeed);
-        
-        float upAngle = Vector3.SignedAngle(_model.forward, dir, transform.right);
-        float leftAngle = Vector3.SignedAngle(_model.forward, dir, transform.up);
-
-        if (_isModelRotating) {
-            Quaternion targetModelRot = Quaternion.Euler(upAngle,0,-leftAngle/2);
-            targetModelRot *= Quaternion.AngleAxis(-_justFloat * _modelRotateMultiplier, dir);
-            //targetModelRot *= Quaternion.AngleAxis(-upAngle/2, _model.forward );
-            //_model.rotation = Quaternion.Lerp(_model.rotation, targetModelRot.normalized, _rotationLerp * rotSpeed * 2);
-            
-            _model.localRotation = Quaternion.Lerp( _model.localRotation, targetModelRot, _rotationLerp * rotSpeed*2);
-        }*/
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
+
+        if (Mathf.Abs(rotVector.x) < _minVertAngle) {
+            rotVector.x = 0;
+        }
+
+        if (Mathf.Abs(rotVector.y) < _minHorAngle) {
+            rotVector.y = 0;
+        }
+
         rotVector += TrySideRotate();
-        Vector3 rotDistance = rotVector * _vertRotation * Time.deltaTime;
+        Vector3 rotDistance = rotVector * _vertRotation * Time.fixedDeltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
-        Vector3 modelRotVector = new Vector3(-shift.y * _vertRotation, 0, -shift.x * _vertRotation )* _justFloat;
+        Vector3 modelRotVector = new Vector3(-shift.y * _vertRotation, 0, -shift.x * _vertRotation) * _modelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
+        _model.localPosition = shift * _modelMovement;
     }
 
     private Vector3 TrySideRotate() {
         Vector3 sideRot = Vector3.zero;
-        if (Input.GetKey(KeyCode.D)) {
-            sideRot += Vector3.forward;
-        }
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.E)) {
             sideRot += Vector3.back;
+        }
+
+        if (Input.GetKey(KeyCode.Q)) {
+            sideRot += Vector3.forward;
         }
 
         return sideRot * _horRotation;
     }
 
     private void FlyForward() {
-        transform.position += transform.forward * _shipMaxSpeed * Time.fixedDeltaTime;
+        transform.position += transform.forward * _shipSpeed * Time.fixedDeltaTime;
     }
 }
