@@ -28,7 +28,6 @@ public class Ship : MonoBehaviour {
     private float _rotationSpeed = 0;
 
     private void Start() {
-        Cursor.lockState = CursorLockMode.Confined;
         _shipSpeed = _shipMaxSpeed / 2;
         //Cursor.visible = false;
     }
