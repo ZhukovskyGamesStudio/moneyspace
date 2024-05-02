@@ -52,11 +52,12 @@ public class Ship : IShip {
         if (Mathf.Abs(rotVector.y) < _minHorAngle) {
             rotVector.y = 0;
         }*/
+        MoveModel(rotVector);
         rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.y = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
         Vector3 rotDistance = rotVector * _vertRotation * Time.fixedDeltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
-        MoveModel(rotVector);
+        
     }
 
     public override float GetSpeedPercent() {
@@ -66,10 +67,23 @@ public class Ship : IShip {
     private void MoveModel(Vector3 rotVector) {
         Vector3 modelRotVector = new Vector3(rotVector.x * _vertRotation, 0, -rotVector.y * _vertRotation) * _modelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
-        Vector3 modelShift = rotVector;
-        modelShift.x *= -1;
+        Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
         modelShift.z = 0;
         _model.localPosition = modelShift * _modelMovement;
+        
+        /*
+        
+        Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
+        Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
+
+       
+
+        rotVector += TrySideRotate();
+        Vector3 rotDistance = rotVector * _vertRotation * Time.fixedDeltaTime;
+        transform.rotation *= Quaternion.Euler(rotDistance);
+        Vector3 modelRotVector = new Vector3(-shift.y * _vertRotation, 0, -shift.x * _vertRotation) * _modelRotation;
+        _model.localRotation = Quaternion.Euler(modelRotVector);
+        _model.localPosition = shift * _modelMovement;*/
     }
 
     private void FlyForward() {
