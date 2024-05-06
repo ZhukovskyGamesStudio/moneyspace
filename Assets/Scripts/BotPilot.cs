@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BotPilot : MonoBehaviour {
     [SerializeField]
@@ -22,14 +24,24 @@ public class BotPilot : MonoBehaviour {
     private float _shootDistance;
     private float _desirableSpeed;
     private float _attackTime;
-    
+
+    private EnemyMarker _marker;
 
     public void SetTeam(Team type) {
         _team = type;
+       
     }
 
     private void Start() {
+        CreateMarker();
         FindTarget();
+    }
+
+    private void CreateMarker() {
+        if (_team == Team.Red) {
+            _marker = GameUI.Instance.ArMarkersManager.CreateMarker();
+            _marker.SetTarget(_ship.transform);
+        }
     }
 
     private void FindTarget() {
@@ -119,6 +131,12 @@ public class BotPilot : MonoBehaviour {
     }
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
+
+    private void OnDestroy() {
+        if (_marker != null) {
+            Destroy(_marker.gameObject);
+        }
+    }
 
     enum BotState {
         Hunt,

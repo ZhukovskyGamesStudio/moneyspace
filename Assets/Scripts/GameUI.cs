@@ -17,6 +17,11 @@ public class GameUI : MonoBehaviour {
     [SerializeField]
     private DeathmatchProgressView _deathmatchProgressView;
 
+    [SerializeField]
+    private ArMarkersManager _arMarkersManager;
+
+    public ArMarkersManager ArMarkersManager => _arMarkersManager;
+    
     public static GameUI Instance;
 
     private void Awake() {
