@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visibleChecker: {fileID: 3889112629604019202}
   _shipMaxHp: 100
-  _shipMaxSpeed: 50
+  _shipMaxSpeed: 80
   _accelerationSpeed: 4
   _horRotation: 100
   _vertRotation: 0.5

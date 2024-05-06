@@ -66,7 +66,8 @@ public class Ship : IShip {
         MoveModel(rotVector);
         rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.y = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
-        Vector3 rotDistance = rotVector * _vertRotation * Time.fixedDeltaTime;
+        Vector3 rotDistance = new Vector3(rotVector.x * _vertRotation, rotVector.y * _vertRotation, rotVector.z * _horRotation) *
+                              Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
     }
 

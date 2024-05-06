@@ -52,11 +52,10 @@ public class BotPilot : MonoBehaviour {
 
         if (_team == Team.Red) {
             _marker = GameUI.Instance.ArMarkersManager.CreateRedMarker();
-           
         } else {
             _marker = GameUI.Instance.ArMarkersManager.CreateBlueMarker();
         }
-        
+
         _marker.SetTarget(_ship.transform);
     }
 
@@ -91,11 +90,13 @@ public class BotPilot : MonoBehaviour {
             return;
         }
 
-        if (_shipSpeed < 1) {
+        Vector3 dir = _target.position - _ship.transform.position;
+        if (Vector3.Angle(_ship.transform.forward, dir) > 30 && _shipSpeed > 0.1) {
+            _ship.Slowdown();
+        } else if (_shipSpeed < 1) {
             _ship.Accelerate();
         }
 
-        Vector3 dir = _target.position - _ship.transform.position;
         RotateShip(dir);
     }
 
@@ -138,8 +139,11 @@ public class BotPilot : MonoBehaviour {
         RotateShip(dir);
     }
 
-    private void RotateShip(Vector3 dir) {
-        Vector3 rotVector = Quaternion.FromToRotation(_ship.transform.forward, dir).eulerAngles;
+    private void RotateShip(Vector3 to) {
+        Vector3 rotVector = Quaternion.FromToRotation(_ship.transform.forward, to).eulerAngles;
+
+        // Vector3 from = _ship.transform.forward;
+        // Vector3 rotVector = new Vector3(Vector3.SignedAngle(from, to, -_ship.transform.up), Vector3.SignedAngle(from, to, _ship.transform.right));
         _ship.RotateForward(rotVector);
     }
 
