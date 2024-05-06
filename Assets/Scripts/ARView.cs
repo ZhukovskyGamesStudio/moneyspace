@@ -13,8 +13,8 @@ public class ARView : MonoBehaviour {
         SetData(Random.Range(0,1f),Random.Range(0,1f));
     }
 
-    public void SetData(float hpPercent, float shieldPercent) {
-        _speedSlider.value = hpPercent;
-        _overheatSlider.value = shieldPercent;
+    public void SetData(float speedPercent, float overheatPercent) {
+        _speedSlider.value = speedPercent;
+        _overheatSlider.value = overheatPercent;
     }
 }

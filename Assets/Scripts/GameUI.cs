@@ -6,16 +6,16 @@ public class GameUI : MonoBehaviour {
     private LeaderboardDialog _leaderboardDialog;
 
     [SerializeField]
-    private ARView _arView;
+    public ARView _arView;
 
     [SerializeField]
-    private PlayerHpView _playerHpView;
+    public PlayerHpView _playerHpView;
 
     [SerializeField]
-    private AmmoView _ammoView;
+    public AmmoView _ammoView;
 
     [SerializeField]
-    private DeathmatchProgressView _deathmatchProgressView;
+    public DeathmatchProgressView _deathmatchProgressView;
 
     [SerializeField]
     private ArMarkersManager _arMarkersManager;

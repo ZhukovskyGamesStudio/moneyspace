@@ -14,8 +14,9 @@ public class PlayerPilot : MonoBehaviour {
     [SerializeField]
     private float _minRotationMuliplier = 0.1f;
 
-    
     private void Update() {
+        GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), 0);
+        GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), 0);
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
         }

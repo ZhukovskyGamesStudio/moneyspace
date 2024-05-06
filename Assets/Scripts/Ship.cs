@@ -73,8 +73,8 @@ public class Ship : IShip {
         return _shipSpeed / _shipMaxSpeed;
     }
 
-    public override int GetHp() {
-        return _hp;
+    public override float GetHpPercent() {
+        return _hp / (_shipMaxHp + 0f);
     }
 
     private void MoveModel(Vector3 rotVector) {

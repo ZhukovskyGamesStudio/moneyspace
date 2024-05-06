@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class IShip : MonoBehaviour {
     public abstract void RotateForward(Vector3 rotVector);
     public abstract float GetSpeedPercent();
-    public abstract int GetHp();
+    public abstract float GetHpPercent();
 
     public Action OnDestroyed;
 
