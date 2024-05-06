@@ -14,6 +14,24 @@ public class PlayerPilot : MonoBehaviour {
     [SerializeField]
     private float _minRotationMuliplier = 0.1f;
 
+    private void Start() {
+        _ship.name = "PlayerShip";
+        _ship.OnDestroyed += OnShipDestroyed;
+    }
+
+    private void OnShipDestroyed() {
+        RespawnManager.Instance.MinusPoint(Team.Blue);
+        Respawn();
+    }
+
+    private void Respawn() {
+        Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(Team.Blue);
+        transform.SetParent(spawnPoint);
+        _ship.transform.position = spawnPoint.position;
+        _ship.gameObject.SetActive(true);
+        _ship.Respawn();
+    }
+
     private void Update() {
         GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), 0);
         GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), 0);

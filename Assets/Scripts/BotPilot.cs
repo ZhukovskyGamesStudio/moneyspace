@@ -36,6 +36,7 @@ public class BotPilot : MonoBehaviour {
     }
 
     private void Start() {
+        _ship.name = "BotShip#" + Random.Range(0,100);
         _ship.OnDestroyed += StartRespawning;
         CreateMarker();
         FindTarget();
@@ -141,6 +142,7 @@ public class BotPilot : MonoBehaviour {
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
     private void StartRespawning() {
+        RespawnManager.Instance.MinusPoint(_team);
         StartCoroutine(Respawn());
     }
 
