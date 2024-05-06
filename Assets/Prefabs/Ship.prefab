@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7327612389814719534}
   - component: {fileID: 2462914844045690213}
+  - component: {fileID: 1528794068189995415}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -145,7 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbe81e3759a0c741a64efe297473f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipMaxSpeed: 100
+  _shipMaxHp: 100
+  _shipMaxSpeed: 50
   _accelerationSpeed: 4
   _horRotation: 100
   _vertRotation: 0.5
@@ -154,12 +156,40 @@ MonoBehaviour:
   _modelRotation: 0.1
   _modelMovement: -0.0075
   _model: {fileID: 4876068726841697235}
+  _explosion: {fileID: 6781775129475463416, guid: c63d4c7bf4c5b1d4baef45a2e1bc62c7, type: 3}
   _primeCanons:
   - {fileID: 246417962822734215}
   - {fileID: 3553844472821717543}
   _secondCanons:
   - {fileID: 9048708533191588857}
   - {fileID: 1703878092107300275}
+--- !u!54 &1528794068189995415
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7658804950311623225}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1001 &790213824948784679
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -6,8 +5,11 @@ public class LaserBullet : MonoBehaviour {
     private float _speed;
 
     [SerializeField]
+    private int _damageAmount = 10;
+
+    [SerializeField]
     private Explosion _explosion;
-    
+
     public void Init(Vector3 dir, float speed) {
         transform.forward = dir;
         _speed = speed;
@@ -20,7 +22,13 @@ public class LaserBullet : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-
+        Rigidbody rb = collision.GetContact(0).otherCollider.attachedRigidbody;
+        if (rb != null) {
+            Ship ship = rb.GetComponent<Ship>();
+            if (ship != null) {
+                ship.TakeDamage(_damageAmount);
+            }
+        }
 
         Explode(collision);
         Destroy(gameObject);
@@ -28,7 +36,7 @@ public class LaserBullet : MonoBehaviour {
 
     private void Explode(Collision collision) {
         Vector3 normal = collision.GetContact(0).normal;
-        Explosion explosion = Instantiate(_explosion, transform.position, quaternion.identity,collision.GetContact(0).otherCollider.transform );
+        Explosion explosion = Instantiate(_explosion, transform.position, quaternion.identity, collision.GetContact(0).otherCollider.transform);
         explosion.transform.up = normal;
     }
 }

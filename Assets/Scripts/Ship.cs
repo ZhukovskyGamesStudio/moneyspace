@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Ship : IShip {
     [SerializeField]
+    private int _shipMaxHp = 100;
+
+    private int _hp;
+
+    [SerializeField]
     private float _shipMaxSpeed = 3;
 
     [SerializeField]
@@ -23,6 +28,9 @@ public class Ship : IShip {
 
     [SerializeField]
     private Transform _model;
+    
+    [SerializeField]
+    private Explosion _explosion;
 
     [SerializeField]
     private List<LaserCanon> _primeCanons = new List<LaserCanon>();
@@ -34,8 +42,10 @@ public class Ship : IShip {
 
     private float _rotationSpeed = 0;
 
+    private bool _recoil = false;
+
     private void Start() {
-        _shipSpeed = _shipMaxSpeed / 2;
+        Respawn();
         //Cursor.visible = false;
     }
 
@@ -63,13 +73,17 @@ public class Ship : IShip {
         return _shipSpeed / _shipMaxSpeed;
     }
 
+    public override int GetHp() {
+        return _hp;
+    }
+
     private void MoveModel(Vector3 rotVector) {
         Vector3 modelRotVector = new Vector3(rotVector.x * _vertRotation, 0, -rotVector.y * _vertRotation) * _modelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
         modelShift.z = 0;
         _model.localPosition = modelShift * _modelMovement;
-        
+
         /*
         
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
@@ -99,8 +113,6 @@ public class Ship : IShip {
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
     }
 
-    private bool _recoil = false;
-
     public override void FirePrime(Vector3 target) {
         if (_recoil) {
             return;
@@ -122,5 +134,24 @@ public class Ship : IShip {
         foreach (var VARIABLE in _secondCanons) {
             VARIABLE.Shoot(target);
         }
+    }
+
+    public override void TakeDamage(int amount) {
+        _hp -= amount;
+        if (_hp < 0 && gameObject.activeSelf) {
+            _hp = 0;
+            Explode();
+        }
+    }
+
+    public override void Respawn() {
+        _shipSpeed = _shipMaxSpeed / 2;
+        _hp = _shipMaxHp;
+    }
+
+    private void Explode() {
+        Instantiate(_explosion, transform.position, transform.rotation);
+        gameObject.SetActive(false);
+        OnDestroyed?.Invoke();
     }
 }

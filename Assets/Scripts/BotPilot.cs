@@ -7,6 +7,9 @@ public class BotPilot : MonoBehaviour {
     [SerializeField]
     private IShip _ship;
 
+    [SerializeField]
+    private float _respawnTime = 10f;
+
     private Transform _target;
 
     [SerializeField]
@@ -20,6 +23,7 @@ public class BotPilot : MonoBehaviour {
     private float _shootDistanceRandomness = 25;
 
     private Coroutine _shootCoroutine;
+
     //attack random parameters
     private float _shootDistance;
     private float _desirableSpeed;
@@ -29,10 +33,10 @@ public class BotPilot : MonoBehaviour {
 
     public void SetTeam(Team type) {
         _team = type;
-       
     }
 
     private void Start() {
+        _ship.OnDestroyed += StartRespawning;
         CreateMarker();
         FindTarget();
     }
@@ -52,6 +56,10 @@ public class BotPilot : MonoBehaviour {
     }
 
     private void Update() {
+        if (_state == BotState.Respawn) {
+            return;
+        }
+
         _distToTarget = CalculateDist();
         _shipSpeed = _ship.GetSpeedPercent();
 
@@ -132,6 +140,20 @@ public class BotPilot : MonoBehaviour {
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
+    private void StartRespawning() {
+        StartCoroutine(Respawn());
+    }
+
+    private IEnumerator Respawn() {
+        _state = BotState.Respawn;
+        yield return new WaitForSeconds(_respawnTime);
+        Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(_team);
+        transform.SetParent(spawnPoint);
+        _ship.transform.position = spawnPoint.position;
+        _ship.gameObject.SetActive(true);
+        _ship.Respawn();
+    }
+
     private void OnDestroy() {
         if (_marker != null) {
             Destroy(_marker.gameObject);
@@ -141,6 +163,7 @@ public class BotPilot : MonoBehaviour {
     enum BotState {
         Hunt,
         Shoot,
-        Evade
+        Evade,
+        Respawn
     }
 }
