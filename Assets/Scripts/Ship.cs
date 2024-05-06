@@ -57,7 +57,6 @@ public class Ship : IShip {
         rotVector.y = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
         Vector3 rotDistance = rotVector * _vertRotation * Time.fixedDeltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
-        
     }
 
     public override float GetSpeedPercent() {

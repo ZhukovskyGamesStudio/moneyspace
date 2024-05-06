@@ -7,7 +7,7 @@ public class CursorManager : MonoBehaviour {
 
     private void Start() {
         Cursor.lockState = CursorLockMode.Confined;
-        SetCursor(CursorType.CircleWithDot);
+        SetCursor(CursorType.Circle);
     }
 
     public void SetCursor(CursorType type) {
