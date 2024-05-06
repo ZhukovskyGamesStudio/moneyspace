@@ -36,17 +36,28 @@ public class BotPilot : MonoBehaviour {
     }
 
     private void Start() {
-        _ship.name = "BotShip#" + Random.Range(0,100);
+        _ship.name = "BotShip#" + Random.Range(0, 100);
         _ship.OnDestroyed += StartRespawning;
+        _ship._visibleChecker.OnVisibleAction += () => { _marker.gameObject.SetActive(true); };
+        _ship._visibleChecker.OnInvisibleAction += () => { _marker.gameObject.SetActive(false); };
+
         CreateMarker();
         FindTarget();
     }
 
     private void CreateMarker() {
-        if (_team == Team.Red) {
-            _marker = GameUI.Instance.ArMarkersManager.CreateMarker();
-            _marker.SetTarget(_ship.transform);
+        if (_marker != null) {
+            return;
         }
+
+        if (_team == Team.Red) {
+            _marker = GameUI.Instance.ArMarkersManager.CreateRedMarker();
+           
+        } else {
+            _marker = GameUI.Instance.ArMarkersManager.CreateBlueMarker();
+        }
+        
+        _marker.SetTarget(_ship.transform);
     }
 
     private void FindTarget() {
@@ -154,12 +165,6 @@ public class BotPilot : MonoBehaviour {
         _ship.transform.position = spawnPoint.position;
         _ship.gameObject.SetActive(true);
         _ship.Respawn();
-    }
-
-    private void OnDestroy() {
-        if (_marker != null) {
-            Destroy(_marker.gameObject);
-        }
     }
 
     enum BotState {

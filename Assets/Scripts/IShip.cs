@@ -8,6 +8,8 @@ public abstract class IShip : MonoBehaviour {
     public abstract float GetHpPercent();
 
     public Action OnDestroyed;
+    
+    public VisibleChecker _visibleChecker;
 
     public abstract void Accelerate();
 
