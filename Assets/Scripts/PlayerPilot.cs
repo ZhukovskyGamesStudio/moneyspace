@@ -8,6 +8,13 @@ public class PlayerPilot : MonoBehaviour {
     [SerializeField]
     private bool _isMouseTarget = false;
 
+    [SerializeField]
+    private float _minDistanceToRotate = 50;
+
+    [SerializeField]
+    private float _minRotationMuliplier = 0.1f;
+
+    
     private void Update() {
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
@@ -26,18 +33,25 @@ public class PlayerPilot : MonoBehaviour {
         }
 
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
+        if (shift.magnitude < _minDistanceToRotate) {
+            shift *= _minRotationMuliplier;
+        } else {
+            shift -= shift.normalized * _minDistanceToRotate;
+        }
+
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
+
         _ship.RotateForward(rotVector + TrySideRotate());
     }
 
     private void FirePrime() {
         Vector3 screenPos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
-       
+
         Vector3 point = ray.GetPoint(10000);
         _ship.FirePrime(point);
     }
-    
+
     private void FireSecond() {
         Vector3 screenPos = _isMouseTarget ? Input.mousePosition : new Vector3(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
