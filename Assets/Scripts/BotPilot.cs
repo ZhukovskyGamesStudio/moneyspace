@@ -91,7 +91,7 @@ public class BotPilot : MonoBehaviour {
         }
 
         Vector3 dir = _target.position - _ship.transform.position;
-        if (Vector3.Angle(_ship.transform.forward, dir) > 30 && _shipSpeed > 0.1) {
+        if (Vector3.Angle(_ship.transform.forward, dir) > 60 && _shipSpeed > 0.3) {
             _ship.Slowdown();
         } else if (_shipSpeed < 1) {
             _ship.Accelerate();
