@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4833574}
   - component: {fileID: 4833576}
+  - component: {fileID: 4833577}
   m_Layer: 5
   m_Name: ShipPanel
   m_TagString: Untagged
@@ -166,6 +167,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4833573}
   m_CullTransparentMesh: 1
+--- !u!114 &4833577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73f539dd6444a60a8ba1f7e6c04d806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &51991310
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +261,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 51991313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214860066}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: SettingsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &51991313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +651,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 187249356}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214860066}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &187249356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,6 +1144,7 @@ GameObject:
   - component: {fileID: 763597452}
   - component: {fileID: 763597451}
   - component: {fileID: 763597450}
+  - component: {fileID: 763597454}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1201,6 +1239,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &763597454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763597449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875ddc605e3dca14f9d86aae8edcd134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &818280530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1825,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165969867}
   m_CullTransparentMesh: 1
+--- !u!1 &1214860065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214860067}
+  - component: {fileID: 1214860066}
+  m_Layer: 0
+  m_Name: MainMenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1214860066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214860065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd97ebe21b0746f1bc264f3efdbe3368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1214860067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214860065}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 933.2577, y: 536.92487, z: -4.7978992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1845589045}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1355691959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2164,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1510423157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214860066}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: UpgradesButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1510423157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2238,7 +2345,7 @@ GameObject:
   - component: {fileID: 1542968473}
   - component: {fileID: 1542968472}
   m_Layer: 5
-  m_Name: Watch Ad
+  m_Name: WatchAd Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2308,7 +2415,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1542968473}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214860066}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: WatchAdButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1542968473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2580,7 +2699,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1652802476}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4833577}
+        m_TargetAssemblyTypeName: ShipsPanel, Assembly-CSharp
+        m_MethodName: ChangeShip
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1652802476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2951,7 +3082,81 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1811340679}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214860066}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: OpenPlayerData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1001 &1845589044
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1214860067}
+    m_Modifications:
+    - target: {fileID: 2130403885243490296, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_Name
+      value: Factories
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+--- !u!4 &1845589045 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2575194581452679434, guid: d142e8b63e590c8479a409759dc7789e, type: 3}
+  m_PrefabInstance: {fileID: 1845589044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2052289424
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,7 +3238,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2052289427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4833577}
+        m_TargetAssemblyTypeName: ShipsPanel, Assembly-CSharp
+        m_MethodName: ChangeShip
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2052289427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,3 +3297,4 @@ SceneRoots:
   - {fileID: 1512228323}
   - {fileID: 763597453}
   - {fileID: 739582894}
+  - {fileID: 1214860067}
