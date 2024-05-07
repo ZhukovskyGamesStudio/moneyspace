@@ -3946,6 +3946,10 @@ PrefabInstance:
       propertyPath: _followLerp
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3499099581208421465, guid: 354efa42d0920dc42b12cda3f2192285, type: 3}
+      propertyPath: far clip plane
+      value: 50000
+      objectReference: {fileID: 0}
     - target: {fileID: 5317680784240793560, guid: 354efa42d0920dc42b12cda3f2192285, type: 3}
       propertyPath: m_Name
       value: Main Camera

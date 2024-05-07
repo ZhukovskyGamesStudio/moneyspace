@@ -119,7 +119,7 @@ public class Ship : IShip {
     }
 
     public override void FirePrime(Vector3 target) {
-        if (_recoil) {
+        if (_recoil || !gameObject.activeSelf) {
             return;
         }
 
@@ -136,6 +136,10 @@ public class Ship : IShip {
     }
 
     public override void FireSecond(Vector3 target) {
+        if (!gameObject.activeSelf) {
+            return;
+        }
+
         foreach (var VARIABLE in _secondCanons) {
             VARIABLE.Shoot(target);
         }

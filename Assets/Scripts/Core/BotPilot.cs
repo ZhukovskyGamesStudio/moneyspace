@@ -52,11 +52,13 @@ public class BotPilot : AbstractPilot {
         }
 
         _marker.SetTarget(_ship.transform);
-        _ship._visibleChecker.OnVisibleAction += () => { _marker.gameObject.SetActive(true); };
-        _ship._visibleChecker.OnInvisibleAction += () => {
-            if(_marker)
-                _marker.gameObject.SetActive(false);
-        };
+        _ship._visibleChecker.OnVisibleAction += () => { ChangeMarkerVisibility(true); };
+        _ship._visibleChecker.OnInvisibleAction += () => { ChangeMarkerVisibility(false); };
+    }
+
+    private void ChangeMarkerVisibility(bool isActive) {
+        if (_marker)
+            _marker.gameObject.SetActive(isActive);
     }
 
     private void FindTarget() {
@@ -64,6 +66,7 @@ public class BotPilot : AbstractPilot {
         if (_target == null) {
             Debug.Log("no target found!");
         }
+
         RndAttackParameters();
         _state = BotState.Hunt;
         _shootCoroutine = StartCoroutine(ShootCoroutine());
@@ -80,7 +83,7 @@ public class BotPilot : AbstractPilot {
             _distToTarget = 100000;
             FindTarget();
         }
-        
+
         _shipSpeed = _ship.GetSpeedPercent();
 
         if (_state == BotState.Hunt) {

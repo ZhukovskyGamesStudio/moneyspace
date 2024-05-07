@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class LaserCanon : MonoBehaviour {
@@ -10,8 +9,6 @@ public class LaserCanon : MonoBehaviour {
 
     [SerializeField]
     private Transform _shootPoint;
-
-   
 
     [SerializeField]
     private float _horizontalShift = 5;
