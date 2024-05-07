@@ -20,6 +20,14 @@ public class AbstractPilot : MonoBehaviour {
         _ship.transform.SetParent(transform);
         _ship.name = _playerData.Nickname = "ship";
         _ship.tag = _playerData.Team.ToString();
+
+      
+        var layer = LayerMask.NameToLayer(_playerData.Team == Team.Blue ? "BlueTeam" : "RedTeam");
+        _ship.gameObject.layer = layer;
+        var childs = _ship.GetComponentsInChildren<Transform>();
+        foreach (var VARIABLE in childs) {
+            VARIABLE.gameObject.layer = layer;
+        }
     }
     
     protected void RespawnShip() {

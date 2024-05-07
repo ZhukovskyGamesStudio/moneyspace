@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6781441706118308957}
   - component: {fileID: 6512998662561676273}
   - component: {fileID: 448862069941853493}
-  m_Layer: 6
-  m_Name: LaserBulletBlueTeam
+  m_Layer: 0
+  m_Name: LaserBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1237270080648917364}
   - component: {fileID: 4868122832606891778}
   - component: {fileID: 5527010232554073590}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LaserBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
