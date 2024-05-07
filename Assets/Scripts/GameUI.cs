@@ -21,6 +21,7 @@ public class GameUI : MonoBehaviour {
     private ArMarkersManager _arMarkersManager;
 
     public ArMarkersManager ArMarkersManager => _arMarkersManager;
+    public LeaderboardDialog LeaderboardDialog => _leaderboardDialog;
     
     public static GameUI Instance;
 

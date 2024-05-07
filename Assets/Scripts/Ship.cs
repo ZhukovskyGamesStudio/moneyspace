@@ -29,7 +29,7 @@ public class Ship : IShip {
 
     [SerializeField]
     private Transform _model;
-    
+
     [SerializeField]
     private Explosion _explosion;
 
@@ -38,6 +38,9 @@ public class Ship : IShip {
 
     [SerializeField]
     private List<LaserCanon> _secondCanons = new List<LaserCanon>();
+
+    [SerializeField]
+    private Transform _cameraFollowTarget;
 
     private float _shipSpeed = 0;
 
@@ -149,6 +152,10 @@ public class Ship : IShip {
     public override void Respawn() {
         _shipSpeed = _shipMaxSpeed / 2;
         _hp = _shipMaxHp;
+    }
+
+    public override Transform GetCameraFollowTarget() {
+        return _cameraFollowTarget;
     }
 
     private void Explode() {

@@ -22,4 +22,6 @@ public abstract class IShip : MonoBehaviour {
     public abstract void TakeDamage(int amount);
 
     public abstract void Respawn();
+
+    public abstract Transform GetCameraFollowTarget();
 }

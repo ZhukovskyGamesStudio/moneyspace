@@ -24,6 +24,10 @@ public class CameraFollow : MonoBehaviour {
         _transform = transform;
     }
 
+    public void SetTarget(Transform target) {
+        _target = target;
+    }
+
     private void LateUpdate() {
         if (_target == null) {
             return;

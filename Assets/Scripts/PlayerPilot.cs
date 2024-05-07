@@ -1,10 +1,6 @@
-using System;
 using UnityEngine;
 
-public class PlayerPilot : MonoBehaviour {
-    [SerializeField]
-    private IShip _ship;
-
+public class PlayerPilot : AbstractPilot {
     [SerializeField]
     private bool _isMouseTarget = false;
 
@@ -14,22 +10,29 @@ public class PlayerPilot : MonoBehaviour {
     [SerializeField]
     private float _minRotationMuliplier = 0.1f;
 
-    private void Start() {
+    public override void Init() {
+        GetShip();
+    }
+
+    protected override void GetShip() {
+        base.GetShip();
         _ship.name = "PlayerShip";
         _ship.OnDestroyed += OnShipDestroyed;
+        CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
+    }
+
+    public override void Activate() {
+        base.Activate();
+        RespawnShip();
     }
 
     private void OnShipDestroyed() {
         RespawnManager.Instance.MinusPoint(Team.Blue);
-        Respawn();
+        PlayerRespawn();
     }
 
-    private void Respawn() {
-        Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(Team.Blue);
-        transform.SetParent(spawnPoint);
-        _ship.transform.position = spawnPoint.position;
-        _ship.gameObject.SetActive(true);
-        _ship.Respawn();
+    private void PlayerRespawn() {
+        RespawnShip();
     }
 
     private void Update() {

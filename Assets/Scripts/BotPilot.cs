@@ -1,19 +1,12 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BotPilot : MonoBehaviour {
-    [SerializeField]
-    private IShip _ship;
-
+public class BotPilot : AbstractPilot {
     [SerializeField]
     private float _respawnTime = 10f;
 
     private Transform _target;
-
-    [SerializeField]
-    private Team _team;
 
     private BotState _state;
     private float _distToTarget;
@@ -31,18 +24,19 @@ public class BotPilot : MonoBehaviour {
 
     private EnemyMarker _marker;
 
-    public void SetTeam(Team type) {
-        _team = type;
+    public override void Init() {
+        GetShip();
+        CreateMarker();
+        RespawnShip();
     }
 
-    private void Start() {
-        _ship.name = "BotShip#" + Random.Range(0, 100);
-        _ship.OnDestroyed += StartRespawning;
-        _ship._visibleChecker.OnVisibleAction += () => { _marker.gameObject.SetActive(true); };
-        _ship._visibleChecker.OnInvisibleAction += () => { _marker.gameObject.SetActive(false); };
-
-        CreateMarker();
+    public override void Activate() {
         FindTarget();
+    }
+
+    protected override void GetShip() {
+        base.GetShip();
+        _ship.OnDestroyed += StartRespawning;
     }
 
     private void CreateMarker() {
@@ -50,17 +44,25 @@ public class BotPilot : MonoBehaviour {
             return;
         }
 
-        if (_team == Team.Red) {
+        if (_playerData.Team == Team.Red) {
             _marker = GameUI.Instance.ArMarkersManager.CreateRedMarker();
         } else {
             _marker = GameUI.Instance.ArMarkersManager.CreateBlueMarker();
         }
 
         _marker.SetTarget(_ship.transform);
+        _ship._visibleChecker.OnVisibleAction += () => { _marker.gameObject.SetActive(true); };
+        _ship._visibleChecker.OnInvisibleAction += () => {
+            if(_marker)
+                _marker.gameObject.SetActive(false);
+        };
     }
 
     private void FindTarget() {
-        _target = GameObject.FindWithTag(_team == Team.Blue ? "Red" : "Blue").transform;
+        _target = GameObject.FindWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue").transform;
+        if (_target == null) {
+            Debug.Log("no target found!");
+        }
         RndAttackParameters();
         _state = BotState.Hunt;
         _shootCoroutine = StartCoroutine(ShootCoroutine());
@@ -71,7 +73,13 @@ public class BotPilot : MonoBehaviour {
             return;
         }
 
-        _distToTarget = CalculateDist();
+        if (_target != null) {
+            _distToTarget = CalculateDist();
+        } else {
+            _distToTarget = 100000;
+            FindTarget();
+        }
+        
         _shipSpeed = _ship.GetSpeedPercent();
 
         if (_state == BotState.Hunt) {
@@ -157,18 +165,14 @@ public class BotPilot : MonoBehaviour {
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
     private void StartRespawning() {
-        RespawnManager.Instance.MinusPoint(_team);
+        RespawnManager.Instance.MinusPoint(_playerData.Team);
         StartCoroutine(Respawn());
     }
 
     private IEnumerator Respawn() {
         _state = BotState.Respawn;
         yield return new WaitForSeconds(_respawnTime);
-        Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(_team);
-        transform.SetParent(spawnPoint);
-        _ship.transform.position = spawnPoint.position;
-        _ship.gameObject.SetActive(true);
-        _ship.Respawn();
+        RespawnShip();
     }
 
     enum BotState {
