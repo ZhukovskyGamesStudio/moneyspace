@@ -1,8 +1,7 @@
+using DefaultNamespace;
 using UnityEngine;
 
 public class PrepareGameManager : MonoBehaviour {
-    [SerializeField]
-    private RespawnManager _respawnManager;
 
     [SerializeField]
     private PilotsManager _pilotsManager;
@@ -11,6 +10,9 @@ public class PrepareGameManager : MonoBehaviour {
 
     [SerializeField]
     private int _playersAmount = 9;
+    
+    [SerializeField]
+    private int _startingScore = 100;
 
     public void Start() {
         _playersManager.LoadPlayer();
@@ -20,5 +22,6 @@ public class PrepareGameManager : MonoBehaviour {
         
         
         _pilotsManager.ActivatePilots();
+        GameManager.Instance.RespawnManager.SetStartingScore(_startingScore);
     }
 }

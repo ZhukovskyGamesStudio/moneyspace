@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using UnityEngine;
 
 public class PlayerPilot : AbstractPilot {
@@ -27,7 +28,7 @@ public class PlayerPilot : AbstractPilot {
     }
 
     private void OnShipDestroyed() {
-        RespawnManager.Instance.MinusPoint(Team.Blue);
+        GameManager.Instance.RespawnManager.MinusPoint(Team.Blue);
         PlayerRespawn();
     }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using DefaultNamespace;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -165,7 +166,7 @@ public class BotPilot : AbstractPilot {
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
     private void StartRespawning() {
-        RespawnManager.Instance.MinusPoint(_playerData.Team);
+        GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         StartCoroutine(Respawn());
     }
 

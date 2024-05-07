@@ -1,18 +1,10 @@
-using System;
-using UnityEngine;
-
-public class RespawnManager : MonoBehaviour {
-    [SerializeField]
+public class RespawnManager {
     private int _startingScore;
 
     private int _blueTeamScore, _redTeamScore;
 
-    public static RespawnManager Instance;
-    private void Awake() {
-        Instance = this;
-    }
-
-    private void Start() {
+    public void SetStartingScore(int startingScore) {
+        _startingScore = startingScore;
         _blueTeamScore = _startingScore;
         _redTeamScore = _startingScore;
         UpdateUI();
@@ -32,10 +24,4 @@ public class RespawnManager : MonoBehaviour {
         GameUI.Instance._deathmatchProgressView.SetData((_blueTeamScore + 0f) / _startingScore, _blueTeamScore,
             (_redTeamScore + 0f) / _startingScore, _redTeamScore);
     }
-}
-
-[Serializable]
-public enum Team {
-    Blue,
-    Red
 }
