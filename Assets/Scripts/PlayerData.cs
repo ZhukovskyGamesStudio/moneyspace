@@ -11,6 +11,6 @@ public class PlayerData {
         new PlayerData {
             isBot = true,
             Nickname = "Player#" + Random.Range(0, 999),
-            AvatarIndex = Random.Range(0, 1)
+            AvatarIndex = Random.Range(0,AvatarFactory.AvatarsCount)
         };
 }

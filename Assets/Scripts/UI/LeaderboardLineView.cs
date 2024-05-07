@@ -16,6 +16,7 @@ public class LeaderboardLineView : MonoBehaviour {
         _killCount.text = data.Kills.ToString();
         deathCount.text = data.Deaths.ToString();
         assistCount.text = data.Assists.ToString();
+        _avatarIcon.sprite = AvatarFactory.GetAvatar(data.AvatarIndex);
     }
 
     public void SetInactive() {
