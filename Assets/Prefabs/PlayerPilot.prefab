@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935aaca62c394a2bb485009ca122d213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isMouseTarget: 0
+  _isMouseTarget: 1
   _minDistanceToRotate: 50
   _minRotationMuliplier: 0.1
