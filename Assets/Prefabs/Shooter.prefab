@@ -154,10 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b904bec0a789f48890297c6e23755f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _laserBulletPrefab: {fileID: 6512998662561676273, guid: c6b2ad86e65d7af47a790bb44fc09f07, type: 3}
+  _laserBulletPrefab: {fileID: 6512998662561676273, guid: 56a9ae1376f162e46b1a862e74f359c8, type: 3}
   _bulletSpeed: 200
   _shootPoint: {fileID: 7753699336655180262}
-  _isMouseTarget: 0
   _horizontalShift: 5
 --- !u!1 &6807266247406962592
 GameObject:
@@ -291,7 +290,7 @@ Transform:
   m_GameObject: {fileID: 8066869896823617627}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.712}
+  m_LocalPosition: {x: 0, y: 0, z: 16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

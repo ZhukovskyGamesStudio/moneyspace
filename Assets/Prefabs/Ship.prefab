@@ -202,7 +202,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 692451109817540512, guid: 78716bfb691ec71479c81e5578b3de4b, type: 3}
       propertyPath: _bulletSpeed
-      value: 300
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 692451109817540512, guid: 78716bfb691ec71479c81e5578b3de4b, type: 3}
       propertyPath: _isMouseTarget
@@ -726,7 +726,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 692451109817540512, guid: 78716bfb691ec71479c81e5578b3de4b, type: 3}
       propertyPath: _bulletSpeed
-      value: 300
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 692451109817540512, guid: 78716bfb691ec71479c81e5578b3de4b, type: 3}
       propertyPath: _isMouseTarget
