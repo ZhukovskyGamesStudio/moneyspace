@@ -508,6 +508,7 @@ MonoBehaviour:
   _pilotsManager: {fileID: 385278379}
   _playersAmount: 20
   _startingScore: 100
+  _fightRadius: 500
 --- !u!4 &93140505
 Transform:
   m_ObjectHideFlags: 0

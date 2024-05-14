@@ -152,6 +152,11 @@ public class BotPilot : AbstractPilot {
     }
 
     private void RotateShip(Vector3 to) {
+
+        if (Vector3.Distance(transform.position, Vector3.zero) > GameManager.FightRadius) {
+            to = Vector3.Lerp(to, Vector3.zero, 0.5f);
+        }
+        
         Vector3 rotVector = Quaternion.FromToRotation(_ship.transform.forward, to).eulerAngles;
 
         // Vector3 from = _ship.transform.forward;
