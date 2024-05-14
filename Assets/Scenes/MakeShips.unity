@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1305416281
 Light:
   m_ObjectHideFlags: 0
@@ -385,6 +385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: F3_Grey Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1857359403907409346, guid: d30c64f6c7990a34486d64e406be34ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431166022184802257, guid: d30c64f6c7990a34486d64e406be34ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -397.8
@@ -441,6 +445,10 @@ PrefabInstance:
     - target: {fileID: 860384189131155440, guid: 6a7b254c2724c174396daac967b2eaed, type: 3}
       propertyPath: m_Name
       value: StarSparrow11
+      objectReference: {fileID: 0}
+    - target: {fileID: 860384189131155440, guid: 6a7b254c2724c174396daac967b2eaed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9083348366010155701, guid: 6a7b254c2724c174396daac967b2eaed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -539,6 +547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: F3_Red Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3532030284160750144, guid: 8f53e29b5b77b0f4e8085890bc7737c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -596,6 +608,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarSparrow1
       objectReference: {fileID: 0}
+    - target: {fileID: 671415640742324466, guid: ec315299552ca1e4bab3a8c8b05a8d5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -612,6 +628,10 @@ PrefabInstance:
     - target: {fileID: 2333962805798668838, guid: 660f122cfa4294446b163e2abddb3313, type: 3}
       propertyPath: m_Name
       value: Example3_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333962805798668838, guid: 660f122cfa4294446b163e2abddb3313, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6743831752190455146, guid: 660f122cfa4294446b163e2abddb3313, type: 3}
       propertyPath: m_LocalPosition.x
@@ -710,6 +730,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5988178358133571616, guid: bd446161d62d53044b5a8ada74fe2276, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -726,6 +750,10 @@ PrefabInstance:
     - target: {fileID: 3851930314673448605, guid: 480c95721216e9849886bc14dc8bd4a2, type: 3}
       propertyPath: m_Name
       value: StarSparrow9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3851930314673448605, guid: 480c95721216e9849886bc14dc8bd4a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450910325401971939, guid: 480c95721216e9849886bc14dc8bd4a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -784,6 +812,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid 1
       objectReference: {fileID: 0}
+    - target: {fileID: 973264502369723152, guid: 2cde85cca302d654397ab0cc90679de1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1064064128376001594, guid: 2cde85cca302d654397ab0cc90679de1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.7856483
@@ -840,6 +872,10 @@ PrefabInstance:
     - target: {fileID: 6122904392932909826, guid: cf6c7c7d4fb8129498b33b381e63565f, type: 3}
       propertyPath: m_Name
       value: Example1_Grey
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122904392932909826, guid: cf6c7c7d4fb8129498b33b381e63565f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7799231753038565111, guid: cf6c7c7d4fb8129498b33b381e63565f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -938,6 +974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarSparrow17
       objectReference: {fileID: 0}
+    - target: {fileID: 7220405440486538863, guid: f2a993a56ddc21f4c9d5ea281b35e2ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -994,6 +1034,10 @@ PrefabInstance:
     - target: {fileID: 1569663134795492644, guid: 908e4989ba231574680281f5646d2f1e, type: 3}
       propertyPath: m_Name
       value: Asteroid 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569663134795492644, guid: 908e4989ba231574680281f5646d2f1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1052,6 +1096,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Example5_Grey
       objectReference: {fileID: 0}
+    - target: {fileID: 8395311637972918664, guid: da686b5c097fe7a45a49c18f45792ed9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1068,6 +1116,10 @@ PrefabInstance:
     - target: {fileID: 5606119614708312636, guid: 38b67d4bf3710bf438ea2b784719d1ea, type: 3}
       propertyPath: m_Name
       value: StarSparrow2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606119614708312636, guid: 38b67d4bf3710bf438ea2b784719d1ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8906970184836810171, guid: 38b67d4bf3710bf438ea2b784719d1ea, type: 3}
       propertyPath: m_LocalPosition.x
