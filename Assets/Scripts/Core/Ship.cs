@@ -7,7 +7,21 @@ public class Ship : IShip {
     [SerializeField]
     private int _shipMaxHp = 100;
 
+    [SerializeField]
+    private int _maxShied = 100;
+
+    [SerializeField]
+    private int _shiedRepairSpeed = 10;
+
+    [SerializeField]
+    private float _overheatFromShoot = 0.1f;
+
+    [SerializeField]
+    private float decreaseOverheatSpeed = 0.1f;
+
+    private float _overheat;
     private int _hp;
+    private float _shield;
 
     [SerializeField]
     private float _shipMaxSpeed = 3;
@@ -58,6 +72,31 @@ public class Ship : IShip {
     private void FixedUpdate() {
         //Camera.main.transform.forward = Vector3.Lerp(Camera.main.transform.forward, dir, _rotationLerp);
         FlyForward();
+        DecreaseOverheat();
+        RepairShield();
+    }
+
+    private void RepairShield() {
+        if (_shield >= _maxShied) {
+            return;
+        }
+
+        _shield += _shiedRepairSpeed * Time.fixedDeltaTime;
+        if (_shield > _maxShied) {
+            _shield = _maxShied;
+        }
+    }
+
+    private void DecreaseOverheat() {
+        if (_overheat <= 0) {
+            return;
+        }
+
+        _overheat -= decreaseOverheatSpeed * Time.fixedDeltaTime;
+        if (_overheat <= 0) {
+            _overheat = 0;
+            _isOverheated = false;
+        }
     }
 
     public override void RotateBy(Vector3 rotVector) {
@@ -80,8 +119,16 @@ public class Ship : IShip {
         return _shipSpeed / _shipMaxSpeed;
     }
 
+    public override float GetOverheatPercent() {
+        return _overheat;
+    }
+
     public override float GetHpPercent() {
         return _hp / (_shipMaxHp + 0f);
+    }
+
+    public override float GetShieldPercent() {
+        return _shield / (_maxShied + 0f);
     }
 
     private void MoveModel(Vector3 rotVector) {
@@ -121,8 +168,14 @@ public class Ship : IShip {
     }
 
     public override void FirePrime(Vector3 target) {
-        if (_recoil || !gameObject.activeSelf) {
+        if (_recoil || _isOverheated || !gameObject.activeSelf) {
             return;
+        }
+
+        _overheat += _overheatFromShoot;
+        if (_overheat >= 1) {
+            _overheat = 1;
+            _isOverheated = true;
         }
 
         StartCoroutine(RecoilCoroutine());
@@ -130,6 +183,8 @@ public class Ship : IShip {
             VARIABLE.Shoot(target, _owner);
         }
     }
+
+    private bool _isOverheated = false;
 
     private IEnumerator RecoilCoroutine() {
         _recoil = true;
@@ -148,13 +203,19 @@ public class Ship : IShip {
     }
 
     public override void TakeDamage(int amount, PlayerData from) {
-        _hp -= amount;
+        _shield -= amount;
+        if (_shield >= 0) {
+            return;
+        }
+
+        _hp -= Mathf.RoundToInt(-_shield);
+       
         if (_damageDealers.ContainsKey(from)) {
             _damageDealers[from] += amount;
         } else {
             _damageDealers.Add(from, amount);
         }
-     
+
         if (_hp < 0 && gameObject.activeSelf) {
             _hp = 0;
             _owner.Deaths++;
@@ -173,6 +234,7 @@ public class Ship : IShip {
     public override void Respawn() {
         _shipSpeed = _shipMaxSpeed / 2;
         _hp = _shipMaxHp;
+        _overheat = 0;
     }
 
     public override Transform GetCameraFollowTarget() {

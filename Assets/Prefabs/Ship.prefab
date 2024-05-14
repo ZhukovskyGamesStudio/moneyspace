@@ -148,6 +148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visibleChecker: {fileID: 3889112629604019202}
   _shipMaxHp: 100
+  _maxShied: 100
+  _shiedRepairSpeed: 10
+  _overheatFromShoot: 0.1
+  decreaseOverheatSpeed: 0.15
   _shipMaxSpeed: 80
   _accelerationSpeed: 4
   _horRotation: 0.5

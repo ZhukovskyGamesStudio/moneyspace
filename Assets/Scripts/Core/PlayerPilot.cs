@@ -37,8 +37,8 @@ public class PlayerPilot : AbstractPilot {
     }
 
     private void Update() {
-        GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), 0);
-        GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), 0);
+        GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
+        GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
         }

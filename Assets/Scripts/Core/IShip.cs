@@ -10,7 +10,9 @@ public abstract class IShip : MonoBehaviour {
     protected PlayerData _owner;
     public abstract void RotateBy(Vector3 rotVector);
     public abstract float GetSpeedPercent();
+    public abstract float GetOverheatPercent();
     public abstract float GetHpPercent();
+    public abstract float GetShieldPercent();
 
     public Action<PlayerData, PlayerData> OnDestroyed;
 
