@@ -10,10 +10,11 @@ public class LaserBullet : MonoBehaviour {
     [SerializeField]
     private Explosion _explosion;
 
-    public void Init(Vector3 dir, float speed) {
+    public void Init(Vector3 dir, float speed, int layer) {
         transform.forward = dir;
         _speed = speed;
-
+        gameObject.layer = layer;
+        transform.GetChild(0).gameObject.layer = layer;
         Destroy(gameObject, 3);
     }
 
