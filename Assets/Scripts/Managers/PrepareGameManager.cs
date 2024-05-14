@@ -21,7 +21,7 @@ public class PrepareGameManager : MonoBehaviour {
         _playersManager.LoadPlayer();
         _playersManager.GenerateBots(_playersAmount);
         _pilotsManager.GeneratePilots(_playersManager.BlueTeam, _playersManager.RedTeam);
-        GameUI.Instance.LeaderboardDialog.SetData(_playersManager.BlueTeam, _playersManager.RedTeam);
+        GameUI.Instance.LeaderboardDialog.Init(_playersManager);
 
         _pilotsManager.ActivatePilots();
         GameManager.Instance.RespawnManager.SetStartingScore(_startingScore);

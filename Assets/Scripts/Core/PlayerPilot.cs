@@ -27,8 +27,8 @@ public class PlayerPilot : AbstractPilot {
         RespawnShip();
     }
 
-    private void OnShipDestroyed() {
-        GameManager.Instance.RespawnManager.MinusPoint(Team.Blue);
+    private void OnShipDestroyed(PlayerData _, PlayerData __) {
+        GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         PlayerRespawn();
     }
 

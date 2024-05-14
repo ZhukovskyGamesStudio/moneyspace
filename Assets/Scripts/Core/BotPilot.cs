@@ -173,7 +173,7 @@ public class BotPilot : AbstractPilot {
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
-    private void StartRespawning() {
+    private void StartRespawning(PlayerData _, PlayerData __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         StartCoroutine(Respawn());
     }

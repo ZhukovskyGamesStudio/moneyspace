@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,22 @@ public class LeaderboardDialog : MonoBehaviour {
 
     private const int MAX_PLAYERS_IN_TEAM = 10;
 
-    public void SetData(List<PlayerData> blueTeam, List<PlayerData> redTeam) {
+    private PlayersManager _playersManager;
+
+    private void OnEnable() {
+        UpdateData();
+    }
+
+    public void Init(PlayersManager playersManager) {
+        _playersManager = playersManager;
+        UpdateData();
+    }
+
+    public void UpdateData() {
+        List<PlayerData> blueTeam = _playersManager.BlueTeam;
+        List<PlayerData> redTeam = _playersManager.RedTeam;
         for (int i = 0; i < MAX_PLAYERS_IN_TEAM; i++) {
-            if (blueTeam.Count > i) {
+            if (_playersManager.BlueTeam.Count > i) {
                 _blueLines[i].SetData(blueTeam[i]);
             } else {
                 _blueLines[i].SetInactive();

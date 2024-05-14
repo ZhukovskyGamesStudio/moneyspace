@@ -16,9 +16,10 @@ public class AbstractPilot : MonoBehaviour {
 
     protected virtual void GetShip() {
         _ship = ShipsFactory.GetShip();
+        _ship.SetOwner(_playerData);
         _ship.gameObject.SetActive(false);
         _ship.transform.SetParent(transform);
-        _ship.name = _playerData.Nickname = "ship";
+        _ship.name = _playerData.Nickname + "ship";
         _ship.tag = _playerData.Team.ToString();
 
       

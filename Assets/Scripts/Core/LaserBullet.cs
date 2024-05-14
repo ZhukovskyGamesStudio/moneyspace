@@ -10,12 +10,15 @@ public class LaserBullet : MonoBehaviour {
     [SerializeField]
     private Explosion _explosion;
 
-    public void Init(Vector3 dir, float speed, int layer) {
+    private PlayerData _owner;
+
+    public void Init(Vector3 dir, float speed, int layer, PlayerData owner) {
         transform.forward = dir;
         _speed = speed;
         gameObject.layer = layer;
         transform.GetChild(0).gameObject.layer = layer;
         Destroy(gameObject, 3);
+        _owner = owner;
     }
 
     private void FixedUpdate() {
@@ -27,7 +30,7 @@ public class LaserBullet : MonoBehaviour {
         if (rb != null) {
             Ship ship = rb.GetComponent<Ship>();
             if (ship != null) {
-                ship.TakeDamage(_damageAmount);
+                ship.TakeDamage(_damageAmount, _owner);
             }
         }
 

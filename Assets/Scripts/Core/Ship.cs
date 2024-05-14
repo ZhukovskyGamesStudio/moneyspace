@@ -48,6 +48,8 @@ public class Ship : IShip {
 
     private bool _recoil = false;
 
+    private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
+
     private void Start() {
         Respawn();
         //Cursor.visible = false;
@@ -125,7 +127,7 @@ public class Ship : IShip {
 
         StartCoroutine(RecoilCoroutine());
         foreach (var VARIABLE in _primeCanons) {
-            VARIABLE.Shoot(target);
+            VARIABLE.Shoot(target, _owner);
         }
     }
 
@@ -141,14 +143,29 @@ public class Ship : IShip {
         }
 
         foreach (var VARIABLE in _secondCanons) {
-            VARIABLE.Shoot(target);
+            VARIABLE.Shoot(target, _owner);
         }
     }
 
-    public override void TakeDamage(int amount) {
+    public override void TakeDamage(int amount, PlayerData from) {
         _hp -= amount;
+        if (_damageDealers.ContainsKey(from)) {
+            _damageDealers[from] += amount;
+        } else {
+            _damageDealers.Add(from, amount);
+        }
+     
         if (_hp < 0 && gameObject.activeSelf) {
             _hp = 0;
+            _owner.Deaths++;
+            from.Kills++;
+            foreach (var kvp in _damageDealers) {
+                if (kvp.Key != from) {
+                    kvp.Key.Assists++;
+                }
+            }
+
+            OnDestroyed?.Invoke(_owner, from);
             Explode();
         }
     }
@@ -165,6 +182,5 @@ public class Ship : IShip {
     private void Explode() {
         Instantiate(_explosion, transform.position, transform.rotation);
         gameObject.SetActive(false);
-        OnDestroyed?.Invoke();
     }
 }
