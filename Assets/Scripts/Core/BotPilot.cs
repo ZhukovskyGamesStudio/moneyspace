@@ -153,15 +153,18 @@ public class BotPilot : AbstractPilot {
 
     private void RotateShip(Vector3 to) {
 
-        if (Vector3.Distance(transform.position, Vector3.zero) > GameManager.FightRadius) {
-            to = Vector3.Lerp(to, Vector3.zero, 0.5f);
+        float distFromCenter = Vector3.Distance(_ship.transform.position, Vector3.zero);
+        if (distFromCenter > GameManager.FightRadius) {
+            float rotPercent = distFromCenter - GameManager.FightRadius / 100;
+            Vector3 dirToCenter = -_ship.transform.position;
+            to = Vector3.Lerp(to, dirToCenter, rotPercent);
         }
         
         Vector3 rotVector = Quaternion.FromToRotation(_ship.transform.forward, to).eulerAngles;
 
         // Vector3 from = _ship.transform.forward;
         // Vector3 rotVector = new Vector3(Vector3.SignedAngle(from, to, -_ship.transform.up), Vector3.SignedAngle(from, to, _ship.transform.right));
-        _ship.RotateForward(rotVector);
+        _ship.RotateBy(rotVector);
     }
 
     private void RndAttackParameters() {

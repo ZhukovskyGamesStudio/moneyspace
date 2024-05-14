@@ -60,7 +60,7 @@ public class Ship : IShip {
         FlyForward();
     }
 
-    public override void RotateForward(Vector3 rotVector) {
+    public override void RotateBy(Vector3 rotVector) {
         /*if (Mathf.Abs(rotVector.x) < _minVertAngle) {
             rotVector.x = 0;
         }

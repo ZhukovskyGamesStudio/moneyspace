@@ -64,7 +64,7 @@ public class PlayerPilot : AbstractPilot {
 
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
 
-        _ship.RotateForward(rotVector + TrySideRotate());
+        _ship.RotateBy(rotVector + TrySideRotate());
     }
 
     private void FirePrime() {

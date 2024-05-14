@@ -8,7 +8,7 @@ public abstract class IShip : MonoBehaviour {
     }
 
     protected PlayerData _owner;
-    public abstract void RotateForward(Vector3 rotVector);
+    public abstract void RotateBy(Vector3 rotVector);
     public abstract float GetSpeedPercent();
     public abstract float GetHpPercent();
 
