@@ -44,6 +44,8 @@ public class Ship : IShip {
     [SerializeField]
     private Transform _model;
 
+    [SerializeField] private ShipThrust _shipThrust;
+
     [SerializeField]
     private Explosion _explosion;
 
@@ -74,6 +76,7 @@ public class Ship : IShip {
         FlyForward();
         DecreaseOverheat();
         RepairShield();
+        _shipThrust.SetThrustLight(_shipSpeed/_shipMaxSpeed);
     }
 
     private void RepairShield() {
