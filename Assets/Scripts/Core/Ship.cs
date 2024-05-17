@@ -58,6 +58,9 @@ public class Ship : IShip {
     [SerializeField]
     private Transform _cameraFollowTarget;
 
+    [SerializeField]
+    private Shield _shield3dView;
+
     private float _shipSpeed = 0;
 
     private float _rotationSpeed = 0;
@@ -208,6 +211,7 @@ public class Ship : IShip {
     public override void TakeDamage(int amount, PlayerData from) {
         _shield -= amount;
         if (_shield >= 0) {
+            _shield3dView.ShowShield();
             return;
         }
 
