@@ -7,6 +7,7 @@ TagManager:
   - Asteroid
   - Blue
   - Red
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - BlueTeam
   - RedTeam
-  - 
+  - 3DOnTopOFUI
   - 
   - 
   - 
