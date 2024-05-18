@@ -18,11 +18,7 @@ public class Ship : IShip {
 
     [SerializeField]
     private float decreaseOverheatSpeed = 0.1f;
-
-    private float _overheat;
-    private int _hp;
-    private float _shield;
-
+    
     [SerializeField]
     private float _shipMaxSpeed = 3;
 
@@ -66,6 +62,10 @@ public class Ship : IShip {
     private float _rotationSpeed = 0;
 
     private bool _recoil = false;
+    
+    private float _overheat;
+    private int _hp;
+    private float _shield;
 
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
 

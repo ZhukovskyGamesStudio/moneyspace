@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0924b05b87429824283ee415c01e01b0, type: 3}
+  m_Name: Ships1Config
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 4782289128174166581, guid: 7aec21ea7c9b517498b4d67dc44adbf6, type: 3}
+  ShipType: 1
+  ShipMaxHp: 100
+  ShipSpeedBase: 2
+  ShipSpeedMax: 5
+  ShipShieldBase: 2
+  ShipShieldMax: 5
+  ShipAttackBase: 2
+  ShipAttackMax: 5

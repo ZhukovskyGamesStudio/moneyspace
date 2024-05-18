@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ShipsFactory : MonoBehaviour {
     [SerializeField]
-    private List<IShip> _shipsList;
+    private List<ShipConfig> _shipsConfigsList;
 
+    public static List<ShipConfig> Ships => Instance._shipsConfigsList;
+    
     public static ShipsFactory Instance;
 
     private void Awake() {
@@ -14,7 +16,7 @@ public class ShipsFactory : MonoBehaviour {
     }
 
     public static IShip GetShip(ShipType type) {
-        IShip shipPrefab = Instance._shipsList.First(s => s.ShipType == type);
+        IShip shipPrefab = Instance._shipsConfigsList.First(s => s.ShipType == type).Prefab;
         return Instantiate(shipPrefab);
     }
 }
