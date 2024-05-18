@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShipsFactory : MonoBehaviour {
     [SerializeField]
-    private IShip _ship;
+    private List<IShip> _shipsList;
 
     public static ShipsFactory Instance;
 
@@ -10,7 +13,17 @@ public class ShipsFactory : MonoBehaviour {
         Instance = this;
     }
 
-    public static IShip GetShip() {
-        return Instantiate(Instance._ship);
+    public static IShip GetShip(ShipType type) {
+        IShip shipPrefab = Instance._shipsList.First(s => s.ShipType == type);
+        return Instantiate(shipPrefab);
     }
+}
+
+[Serializable]
+public enum ShipType {
+    None,
+    First,
+    Second,
+    Third,
+    Fouth
 }

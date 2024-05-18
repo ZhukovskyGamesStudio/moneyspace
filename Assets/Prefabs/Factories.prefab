@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6630ac3c32f40fa996787873a8a69b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ship: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
+  _shipsList:
+  - {fileID: 4782289128174166581, guid: 43512c995fe3c6944a8067774e92f02a, type: 3}
+  - {fileID: 4782289128174166581, guid: 7aec21ea7c9b517498b4d67dc44adbf6, type: 3}
+  - {fileID: 4782289128174166581, guid: 6f472c21aea13f04ebb50a5a6ddd7eca, type: 3}
+  - {fileID: 4782289128174166581, guid: 5addf6dc0f4130947888e49951b11b39, type: 3}
 --- !u!114 &870584206268719112
 MonoBehaviour:
   m_ObjectHideFlags: 0

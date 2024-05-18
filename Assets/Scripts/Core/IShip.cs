@@ -3,6 +3,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IShip : MonoBehaviour {
+
+    [SerializeField]
+    private ShipType _shipType;
+
+    public ShipType ShipType => _shipType; 
     public void SetOwner(PlayerData data) {
         _owner = data;
     }
