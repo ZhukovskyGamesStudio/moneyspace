@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ships2Config
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 6f472c21aea13f04ebb50a5a6ddd7eca, type: 3}
-  ShipType: 1
+  ShipType: 3
   ShipMaxHp: 100
   ShipSpeedBase: 2
   ShipSpeedMax: 5

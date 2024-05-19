@@ -11,6 +11,11 @@ public class LeaderboardDialog : MonoBehaviour {
 
     private PlayersManager _playersManager;
 
+    [SerializeField]
+    private GameObject _respawnContainer, _endContainer;
+
+    private Action _onRespawnClicked;
+    private bool _isFixedOpen;
     private void OnEnable() {
         UpdateData();
     }
@@ -41,5 +46,43 @@ public class LeaderboardDialog : MonoBehaviour {
                 _redLines[i].SetInactive();
             }
         }
+    }
+
+    public void OpenLbState() {
+        if (_isFixedOpen) {
+            return;
+        }
+        gameObject.SetActive(true);
+        _respawnContainer.SetActive(false);
+        _endContainer.SetActive(false);
+    }
+
+    public void CloseLbState() {
+        if (_isFixedOpen) {
+            return;
+        }
+        gameObject.SetActive(false);
+    }
+
+
+    
+    public void OpenRespawnState(Action onRespawnButton) {
+        _isFixedOpen = true;
+        _onRespawnClicked = onRespawnButton;
+        gameObject.SetActive(true);
+        _respawnContainer.SetActive(true);
+        _endContainer.SetActive(false);
+    }
+
+    public void SetEndGameState() {
+        _isFixedOpen = true;
+        _respawnContainer.SetActive(false);
+        _endContainer.SetActive(true);
+    }
+
+    public void RespawnButton() {
+        _onRespawnClicked?.Invoke();
+        gameObject.SetActive(false);
+        _isFixedOpen = false;
     }
 }
