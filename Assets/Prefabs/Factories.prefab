@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2575194581452679434}
   - component: {fileID: 8561258440905867535}
   - component: {fileID: 870584206268719112}
+  - component: {fileID: -5442024596952281394}
   m_Layer: 0
   m_Name: Factories
   m_TagString: Untagged
@@ -72,3 +73,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 093afb7733221634aa25c4476f79a6f9, type: 3}
   - {fileID: 21300000, guid: 4194e508d5d9c404ba48628c999b5a08, type: 3}
   - {fileID: 21300000, guid: f5babee10ebee5749b1ccaa5c7912456, type: 3}
+--- !u!114 &-5442024596952281394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130403885243490296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ddffb749e5e49fda489978fb0476687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainGameConfig: {fileID: 11400000, guid: 6dcefd821fafa1d4abec10c5a24308cf, type: 2}
