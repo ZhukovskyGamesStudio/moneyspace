@@ -15,7 +15,7 @@ public class AbstractPilot : MonoBehaviour {
     }
 
     protected virtual void GetShip() {
-        _ship = ShipsFactory.GetShip();
+        _ship = ShipsFactory.GetShip(ShipType.Third);
         _ship.SetOwner(_playerData);
         _ship.gameObject.SetActive(false);
         _ship.transform.SetParent(transform);

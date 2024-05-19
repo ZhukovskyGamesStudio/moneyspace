@@ -3,12 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour {
 
+    [SerializeField]
+    private MainMenuUI _mainMenuUI;
+    
     public void PlayButton() {
         SceneManager.LoadScene("GameScene");
     }
 
     public void UpgradesButton() {
-        Debug.Log("UpgradesButton");
+        _mainMenuUI.ToggleShipUpgradeDialog();
     }
 
     public void SettingsButton() {

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130403885243490296}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6630ac3c32f40fa996787873a8a69b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ship: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
+  _shipsConfigsList:
+  - {fileID: 11400000, guid: ab6b3583d4f86ea4fbd7b942687b216a, type: 2}
+  - {fileID: 11400000, guid: a6130fdbeb3e44d4d9597ab5c8c631f9, type: 2}
+  - {fileID: 11400000, guid: e92a5278872fff0438f8eed3b7f8319b, type: 2}
+  - {fileID: 11400000, guid: 5ac2b49eb0d155645af716a67a786186, type: 2}
 --- !u!114 &870584206268719112
 MonoBehaviour:
   m_ObjectHideFlags: 0
