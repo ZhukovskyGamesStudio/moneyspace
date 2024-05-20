@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LeaderboardDialog : MonoBehaviour {
     [SerializeField]
@@ -14,8 +15,12 @@ public class LeaderboardDialog : MonoBehaviour {
     [SerializeField]
     private GameObject _respawnContainer, _endContainer;
 
+    [SerializeField]
+    private RewardPanel _rewardPanel;
+
     private Action _onRespawnClicked;
     private bool _isFixedOpen;
+
     private void OnEnable() {
         UpdateData();
     }
@@ -52,6 +57,7 @@ public class LeaderboardDialog : MonoBehaviour {
         if (_isFixedOpen) {
             return;
         }
+
         gameObject.SetActive(true);
         _respawnContainer.SetActive(false);
         _endContainer.SetActive(false);
@@ -61,11 +67,10 @@ public class LeaderboardDialog : MonoBehaviour {
         if (_isFixedOpen) {
             return;
         }
+
         gameObject.SetActive(false);
     }
 
-
-    
     public void OpenRespawnState(Action onRespawnButton) {
         _isFixedOpen = true;
         _onRespawnClicked = onRespawnButton;
@@ -74,15 +79,22 @@ public class LeaderboardDialog : MonoBehaviour {
         _endContainer.SetActive(false);
     }
 
-    public void SetEndGameState() {
+    public void SetEndGameState(int killsCount, bool isWin) {
         _isFixedOpen = true;
+        gameObject.SetActive(true);
         _respawnContainer.SetActive(false);
         _endContainer.SetActive(true);
+
+        _rewardPanel.Show(killsCount, isWin);
     }
 
     public void RespawnButton() {
         _onRespawnClicked?.Invoke();
         gameObject.SetActive(false);
         _isFixedOpen = false;
+    }
+
+    public void ToMenuButton() {
+        SceneManager.LoadScene("Menu");
     }
 }

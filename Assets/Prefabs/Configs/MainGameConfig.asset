@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b686965bd49bc82469bb8734768efd99, type: 3}
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
+  StartingPointsInEachTeam: 10
+  PlayersInGameAmount: 20
   RewardForWatchAd: 100000
+  MultiplierForWatchAdInGame: 2
+  RewardForKill: 10000
+  RewardForWin: 100000

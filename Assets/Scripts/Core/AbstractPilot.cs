@@ -10,6 +10,12 @@ public class AbstractPilot : MonoBehaviour {
         
     }
 
+    public virtual void DeActivate() {
+        enabled = false;
+        StopAllCoroutines();
+        _ship.gameObject.SetActive(false);
+    }
+    
     public void SetPlayerData(PlayerData data) {
         _playerData = data;
     }

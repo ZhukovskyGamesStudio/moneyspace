@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using UnityEngine;
 
 public class PlayerPilot : AbstractPilot {
@@ -25,6 +24,11 @@ public class PlayerPilot : AbstractPilot {
     public override void Activate() {
         base.Activate();
         RespawnShip();
+    }
+
+    public override void DeActivate() {
+        base.DeActivate();
+        GameUI.Instance._arView.SetActive(false);
     }
 
     private void OnShipDestroyed(PlayerData _, PlayerData __) {

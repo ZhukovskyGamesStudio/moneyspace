@@ -1,5 +1,4 @@
 using System.Collections;
-using DefaultNamespace;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,7 +25,7 @@ public class BotPilot : AbstractPilot {
     private float _attackTime;
 
     private EnemyMarker _marker;
-
+    private Coroutine _respawnCoroutine;
     public override void Init() {
         GetShip();
         CreateMarker();
@@ -35,6 +34,13 @@ public class BotPilot : AbstractPilot {
 
     public override void Activate() {
         FindTarget();
+    }
+
+    public override void DeActivate() {
+        base.DeActivate();
+        if (_respawnCoroutine != null) {
+            StopCoroutine(_respawnCoroutine);
+        }
     }
 
     protected override void GetShip() {
@@ -185,7 +191,7 @@ public class BotPilot : AbstractPilot {
 
     private void StartRespawning(PlayerData _, PlayerData __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        StartCoroutine(Respawn());
+        _respawnCoroutine = StartCoroutine(Respawn());
     }
 
     private IEnumerator Respawn() {
