@@ -15,9 +15,11 @@ MonoBehaviour:
   Prefab: {fileID: 4782289128174166581, guid: 7aec21ea7c9b517498b4d67dc44adbf6, type: 3}
   ShipType: 2
   ShipMaxHp: 100
-  ShipSpeedBase: 2
   ShipSpeedMax: 5
-  ShipShieldBase: 2
   ShipShieldMax: 5
-  ShipAttackBase: 2
   ShipAttackMax: 5
+  DefaultShipUpgrades:
+    Type: 2
+    Speed: 2
+    Shield: 2
+    Attack: 2

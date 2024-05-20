@@ -33,6 +33,12 @@ public class MenuShipsView : MonoBehaviour {
         }
     }
 
+    public void SetPos(int curSelectedShip) {
+        _curInt = curSelectedShip;
+        Vector3 target = _shipsHolder.position - Vector3.right * _curInt * _spacing;
+        _shipsHolder.position = target;
+    }
+
     public void Move(bool isRight) {
         if (_moveCoroutine != null) {
             StopCoroutine(_moveCoroutine);

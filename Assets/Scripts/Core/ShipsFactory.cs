@@ -23,7 +23,7 @@ public class ShipsFactory : MonoBehaviour {
 
 [Serializable]
 public enum ShipType {
-    None,
+    None = -1,
     First,
     Second,
     Third,

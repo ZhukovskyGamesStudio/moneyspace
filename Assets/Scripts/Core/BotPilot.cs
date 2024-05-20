@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -43,8 +44,14 @@ public class BotPilot : AbstractPilot {
         }
     }
 
+    protected override ShipType GetShipType() {
+        return (ShipType)Random.Range(0, ShipsFactory.Ships.Count);
+    }
+
     protected override void GetShip() {
         base.GetShip();
+        var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
+        _ship.InitFromDefaultConfig(shipConfig );
         _ship.OnDestroyed += StartRespawning;
     }
 

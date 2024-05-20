@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ship : IShip {
-    [SerializeField]
-    private int _shipMaxHp = 100;
 
     [SerializeField]
     private int _maxShied = 100;
@@ -70,7 +68,6 @@ public class Ship : IShip {
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
 
     private void Start() {
-        Respawn();
         //Cursor.visible = false;
     }
 
@@ -132,7 +129,7 @@ public class Ship : IShip {
     }
 
     public override float GetHpPercent() {
-        return _hp / (_shipMaxHp + 0f);
+        return _hp / (_shipConfig.ShipMaxHp + 0f);
     }
 
     public override float GetShieldPercent() {
@@ -242,7 +239,7 @@ public class Ship : IShip {
 
     public override void Respawn() {
         _shipSpeed = _shipMaxSpeed / 2;
-        _hp = _shipMaxHp;
+        _hp = _shipConfig.ShipMaxHp;
         _overheat = 0;
     }
 

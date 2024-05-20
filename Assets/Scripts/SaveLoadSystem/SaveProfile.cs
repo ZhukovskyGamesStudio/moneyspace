@@ -5,8 +5,9 @@ using UnityEngine;
 [Serializable]
 public class SaveProfile {
     public int CoinsAmount = 0;
+    public int SelectedShip;
 
-    public List<ShipUpgradeData> ShipUpgradeData = new List<ShipUpgradeData>();
+    public List<ShipUpgradeData> ShipUpgradeDatas = new List<ShipUpgradeData>();
 
     public static SaveProfile Load(int profileIndex) {
         string key = "saveProfile_" + profileIndex;
@@ -28,7 +29,12 @@ public class SaveProfile {
     public static SaveProfile Empty() {
         return new SaveProfile() {
             CoinsAmount = 0,
-            ShipUpgradeData = new List<ShipUpgradeData>()
+            SelectedShip = 0,
+            ShipUpgradeDatas = new List<ShipUpgradeData>() {
+                new ShipUpgradeData() {
+                    Type = ShipType.First
+                }
+            }
         };
     }
 }

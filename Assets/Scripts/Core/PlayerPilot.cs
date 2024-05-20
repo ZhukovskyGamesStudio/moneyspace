@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerPilot : AbstractPilot {
@@ -13,9 +14,17 @@ public class PlayerPilot : AbstractPilot {
     public override void Init() {
         GetShip();
     }
+    
+    protected override ShipType GetShipType() {
+
+        return ShipsFactory.Ships[SaveLoadManager.Profile.SelectedShip].ShipType;
+    }
 
     protected override void GetShip() {
         base.GetShip();
+        var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
+        var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.First(s => s.Type == _ship.ShipType);
+        _ship.InitFromConfig(shipConfig, upgradeData);
         _ship.name = "PlayerShip";
         _ship.OnDestroyed += OnShipDestroyed;
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());

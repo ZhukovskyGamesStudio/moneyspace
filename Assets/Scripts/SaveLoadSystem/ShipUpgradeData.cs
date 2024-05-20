@@ -2,6 +2,6 @@ using System;
 
 [Serializable]
 public class ShipUpgradeData {
-    public int IsUnlocked;
+    public ShipType Type;
     public int Speed, Shield, Attack;
 }

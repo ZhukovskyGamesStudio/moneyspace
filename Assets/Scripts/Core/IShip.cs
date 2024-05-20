@@ -3,11 +3,23 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IShip : MonoBehaviour {
-
     [SerializeField]
     private ShipType _shipType;
 
-    public ShipType ShipType => _shipType; 
+    public ShipType ShipType => _shipType;
+
+    protected ShipConfig _shipConfig;
+    protected ShipUpgradeData _shipUpgradeData;
+
+    public void InitFromDefaultConfig(ShipConfig shipConfig) {
+        _shipConfig = shipConfig;
+        _shipUpgradeData = _shipConfig.DefaultShipUpgrades;
+    }
+    public void InitFromConfig(ShipConfig shipConfig, ShipUpgradeData shipUpgradeData) {
+        _shipConfig = shipConfig;
+        _shipUpgradeData = shipUpgradeData;
+    }
+
     public void SetOwner(PlayerData data) {
         _owner = data;
     }
