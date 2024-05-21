@@ -5,11 +5,15 @@ public class ShipConfig : ScriptableObject {
     public IShip Prefab;
     public ShipType ShipType;
 
-    public int ShipMaxHp;
+    public string ShipName;
+    [TextArea]
+    public string Description;
 
-    public int ShipSpeedMax;
-    public int ShipShieldMax;
-    public int ShipAttackMax;
+    public int MaxHp;
+    
+    public int SpeedMax;
+    public int ShieldMax;
+    public int AttackMax;
 
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
 }

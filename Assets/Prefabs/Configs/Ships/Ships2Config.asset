@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Ships2Config
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 6f472c21aea13f04ebb50a5a6ddd7eca, type: 3}
-  ShipType: 3
-  ShipMaxHp: 100
-  ShipSpeedMax: 5
-  ShipShieldMax: 5
-  ShipAttackMax: 5
+  ShipType: 2
+  ShipName: "\u041A\u043E\u0440\u0430\u0431\u043B\u044C3"
+  Description: "\u041A\u043E\u0440\u0430\u0431\u043B\u044C3\u041A\u043E\u0440\u0430\u0431\u043B\u044C3\u041A\u043E\u0440\u0430\u0431\u043B\u044C3\u041A\u043E\u0440\u0430\u0431\u043B\u044C3\u041A\u043E\u0440\u0430\u0431\u043B\u044C3"
+  MaxHp: 0
+  SpeedMax: 7
+  ShieldMax: 5
+  AttackMax: 6
   DefaultShipUpgrades:
-    Type: 3
+    Type: 2
     Speed: 3
     Shield: 1
     Attack: 2

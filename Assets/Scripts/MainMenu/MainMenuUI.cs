@@ -7,6 +7,8 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField]
     private ShipUpgradeDialog _shipUpgradeDialog;
 
+    public ShipUpgradeDialog ShipUpgradeDialog => _shipUpgradeDialog;
+    
     [SerializeField]
     private CoinsView _coinsView;
 
@@ -24,7 +26,7 @@ public class MainMenuUI : MonoBehaviour {
     }
 
     public void ToggleShipUpgradeDialog() {
-        _shipUpgradeDialog.Open();
+        _shipUpgradeDialog.Toggle();
     }
 
     public void Init() {

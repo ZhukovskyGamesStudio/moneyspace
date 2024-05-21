@@ -129,7 +129,7 @@ public class Ship : IShip {
     }
 
     public override float GetHpPercent() {
-        return _hp / (_shipConfig.ShipMaxHp + 0f);
+        return _hp / (_shipConfig.MaxHp + 0f);
     }
 
     public override float GetShieldPercent() {
@@ -239,7 +239,7 @@ public class Ship : IShip {
 
     public override void Respawn() {
         _shipSpeed = _shipMaxSpeed / 2;
-        _hp = _shipConfig.ShipMaxHp;
+        _hp = _shipConfig.MaxHp;
         _overheat = 0;
     }
 

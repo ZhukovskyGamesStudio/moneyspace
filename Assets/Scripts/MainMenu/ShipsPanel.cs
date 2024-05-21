@@ -13,23 +13,37 @@ public class ShipsPanel : MonoBehaviour {
     private int _curShipIndex;
 
     private void Start() {
+        Init();
+    }
+
+    public void Init() {
+        _menuShipsView.Init();
         _curShipIndex = SaveLoadManager.Profile.SelectedShip;
         UpdateButtonsState(_curShipIndex);
         _menuShipsView.SetPos(_curShipIndex);
+        UpdateView(_curShipIndex);
     }
 
     public void ChangeShip(bool isRight) {
         _curShipIndex += isRight ? 1 : -1;
         UpdateButtonsState(_curShipIndex);
         _menuShipsView.Move(isRight);
-        var curShipConfig = ShipsFactory.Ships[_curShipIndex];
-        if (SaveLoadManager.Profile.ShipUpgradeDatas.Any(sud => sud.Type == curShipConfig.ShipType)) {
+        UpdateView(_curShipIndex);
+
+        MainMenuUI.Instance.ShipUpgradeDialog.Close();
+        SaveLoadManager.Profile.SelectedShip = _curShipIndex;
+        SaveLoadManager.Save();
+    }
+
+    public void UpdateView(int shipIndex) {
+        var curShipConfig = ShipsFactory.Ships[shipIndex];
+        var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
+        if (upgradeData != null) {
             MainMenuUI.Instance.SetButtonPlay();
+            MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, upgradeData);
         } else {
             MainMenuUI.Instance.SetButtonBuy(OnBuySelectedShip);
         }
-
-        SaveLoadManager.Profile.SelectedShip = _curShipIndex;
     }
 
     private void UpdateButtonsState(int curIndex) {
@@ -38,9 +52,11 @@ public class ShipsPanel : MonoBehaviour {
     }
 
     private void OnBuySelectedShip() {
-        var curShipConfig = ShipsFactory.Ships[_curShipIndex];
-        SaveLoadManager.Profile.ShipUpgradeDatas.Add(curShipConfig.DefaultShipUpgrades);
+        ShipConfig curShipConfig = ShipsFactory.Ships[_curShipIndex];
+        ShipUpgradeData newData = curShipConfig.DefaultShipUpgrades.Copy;
+        SaveLoadManager.Profile.ShipUpgradeDatas.Add(newData);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetButtonPlay();
+        MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, newData);
     }
 }

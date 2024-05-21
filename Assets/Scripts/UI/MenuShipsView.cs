@@ -17,7 +17,8 @@ public class MenuShipsView : MonoBehaviour {
     private Vector3 _startingPos;
     private int _curInt;
 
-    private void Start() {
+
+    public void Init() {
         _startingPos = _shipsHolder.position;
         CreateShips();
     }
