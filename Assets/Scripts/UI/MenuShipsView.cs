@@ -17,7 +17,8 @@ public class MenuShipsView : MonoBehaviour {
     private Vector3 _startingPos;
     private int _curInt;
 
-    private void Start() {
+
+    public void Init() {
         _startingPos = _shipsHolder.position;
         CreateShips();
     }
@@ -31,6 +32,12 @@ public class MenuShipsView : MonoBehaviour {
             ship.transform.position += Vector3.right * _spacing * index;
             _ships.Add(ship);
         }
+    }
+
+    public void SetPos(int curSelectedShip) {
+        _curInt = curSelectedShip;
+        Vector3 target = _shipsHolder.position - Vector3.right * _curInt * _spacing;
+        _shipsHolder.position = target;
     }
 
     public void Move(bool isRight) {

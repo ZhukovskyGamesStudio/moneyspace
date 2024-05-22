@@ -2,13 +2,18 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/ShipConfig", fileName = "ShipConfig", order = 0)]
 public class ShipConfig : ScriptableObject {
-
     public IShip Prefab;
     public ShipType ShipType;
 
-    public int ShipMaxHp;
+    public string ShipName;
+    [TextArea]
+    public string Description;
 
-    public int ShipSpeedBase, ShipSpeedMax;
-    public int ShipShieldBase, ShipShieldMax;
-    public int ShipAttackBase, ShipAttackMax;
+    public int MaxHp;
+    
+    public int SpeedMax;
+    public int ShieldMax;
+    public int AttackMax;
+
+    public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
 }

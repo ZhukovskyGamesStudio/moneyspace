@@ -1,12 +1,14 @@
 using System.Collections;
-using DefaultNamespace;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BotPilot : AbstractPilot {
     [SerializeField]
     private float _respawnTime = 10f;
-
+    [SerializeField]
+    private float _shootAngle = 90f;
+    
     private Transform _target;
 
     private BotState _state;
@@ -24,7 +26,7 @@ public class BotPilot : AbstractPilot {
     private float _attackTime;
 
     private EnemyMarker _marker;
-
+    private Coroutine _respawnCoroutine;
     public override void Init() {
         GetShip();
         CreateMarker();
@@ -35,8 +37,21 @@ public class BotPilot : AbstractPilot {
         FindTarget();
     }
 
+    public override void DeActivate() {
+        base.DeActivate();
+        if (_respawnCoroutine != null) {
+            StopCoroutine(_respawnCoroutine);
+        }
+    }
+
+    protected override ShipType GetShipType() {
+        return (ShipType)Random.Range(0, ShipsFactory.Ships.Count);
+    }
+
     protected override void GetShip() {
         base.GetShip();
+        var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
+        _ship.InitFromDefaultConfig(shipConfig );
         _ship.OnDestroyed += StartRespawning;
     }
 
@@ -102,8 +117,10 @@ public class BotPilot : AbstractPilot {
             return;
         }
 
-        Vector3 dir = _target.position - _ship.transform.position;
-        if (Vector3.Angle(_ship.transform.forward, dir) > 60 && _shipSpeed > 0.3) {
+        Vector3 dir =( _target.position - _ship.transform.position).normalized;
+        
+        //todo add smooth lerp rotation
+        if (Vector3.Angle(_ship.transform.forward, dir) > 60 && _shipSpeed > 0.6) {
             _ship.Slowdown();
         } else if (_shipSpeed < 1) {
             _ship.Accelerate();
@@ -119,7 +136,10 @@ public class BotPilot : AbstractPilot {
             return;
         }
 
-        _ship.FirePrime(_target.position);
+        if (Vector3.Angle(_ship.transform.forward, _target.position - _ship.transform.position) < _shootAngle) {
+            _ship.FirePrime(_target.position);
+        }
+        
 
         if (_shipSpeed < _desirableSpeed) {
             _ship.Accelerate();
@@ -178,13 +198,14 @@ public class BotPilot : AbstractPilot {
 
     private void StartRespawning(PlayerData _, PlayerData __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        StartCoroutine(Respawn());
+        _respawnCoroutine = StartCoroutine(Respawn());
     }
 
     private IEnumerator Respawn() {
         _state = BotState.Respawn;
         yield return new WaitForSeconds(_respawnTime);
         RespawnShip();
+        FindTarget();
     }
 
     enum BotState {

@@ -1,29 +1,22 @@
-using DefaultNamespace;
 using UnityEngine;
 
 public class PrepareGameManager : MonoBehaviour {
     [SerializeField]
     private PilotsManager _pilotsManager;
 
-    private PlayersManager _playersManager = new PlayersManager();
-
-    [SerializeField]
-    private int _playersAmount = 9;
-
-    [SerializeField]
-    private int _startingScore = 100;
-
     [SerializeField]
     private float _fightRadius = 500;
 
     public void Start() {
+        MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
         GameManager.FightRadius = _fightRadius;
-        _playersManager.LoadPlayer();
-        _playersManager.GenerateBots(_playersAmount);
-        _pilotsManager.GeneratePilots(_playersManager.BlueTeam, _playersManager.RedTeam);
-        GameUI.Instance.LeaderboardDialog.Init(_playersManager);
+        GameManager.Instance.PilotsManager = _pilotsManager;
+        GameManager.Instance.PlayersManager.LoadPlayer();
+        GameManager.Instance.PlayersManager.GenerateBots(cnfg.PlayersInGameAmount);
+        _pilotsManager.GeneratePilots(GameManager.Instance.PlayersManager.BlueTeam, GameManager.Instance.PlayersManager.RedTeam);
+        GameUI.Instance.LeaderboardDialog.Init(GameManager.Instance.PlayersManager);
 
         _pilotsManager.ActivatePilots();
-        GameManager.Instance.RespawnManager.SetStartingScore(_startingScore);
+        GameManager.Instance.RespawnManager.SetStartingScore(cnfg.StartingPointsInEachTeam);
     }
 }

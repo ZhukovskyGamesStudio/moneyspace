@@ -48,4 +48,10 @@ public class PilotsManager : MonoBehaviour {
             variable.Activate();
         }
     }
+
+    public void DeactivatePilots() {
+        foreach (AbstractPilot variable in _pilots) {
+            variable.DeActivate();
+        }
+    }
 }

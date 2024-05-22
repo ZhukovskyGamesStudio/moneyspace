@@ -5,27 +5,27 @@ public class PlayersManager {
     private List<PlayerData> _blueTeam = new List<PlayerData>();
     private List<PlayerData> _redTeam = new List<PlayerData>();
 
-    private PlayerData _realPLayer;
+    public static PlayerData RealPLayer;
 
     public List<PlayerData> BlueTeam => _blueTeam;
     public List<PlayerData> RedTeam => _redTeam;
 
     public void LoadPlayer() {
-        Team playerTeam = Random.Range(0, 2) == 0 ? Team.Blue : Team.Red;
-        _realPLayer = new PlayerData();
-        _realPLayer.Nickname = "RealPlayer";
-        _realPLayer.Team = playerTeam;
+        Team playerTeam = Team.Blue;//Random.Range(0, 2) == 0 ? Team.Blue : Team.Red;
+        RealPLayer = new PlayerData();
+        RealPLayer.Nickname = "RealPlayer";
+        RealPLayer.Team = playerTeam;
         if (playerTeam == Team.Blue) {
-            _blueTeam.Add(_realPLayer);
+            _blueTeam.Add(RealPLayer);
         } else {
-            _redTeam.Add(_realPLayer);
+            _redTeam.Add(RealPLayer);
         }
     }
 
-    public void GenerateBots(int amount) {
-        int blueBots = amount / 2;
-        int redBots = amount / 2;
-        if (_realPLayer.Team == Team.Blue) {
+    public void GenerateBots(int playersAmount) {
+        int blueBots = playersAmount / 2;
+        int redBots = playersAmount / 2;
+        if (RealPLayer.Team == Team.Blue) {
             blueBots--;
         } else {
             redBots--;

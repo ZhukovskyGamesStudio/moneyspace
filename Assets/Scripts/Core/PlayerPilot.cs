@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerPilot : AbstractPilot {
@@ -14,9 +14,17 @@ public class PlayerPilot : AbstractPilot {
     public override void Init() {
         GetShip();
     }
+    
+    protected override ShipType GetShipType() {
+
+        return ShipsFactory.Ships[SaveLoadManager.Profile.SelectedShip].ShipType;
+    }
 
     protected override void GetShip() {
         base.GetShip();
+        var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
+        var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.First(s => s.Type == _ship.ShipType);
+        _ship.InitFromConfig(shipConfig, upgradeData);
         _ship.name = "PlayerShip";
         _ship.OnDestroyed += OnShipDestroyed;
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
@@ -27,13 +35,20 @@ public class PlayerPilot : AbstractPilot {
         RespawnShip();
     }
 
+    public override void DeActivate() {
+        base.DeActivate();
+        GameUI.Instance._arView.SetActive(false);
+    }
+
     private void OnShipDestroyed(PlayerData _, PlayerData __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        PlayerRespawn();
+        GameUI.Instance._arView.SetActive(false);
+        GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
     }
 
     private void PlayerRespawn() {
         RespawnShip();
+        GameUI.Instance._arView.SetActive(true);
     }
 
     private void Update() {

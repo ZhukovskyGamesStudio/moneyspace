@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ship : IShip {
-    [SerializeField]
-    private int _shipMaxHp = 100;
 
     [SerializeField]
     private int _maxShied = 100;
@@ -70,7 +68,6 @@ public class Ship : IShip {
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
 
     private void Start() {
-        Respawn();
         //Cursor.visible = false;
     }
 
@@ -113,9 +110,11 @@ public class Ship : IShip {
         if (Mathf.Abs(rotVector.y) < _minHorAngle) {
             rotVector.y = 0;
         }*/
-        MoveModel(rotVector);
+       
         rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
-        rotVector.y = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
+        rotVector.y = Mathf.Clamp(rotVector.y, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
+        rotVector.z = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
+        MoveModel(rotVector);
         Vector3 rotDistance = new Vector3(rotVector.x * _vertRotation, rotVector.y * _vertRotation, rotVector.z * _horRotation) *
                               Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
@@ -130,7 +129,7 @@ public class Ship : IShip {
     }
 
     public override float GetHpPercent() {
-        return _hp / (_shipMaxHp + 0f);
+        return _hp / (_shipConfig.MaxHp + 0f);
     }
 
     public override float GetShieldPercent() {
@@ -240,7 +239,7 @@ public class Ship : IShip {
 
     public override void Respawn() {
         _shipSpeed = _shipMaxSpeed / 2;
-        _hp = _shipMaxHp;
+        _hp = _shipConfig.MaxHp;
         _overheat = 0;
     }
 

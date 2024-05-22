@@ -16,12 +16,19 @@ public class RespawnManager {
         } else {
             _redTeamScore--;
         }
-
         UpdateUI();
+        if (_blueTeamScore == 0 || _redTeamScore == 0) {
+            EndGame();
+        }
     }
 
     private void UpdateUI() {
         GameUI.Instance._deathmatchProgressView.SetData((_blueTeamScore + 0f) / _startingScore, _blueTeamScore,
             (_redTeamScore + 0f) / _startingScore, _redTeamScore);
+    }
+
+    private void EndGame() {
+        GameManager.Instance.PilotsManager.DeactivatePilots();
+        GameUI.Instance.LeaderboardDialog.SetEndGameState(PlayersManager.RealPLayer.Kills, _redTeamScore == 0);
     }
 }

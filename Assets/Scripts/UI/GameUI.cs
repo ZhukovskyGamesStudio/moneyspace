@@ -22,7 +22,7 @@ public class GameUI : MonoBehaviour {
 
     public ArMarkersManager ArMarkersManager => _arMarkersManager;
     public LeaderboardDialog LeaderboardDialog => _leaderboardDialog;
-    
+
     public static GameUI Instance;
 
     private void Awake() {
@@ -31,11 +31,11 @@ public class GameUI : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Tab)) {
-            _leaderboardDialog.gameObject.SetActive(true);
+            _leaderboardDialog.OpenLbState();
         }
 
         if (Input.GetKeyUp(KeyCode.Tab)) {
-            _leaderboardDialog.gameObject.SetActive(false);
+            _leaderboardDialog.CloseLbState();
         }
     }
 }
