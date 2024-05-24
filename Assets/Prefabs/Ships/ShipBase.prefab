@@ -101,7 +101,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b0b6ae16907143149b25d31d29de7682, type: 2}
+  - {fileID: 2100000, guid: 539714c0b9780444eac28c3673ea35c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -332,8 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbe81e3759a0c741a64efe297473f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shipType: 0
   _visibleChecker: {fileID: 0}
-  _shipMaxHp: 100
   _maxShied: 100
   _shiedRepairSpeed: 10
   _overheatFromShoot: 0.1
