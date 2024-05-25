@@ -145,8 +145,8 @@ Material:
     - _abc: 0
     - _dfg: 0.515
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.5144231, b: 0, a: 0}
-    - _Color: {r: 1, g: 0.5144231, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 0.5144231, b: 0, a: 0.49019608}
+    - _Color: {r: 1, g: 0.5144231, b: 0, a: 0.49019608}
     - _EmissionColor: {r: 0.09433961, g: 0.04191411, b: 0.041384827, a: 1}
     - _MainColor: {r: 0, g: 0.6, b: 0.8, a: 0.6}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

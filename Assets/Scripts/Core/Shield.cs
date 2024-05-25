@@ -9,7 +9,7 @@ public class Shield : MonoBehaviour {
 
     private float _fullColorAlpha;
     private Coroutine _showCoroutine;
-    private static readonly int Threshold = Shader.PropertyToID("_Threshold");
+    private static readonly int Threshold = Shader.PropertyToID("_Cutoff");
 
     private void Awake() {
         SetAlpha(0);
@@ -36,7 +36,7 @@ public class Shield : MonoBehaviour {
     }
 
     private void SetAlpha(float percent) {
-        percent = Math.Clamp(percent, 0, 1);
+        percent = Math.Clamp(percent, 0.01f, 0.99f);
         _shield.material.SetFloat(Threshold, 1 - percent);
     }
 }

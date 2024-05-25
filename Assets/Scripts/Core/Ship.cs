@@ -107,11 +107,12 @@ public class Ship : IShip {
         if (Mathf.Abs(rotVector.y) < _minHorAngle) {
             rotVector.y = 0;
         }*/
-       
+        MoveModel(rotVector);
+        
         rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.y = Mathf.Clamp(rotVector.y, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.z = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
-        MoveModel(rotVector);
+        
         Vector3 rotDistance = new Vector3(rotVector.x * _vertRotation, rotVector.y * _vertRotation, rotVector.z * _horRotation) *
                               Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
@@ -205,13 +206,20 @@ public class Ship : IShip {
     }
 
     public override void TakeDamage(int amount, PlayerData from) {
+        float damageThroughShield =  amount - _shield;
         _shield -= amount;
         if (_shield >= 0) {
             _shield3dView.ShowShield();
             return;
+        } else {
+            _shield = 0;
         }
 
-        _hp -= Mathf.RoundToInt(-_shield);
+        if (damageThroughShield <= 0) {
+            return;
+        }
+        
+        _hp -= Mathf.RoundToInt(damageThroughShield);
        
         if (_damageDealers.ContainsKey(from)) {
             _damageDealers[from] += amount;

@@ -5,6 +5,7 @@ public class MainGameConfig : ScriptableObject {
     [Header("Deathmatch")]
     public int StartingPointsInEachTeam = 2;
     public int PlayersInGameAmount = 20;
+    public float BotRespawnTime = 10;
 
     [Header("Costs & Rewards")]
     public int RewardForWatchAd = 100000;

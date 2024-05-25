@@ -14,14 +14,13 @@ public abstract class IShip : MonoBehaviour {
     private int _maxShield;
 
     public void InitFromDefaultConfig(ShipConfig shipConfig) {
-        _shipConfig = shipConfig;
-        _shipUpgradeData = _shipConfig.DefaultShipUpgrades;
-        _maxShield = _shipUpgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint;
+        InitFromConfig(shipConfig, shipConfig.DefaultShipUpgrades);
     }
 
     public void InitFromConfig(ShipConfig shipConfig, ShipUpgradeData shipUpgradeData) {
         _shipConfig = shipConfig;
         _shipUpgradeData = shipUpgradeData;
+        _maxShield = _shipUpgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint;
     }
 
     public void SetOwner(PlayerData data) {

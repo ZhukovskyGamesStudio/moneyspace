@@ -4,29 +4,20 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BotPilot : AbstractPilot {
-    [SerializeField]
-    private float _respawnTime = 10f;
-    [SerializeField]
-    private float _shootAngle = 90f;
-    
     private Transform _target;
 
     private BotState _state;
     private float _distToTarget;
     private float _shipSpeed;
-
-    private float _maxShootDistance = 100;
-    private float _shootDistanceRandomness = 25;
-
     private Coroutine _shootCoroutine;
 
     //attack random parameters
-    private float _shootDistance;
-    private float _desirableSpeed;
+    private float _startShootDistance;
     private float _attackTime;
 
     private EnemyMarker _marker;
     private Coroutine _respawnCoroutine;
+
     public override void Init() {
         GetShip();
         CreateMarker();
@@ -51,7 +42,7 @@ public class BotPilot : AbstractPilot {
     protected override void GetShip() {
         base.GetShip();
         var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
-        _ship.InitFromDefaultConfig(shipConfig );
+        _ship.InitFromDefaultConfig(shipConfig);
         _ship.OnDestroyed += StartRespawning;
     }
 
@@ -111,16 +102,16 @@ public class BotPilot : AbstractPilot {
     }
 
     private void Hunt() {
-        if (_distToTarget < _shootDistance) {
+        if (_distToTarget < _startShootDistance) {
             _state = BotState.Shoot;
             _shootCoroutine = StartCoroutine(ShootCoroutine());
             return;
         }
 
-        Vector3 dir =( _target.position - _ship.transform.position).normalized;
-        
+        Vector3 dir = (_target.position - _ship.transform.position).normalized;
+
         //todo add smooth lerp rotation
-        if (Vector3.Angle(_ship.transform.forward, dir) > 60 && _shipSpeed > 0.6) {
+        if (Vector3.Angle(_ship.transform.forward, dir) > 60 && _shipSpeed > ShipsFactory.ShipStatsGeneralConfig.BotHuntDesirableSpeed) {
             _ship.Slowdown();
         } else if (_shipSpeed < 1) {
             _ship.Accelerate();
@@ -130,18 +121,18 @@ public class BotPilot : AbstractPilot {
     }
 
     private void Shoot() {
-        if (_distToTarget < 20) {
+        if (_distToTarget < ShipsFactory.ShipStatsGeneralConfig.StartEvadeDistance) {
             _state = BotState.Evade;
             StopCoroutine(_shootCoroutine);
             return;
         }
 
-        if (Vector3.Angle(_ship.transform.forward, _target.position - _ship.transform.position) < _shootAngle) {
+        if (Vector3.Angle(_ship.transform.forward, _target.position - _ship.transform.position) <
+            ShipsFactory.ShipStatsGeneralConfig.BotShootAngle) {
             _ship.FirePrime(_target.position);
         }
-        
 
-        if (_shipSpeed < _desirableSpeed) {
+        if (_shipSpeed < ShipsFactory.ShipStatsGeneralConfig.BotShootDesirableSpeed) {
             _ship.Accelerate();
         } else {
             _ship.Slowdown();
@@ -157,13 +148,13 @@ public class BotPilot : AbstractPilot {
     }
 
     private void Evade() {
-        if (_distToTarget > _shootDistance) {
+        if (_distToTarget > _startShootDistance) {
             _state = BotState.Hunt;
             RndAttackParameters();
             return;
         }
 
-        if (_shipSpeed < 1) {
+        if (_shipSpeed < ShipsFactory.ShipStatsGeneralConfig.BotEvadeDesirableSpeed) {
             _ship.Accelerate();
         }
 
@@ -172,14 +163,13 @@ public class BotPilot : AbstractPilot {
     }
 
     private void RotateShip(Vector3 to) {
-
         float distFromCenter = Vector3.Distance(_ship.transform.position, Vector3.zero);
         if (distFromCenter > GameManager.FightRadius) {
             float rotPercent = distFromCenter - GameManager.FightRadius / 100;
             Vector3 dirToCenter = -_ship.transform.position;
             to = Vector3.Lerp(to, dirToCenter, rotPercent);
         }
-        
+
         Vector3 rotVector = Quaternion.FromToRotation(_ship.transform.forward, to).eulerAngles;
 
         // Vector3 from = _ship.transform.forward;
@@ -189,9 +179,9 @@ public class BotPilot : AbstractPilot {
 
     private void RndAttackParameters() {
         _state = BotState.Hunt;
-        _shootDistance = _maxShootDistance + Random.Range(-1, 1f) * _shootDistanceRandomness;
-        _desirableSpeed = Random.Range(0.2f, 0.8f);
-        _attackTime = Random.Range(3, 10f);
+        var cnfg = ShipsFactory.ShipStatsGeneralConfig;
+        _startShootDistance = Random.Range(cnfg.BotMinStartShootDistance, cnfg.BotMaxStartShootDistance);
+        _attackTime = Random.Range(cnfg.BotMinAttackTime, cnfg.BotMaxAttackTime);
     }
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
@@ -203,7 +193,7 @@ public class BotPilot : AbstractPilot {
 
     private IEnumerator RespawnCoroutine() {
         _state = BotState.Respawn;
-        yield return new WaitForSeconds(_respawnTime);
+        yield return new WaitForSeconds(MainConfigTable.Instance.MainGameConfig.BotRespawnTime);
         RespawnShip();
         FindTarget();
     }
