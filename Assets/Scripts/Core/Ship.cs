@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ship : IShip {
-
-    [SerializeField]
-    private int _maxShied = 100;
-
     [SerializeField]
     private int _shiedRepairSpeed = 10;
 
@@ -38,7 +34,8 @@ public class Ship : IShip {
     [SerializeField]
     private Transform _model;
 
-    [SerializeField] private ShipThrust _shipThrust;
+    [SerializeField] 
+    private ShipThrust _shipThrust;
 
     [SerializeField]
     private Explosion _explosion;
@@ -80,13 +77,13 @@ public class Ship : IShip {
     }
 
     private void RepairShield() {
-        if (_shield >= _maxShied) {
+        if (_shield >= MaxShied) {
             return;
         }
 
         _shield += _shiedRepairSpeed * Time.fixedDeltaTime;
-        if (_shield > _maxShied) {
-            _shield = _maxShied;
+        if (_shield > MaxShied) {
+            _shield = MaxShied;
         }
     }
 
@@ -133,7 +130,7 @@ public class Ship : IShip {
     }
 
     public override float GetShieldPercent() {
-        return _shield / (_maxShied + 0f);
+        return _shield / (MaxShied + 0f);
     }
 
     private void MoveModel(Vector3 rotVector) {

@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6130fdbeb3e44d4d9597ab5c8c631f9, type: 2}
   - {fileID: 11400000, guid: e92a5278872fff0438f8eed3b7f8319b, type: 2}
   - {fileID: 11400000, guid: 5ac2b49eb0d155645af716a67a786186, type: 2}
+  _shipStatsGeneralConfig: {fileID: 11400000, guid: aa6f83cfc5b7c724ebeb141c46eb05b4, type: 2}
 --- !u!114 &870584206268719112
 MonoBehaviour:
   m_ObjectHideFlags: 0

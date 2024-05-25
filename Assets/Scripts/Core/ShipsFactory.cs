@@ -7,6 +7,11 @@ public class ShipsFactory : MonoBehaviour {
     [SerializeField]
     private List<ShipConfig> _shipsConfigsList;
 
+    [SerializeField]
+    private ShipStatsGeneralConfig _shipStatsGeneralConfig;
+
+    public static ShipStatsGeneralConfig ShipStatsGeneralConfig => Instance._shipStatsGeneralConfig;
+    
     public static List<ShipConfig> Ships => Instance._shipsConfigsList;
     
     public static ShipsFactory Instance;

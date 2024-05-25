@@ -198,10 +198,10 @@ public class BotPilot : AbstractPilot {
 
     private void StartRespawning(PlayerData _, PlayerData __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        _respawnCoroutine = StartCoroutine(Respawn());
+        _respawnCoroutine = StartCoroutine(RespawnCoroutine());
     }
 
-    private IEnumerator Respawn() {
+    private IEnumerator RespawnCoroutine() {
         _state = BotState.Respawn;
         yield return new WaitForSeconds(_respawnTime);
         RespawnShip();

@@ -13,6 +13,7 @@ public class PlayerPilot : AbstractPilot {
 
     public override void Init() {
         GetShip();
+        RespawnShip();
     }
     
     protected override ShipType GetShipType() {
@@ -32,7 +33,6 @@ public class PlayerPilot : AbstractPilot {
 
     public override void Activate() {
         base.Activate();
-        RespawnShip();
     }
 
     public override void DeActivate() {

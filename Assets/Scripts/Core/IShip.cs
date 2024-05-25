@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IShip : MonoBehaviour {
@@ -11,10 +10,15 @@ public abstract class IShip : MonoBehaviour {
     protected ShipConfig _shipConfig;
     protected ShipUpgradeData _shipUpgradeData;
 
+    protected int MaxShied => _maxShield;
+    private int _maxShield;
+
     public void InitFromDefaultConfig(ShipConfig shipConfig) {
         _shipConfig = shipConfig;
         _shipUpgradeData = _shipConfig.DefaultShipUpgrades;
+        _maxShield = _shipUpgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint;
     }
+
     public void InitFromConfig(ShipConfig shipConfig, ShipUpgradeData shipUpgradeData) {
         _shipConfig = shipConfig;
         _shipUpgradeData = shipUpgradeData;
