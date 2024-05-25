@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
   StartingPointsInEachTeam: 10
-  PlayersInGameAmount: 20
+  PlayersInGameAmount: 2
   RewardForWatchAd: 100000
   MultiplierForWatchAdInGame: 2
   RewardForKill: 10000

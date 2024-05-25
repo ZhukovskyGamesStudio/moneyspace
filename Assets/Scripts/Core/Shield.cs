@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Shield : MonoBehaviour {
     [SerializeField]
@@ -8,9 +9,9 @@ public class Shield : MonoBehaviour {
 
     private float _fullColorAlpha;
     private Coroutine _showCoroutine;
+    private static readonly int Threshold = Shader.PropertyToID("_Threshold");
 
     private void Awake() {
-        _fullColorAlpha = _shield.material.color.a;
         SetAlpha(0);
     }
 
@@ -36,8 +37,7 @@ public class Shield : MonoBehaviour {
 
     private void SetAlpha(float percent) {
         percent = Math.Clamp(percent, 0, 1);
-        Color tmp = _shield.material.color;
-        tmp.a = _fullColorAlpha * percent;
-        _shield.material.color = tmp;
+        
+        _shield.material.SetFloat(Threshold, 1 - percent);
     }
 }
