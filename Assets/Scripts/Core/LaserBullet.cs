@@ -6,9 +6,9 @@ public class LaserBullet : MonoBehaviour {
     [SerializeField]
     private Explosion _explosion;
 
-    private PlayerData _owner;
+    private AbstractPilot _owner;
 
-    public void Init(Vector3 dir, float speed, int layer, PlayerData owner) {
+    public void Init(Vector3 dir, float speed, int layer, AbstractPilot owner) {
         transform.forward = dir;
         _speed = speed;
         gameObject.layer = layer;

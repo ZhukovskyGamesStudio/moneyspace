@@ -13,7 +13,7 @@ public class LaserCanon : MonoBehaviour {
     [SerializeField]
     private float _horizontalShift = 5;
 
-    public void Shoot(Vector3 target, PlayerData owner) {
+    public void Shoot(Vector3 target, AbstractPilot owner) {
         Vector3 point = target + transform.right * _horizontalShift;
         Vector3 direction = point - transform.position;
         

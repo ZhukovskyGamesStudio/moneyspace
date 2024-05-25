@@ -186,7 +186,7 @@ public class BotPilot : AbstractPilot {
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position);
 
-    private void StartRespawning(PlayerData _, PlayerData __) {
+    private void StartRespawning(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         _respawnCoroutine = StartCoroutine(RespawnCoroutine());
     }

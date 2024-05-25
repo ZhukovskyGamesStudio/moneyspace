@@ -20,6 +20,11 @@ public class GameUI : MonoBehaviour {
     [SerializeField]
     private ArMarkersManager _arMarkersManager;
 
+    [SerializeField]
+    private KillsTray _killsTray;
+
+    public KillsTray KillsTray => _killsTray;
+
     public ArMarkersManager ArMarkersManager => _arMarkersManager;
     public LeaderboardDialog LeaderboardDialog => _leaderboardDialog;
 

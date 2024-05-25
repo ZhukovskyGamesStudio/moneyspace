@@ -4,7 +4,9 @@ using UnityEngine;
 public class AbstractPilot : MonoBehaviour {
     protected IShip _ship;
     protected PlayerData _playerData;
+    public PlayerData PlayerData => _playerData;
 
+    public ShipType ShipType => _ship.ShipType;
     public virtual void Init() { }
 
     public virtual void Activate() { }
@@ -25,11 +27,12 @@ public class AbstractPilot : MonoBehaviour {
 
     protected virtual void GetShip() {
         _ship = ShipsFactory.GetShip(GetShipType());
-        _ship.SetOwner(_playerData);
+        _ship.SetOwner(this);
         _ship.gameObject.SetActive(false);
         _ship.transform.SetParent(transform);
         _ship.name = _playerData.Nickname + "ship";
         _ship.tag = _playerData.Team.ToString();
+        _ship.OnDestroyed += LogDestroyedToTray;
 
         var layer = LayerMask.NameToLayer(_playerData.Team == Team.Blue ? "BlueTeam" : "RedTeam");
         _ship.gameObject.layer = layer;
@@ -37,6 +40,10 @@ public class AbstractPilot : MonoBehaviour {
         foreach (var VARIABLE in childs) {
             VARIABLE.gameObject.layer = layer;
         }
+    }
+
+    private void LogDestroyedToTray(AbstractPilot victim, AbstractPilot killer) {
+        GameUI.Instance.KillsTray.AddToTray(killer,victim);
     }
 
     protected void RespawnShip() {

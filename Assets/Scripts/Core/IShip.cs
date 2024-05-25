@@ -23,18 +23,18 @@ public abstract class IShip : MonoBehaviour {
         _maxShield = _shipUpgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint;
     }
 
-    public void SetOwner(PlayerData data) {
+    public void SetOwner(AbstractPilot data) {
         _owner = data;
     }
 
-    protected PlayerData _owner;
+    protected AbstractPilot _owner;
     public abstract void RotateBy(Vector3 rotVector);
     public abstract float GetSpeedPercent();
     public abstract float GetOverheatPercent();
     public abstract float GetHpPercent();
     public abstract float GetShieldPercent();
 
-    public Action<PlayerData, PlayerData> OnDestroyed;
+    public Action<AbstractPilot, AbstractPilot> OnDestroyed;
 
     public VisibleChecker _visibleChecker;
 
@@ -46,7 +46,7 @@ public abstract class IShip : MonoBehaviour {
 
     public abstract void FireSecond(Vector3 target);
 
-    public abstract void TakeDamage(int amount, PlayerData from);
+    public abstract void TakeDamage(int amount, AbstractPilot fromPilot);
 
     public abstract void Respawn();
 

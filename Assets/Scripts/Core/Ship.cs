@@ -205,7 +205,8 @@ public class Ship : IShip {
         }
     }
 
-    public override void TakeDamage(int amount, PlayerData from) {
+    public override void TakeDamage(int amount, AbstractPilot fromPilot) {
+        PlayerData from = fromPilot.PlayerData;
         float damageThroughShield =  amount - _shield;
         _shield -= amount;
         if (_shield >= 0) {
@@ -229,7 +230,7 @@ public class Ship : IShip {
 
         if (_hp < 0 && gameObject.activeSelf) {
             _hp = 0;
-            _owner.Deaths++;
+            _owner.PlayerData.Deaths++;
             from.Kills++;
             foreach (var kvp in _damageDealers) {
                 if (kvp.Key != from) {
@@ -237,7 +238,7 @@ public class Ship : IShip {
                 }
             }
 
-            OnDestroyed?.Invoke(_owner, from);
+            OnDestroyed?.Invoke(_owner, fromPilot);
             Explode();
         }
     }
