@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class LaserBullet : MonoBehaviour {
     private float _speed;
-
-    [SerializeField]
-    private int _damageAmount = 10;
-
     [SerializeField]
     private Explosion _explosion;
 
@@ -30,7 +26,7 @@ public class LaserBullet : MonoBehaviour {
         if (rb != null) {
             Ship ship = rb.GetComponent<Ship>();
             if (ship != null) {
-                ship.TakeDamage(_damageAmount, _owner);
+                ship.TakeDamage(ShipsFactory.ShipStatsGeneralConfig.LaserDamage, _owner);
             }
         }
 

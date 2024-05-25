@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ShipStatsGeneralConfig
   m_EditorClassIdentifier: 
   ShieldPerPoint: 15
+  LaserDamage: 5

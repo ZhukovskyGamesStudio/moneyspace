@@ -1,21 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipThrust : MonoBehaviour
-{
+public class ShipThrust : MonoBehaviour {
+    [SerializeField]
+    private float _baseLightIntensity = 6;
+
     [SerializeField]
     private Light _thrustLight;
 
-    public void SetThrustLight(float shipSpeedPercent)
-    {
-        if (shipSpeedPercent <= 0)
-        {
+    [SerializeField]
+    private List<Renderer> _renderers = new List<Renderer>();
+
+    public void SetThrustLight(float shipSpeedPercent) {
+        if (shipSpeedPercent <= 0) {
             _thrustLight.intensity = 0;
+        } else {
+            _thrustLight.intensity = _baseLightIntensity * shipSpeedPercent;
         }
-        else
-        {
-            _thrustLight.intensity = 6 * shipSpeedPercent;
+
+        foreach (var VARIABLE in _renderers) {
+            VARIABLE.material.SetFloat("_Opacity_RGB", shipSpeedPercent);
         }
     }
 }

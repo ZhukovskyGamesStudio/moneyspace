@@ -37,7 +37,6 @@ public class Shield : MonoBehaviour {
 
     private void SetAlpha(float percent) {
         percent = Math.Clamp(percent, 0, 1);
-        
         _shield.material.SetFloat(Threshold, 1 - percent);
     }
 }
