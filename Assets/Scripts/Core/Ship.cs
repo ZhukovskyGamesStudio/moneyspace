@@ -52,6 +52,9 @@ public class Ship : IShip {
     [SerializeField]
     private Shield _shield3dView;
 
+    [SerializeField]
+    private GameObject _warpOnShift;
+
     private float _shipSpeed = 0;
 
     private float _rotationSpeed = 0;
@@ -73,7 +76,10 @@ public class Ship : IShip {
         FlyForward();
         DecreaseOverheat();
         RepairShield();
+
+        
         _shipThrust.SetThrustLight(_shipSpeed/_shipMaxSpeed);
+        
     }
 
     private void RepairShield() {
@@ -98,6 +104,7 @@ public class Ship : IShip {
             _isOverheated = false;
         }
     }
+    
 
     public override void RotateBy(Vector3 rotVector) {
         /*if (Mathf.Abs(rotVector.x) < _minVertAngle) {
