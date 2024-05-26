@@ -34,6 +34,8 @@ public class GameUI : MonoBehaviour {
 
     public static GameUI Instance;
 
+    public GameObject warpOnSpeed;
+
     private void Awake() {
         Instance = this;
     }

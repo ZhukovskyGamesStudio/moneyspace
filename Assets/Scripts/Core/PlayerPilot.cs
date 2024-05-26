@@ -85,6 +85,8 @@ public class PlayerPilot : AbstractPilot {
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
 
         _ship.RotateBy(rotVector + TrySideRotate());
+        
+        TurnSpeedParticles();
     }
 
     private void FirePrime() {
@@ -113,5 +115,10 @@ public class PlayerPilot : AbstractPilot {
         }
 
         return sideRot;
+    }
+    
+    private void TurnSpeedParticles()
+    {
+        GameUI.Instance.warpOnSpeed.SetActive(_ship.GetSpeedPercent() >= 0.8);
     }
 }
