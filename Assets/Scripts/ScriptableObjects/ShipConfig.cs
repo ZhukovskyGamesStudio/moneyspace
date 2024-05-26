@@ -6,12 +6,14 @@ public class ShipConfig : ScriptableObject {
     public Sprite Icon;
     public ShipType ShipType;
 
+    [Header("ShopParameters")]
     public string ShipName;
     [TextArea]
     public string Description;
 
+    [Header("FightParameters")]
     public int MaxHp;
-    
+    [Range(1,12)]
     public int SpeedMax;
     public int ShieldMax;
     public int AttackMax;

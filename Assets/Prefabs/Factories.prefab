@@ -51,6 +51,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6130fdbeb3e44d4d9597ab5c8c631f9, type: 2}
   - {fileID: 11400000, guid: e92a5278872fff0438f8eed3b7f8319b, type: 2}
   - {fileID: 11400000, guid: 5ac2b49eb0d155645af716a67a786186, type: 2}
+  - {fileID: 11400000, guid: ac813bc532245184cb0c7a6d3799310a, type: 2}
+  - {fileID: 11400000, guid: cafbdef2418e1dd4d948d15810dc6d29, type: 2}
+  - {fileID: 11400000, guid: 52d28b0ce5d08414ebd474724fd9c9f2, type: 2}
+  - {fileID: 11400000, guid: 0ae2badf75250a5469e462629bc4f7c0, type: 2}
   _shipStatsGeneralConfig: {fileID: 11400000, guid: aa6f83cfc5b7c724ebeb141c46eb05b4, type: 2}
 --- !u!114 &870584206268719112
 MonoBehaviour:

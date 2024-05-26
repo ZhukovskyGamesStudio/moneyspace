@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPilot : AbstractPilot {
     [SerializeField]
@@ -60,6 +61,10 @@ public class PlayerPilot : AbstractPilot {
 
         if (Input.GetKey(KeyCode.S)) {
             _ship.Slowdown();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.M)) {
+            SceneManager.LoadScene("Menu");
         }
 
         if (Input.GetMouseButton(0)) {

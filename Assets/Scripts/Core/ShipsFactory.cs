@@ -32,5 +32,9 @@ public enum ShipType {
     First,
     Second,
     Third,
-    Fouth
+    Fouth,
+    Fifth,
+    HeavyFirst,
+    HeavySecond,
+    HeavyThird
 }

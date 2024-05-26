@@ -29,6 +29,11 @@ public class CameraFollow : MonoBehaviour {
     }
 
     private void LateUpdate() {
+        TryChangePos();
+        GameUI.Instance.SmartCursorView.UpdatePos();
+    }
+
+    private void TryChangePos() {
         if (_target == null) {
             return;
         }

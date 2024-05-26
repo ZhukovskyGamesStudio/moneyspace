@@ -23,6 +23,10 @@ public class GameUI : MonoBehaviour {
     [SerializeField]
     private KillsTray _killsTray;
 
+    [SerializeField]
+    private SmartCursorView _smartCursorView;
+
+    public SmartCursorView SmartCursorView => _smartCursorView;
     public KillsTray KillsTray => _killsTray;
 
     public ArMarkersManager ArMarkersManager => _arMarkersManager;
