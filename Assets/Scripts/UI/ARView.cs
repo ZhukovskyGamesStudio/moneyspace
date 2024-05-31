@@ -9,6 +9,11 @@ public class ARView : MonoBehaviour {
     [SerializeField]
     private Slider _overheatSlider;
 
+    [SerializeField]
+    private ArShootAssist _arShootAssist;
+    
+    public ArShootAssist ArShootAssist => _arShootAssist;
+    
     private void Awake() {
         SetData(Random.Range(0,1f),Random.Range(0,1f));
     }

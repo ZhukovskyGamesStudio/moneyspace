@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShieldPerPoint: 15
   LaserDamage: 5
+  LaserSpeed: 100
   BotShootAngle: 35
   BotMinStartShootDistance: 75
   BotMaxStartShootDistance: 125

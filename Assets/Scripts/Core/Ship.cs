@@ -57,6 +57,8 @@ public class Ship : IShip {
 
     private float _shipSpeed = 0;
 
+    public float ShipSpeed => _shipSpeed;
+
     private float _rotationSpeed = 0;
 
     private bool _recoil = false;

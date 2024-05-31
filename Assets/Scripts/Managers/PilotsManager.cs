@@ -13,6 +13,8 @@ public class PilotsManager : MonoBehaviour {
 
     private List<AbstractPilot> _pilots = new List<AbstractPilot>();
 
+    public List<AbstractPilot> Pilots => _pilots;
+
     public void GeneratePilots(List<PlayerData> blue, List<PlayerData> red) {
         foreach (var playerData in blue) {
             if (playerData.isBot) {

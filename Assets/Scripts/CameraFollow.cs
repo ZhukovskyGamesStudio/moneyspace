@@ -31,6 +31,7 @@ public class CameraFollow : MonoBehaviour {
     private void LateUpdate() {
         TryChangePos();
         GameUI.Instance.SmartCursorView.UpdatePos();
+        GameUI.Instance._arView.ArShootAssist.UpdatePos();
     }
 
     private void TryChangePos() {
