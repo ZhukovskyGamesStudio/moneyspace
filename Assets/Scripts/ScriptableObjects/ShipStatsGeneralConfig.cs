@@ -5,10 +5,9 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     public int ShieldPerPoint;
 
     public int LaserDamage;
+    
+    public float LaserSpeed = 100;
 
-   
-    
-    
     [Header("BotParameters")]
     [Range(0,180)]
     public float BotShootAngle;

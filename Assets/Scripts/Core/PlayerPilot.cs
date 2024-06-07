@@ -75,6 +75,11 @@ public class PlayerPilot : AbstractPilot {
             FireSecond();
         }
 
+        if (Input.GetKeyDown(KeyCode.X)) {
+            var bot = GameManager.Instance.PilotsManager.Pilots.First(p => p.PlayerData.isBot);
+            GameUI.Instance._arView.ArShootAssist.Activate(bot.Ship, _ship as Ship);
+        }
+
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
         if (shift.magnitude < _minDistanceToRotate) {
             shift *= _minRotationMuliplier;

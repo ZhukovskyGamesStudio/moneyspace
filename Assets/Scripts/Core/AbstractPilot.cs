@@ -5,6 +5,7 @@ public class AbstractPilot : MonoBehaviour {
     protected IShip _ship;
     protected PlayerData _playerData;
     public PlayerData PlayerData => _playerData;
+    public Ship Ship => _ship as Ship;
 
     public ShipType ShipType => _ship.ShipType;
     public virtual void Init() { }
