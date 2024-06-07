@@ -55,6 +55,10 @@ public class Ship : IShip {
     [SerializeField]
     private GameObject _warpOnShift;
 
+
+    [SerializeField] private AudioSource _shipSounds;
+    [SerializeField] private AudioClip _shipShot;
+
     private float _shipSpeed = 0;
 
     public float ShipSpeed => _shipSpeed;
@@ -68,6 +72,8 @@ public class Ship : IShip {
     private float _shield;
 
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
+    
+    
 
     private void Start() {
         //Cursor.visible = false;
@@ -189,6 +195,8 @@ public class Ship : IShip {
             _overheat = 1;
             _isOverheated = true;
         }
+        
+        _shipSounds.PlayOneShot(_shipShot);
 
         StartCoroutine(RecoilCoroutine());
         foreach (var VARIABLE in _primeCanons) {

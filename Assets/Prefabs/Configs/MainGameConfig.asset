@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b686965bd49bc82469bb8734768efd99, type: 3}
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
-  StartingPointsInEachTeam: 100
+  StartingPointsInEachTeam: 10
   PlayersInGameAmount: 2
   BotRespawnTime: 10
   RewardForWatchAd: 100000
