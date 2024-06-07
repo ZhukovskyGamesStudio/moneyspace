@@ -126,4 +126,5 @@ public class PlayerPilot : AbstractPilot {
     {
         GameUI.Instance.warpOnSpeed.SetActive(_ship.GetSpeedPercent() >= 0.8);
     }
+
 }
