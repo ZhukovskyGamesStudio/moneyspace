@@ -42,6 +42,9 @@ public abstract class IShip : MonoBehaviour {
 
     public abstract void Slowdown();
 
+
+    public abstract void SlowdownKeyDown();
+
     public abstract void FirePrime(Vector3 target);
 
     public abstract void FireSecond(Vector3 target);

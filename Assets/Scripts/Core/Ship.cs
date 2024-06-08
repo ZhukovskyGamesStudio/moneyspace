@@ -59,6 +59,9 @@ public class Ship : IShip {
     [SerializeField] private AudioSource _shipSounds;
     [SerializeField] private AudioClip _shipShot;
 
+    [SerializeField]
+    private float _decelerationSpeed = 1f;
+
     private float _shipSpeed = 0;
 
     public float ShipSpeed => _shipSpeed;
@@ -72,6 +75,9 @@ public class Ship : IShip {
     private float _shield;
 
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
+
+    private float _timeCounter;
+    private float _MaxTimeForCounter = 15;
     
     
 
@@ -87,6 +93,23 @@ public class Ship : IShip {
 
         
         _shipThrust.SetThrustLight(_shipSpeed/_shipMaxSpeed);
+
+
+        if (transform.position.x > Math.Abs(5000) || transform.position.y > Math.Abs(5000) || transform.position.z > Math.Abs(5000) )
+        {
+            Debug.Log($"Вы вылетели за пределы боевой зоны у вас осталось {_MaxTimeForCounter - _timeCounter} секунд что бы вернуться");
+            _timeCounter += Time.fixedDeltaTime;
+
+            if (_timeCounter > _MaxTimeForCounter)
+            {
+                TakeDamage(100000, _owner);
+            }
+            
+        }
+        else
+        {
+            _timeCounter = 0;
+        }
         
     }
 
@@ -172,7 +195,7 @@ public class Ship : IShip {
     }
 
     private void FlyForward() {
-        transform.position += transform.forward * _shipSpeed * Time.fixedDeltaTime;
+        transform.position += transform.forward * (_shipSpeed * Time.fixedDeltaTime);
     }
 
     public override void Accelerate() {
@@ -181,6 +204,11 @@ public class Ship : IShip {
     }
 
     public override void Slowdown() {
+        _shipSpeed -= _decelerationSpeed;
+        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
+    }
+    
+    public override void SlowdownKeyDown() {
         _shipSpeed -= _accelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
     }
