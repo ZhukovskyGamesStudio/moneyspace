@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,26 +6,36 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField]
     private ShipUpgradeDialog _shipUpgradeDialog;
 
+    [SerializeField]
+    private PlayerSelectDialog _playerSelectDialog;
+
     public ShipUpgradeDialog ShipUpgradeDialog => _shipUpgradeDialog;
-    
+
+    //TODO Add PlayerView
+
     [SerializeField]
     private CoinsView _coinsView;
 
     [SerializeField]
     private CoinsView _watchAdButtonCoinsView;
-    
+
     [SerializeField]
     private Button _playButton, _buyButton, _upgradesButton;
 
     private Action _onBuy;
 
     public static MainMenuUI Instance;
+
     private void Awake() {
         Instance = this;
     }
 
     public void ToggleShipUpgradeDialog() {
         _shipUpgradeDialog.Toggle();
+    }
+
+    public void TogglePlayerSelectDialog() {
+        _playerSelectDialog.Toggle();
     }
 
     public void Init() {
