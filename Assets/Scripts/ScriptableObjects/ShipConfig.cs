@@ -11,12 +11,17 @@ public class ShipConfig : ScriptableObject {
     [TextArea]
     public string Description;
 
+    public float UpperShiftOnShowcase = 0;
+
     [Header("FightParameters")]
     public int MaxHp;
     [Range(1,12)]
     public int SpeedMax;
     public int ShieldMax;
     public int AttackMax;
+
+    public int ShipCost = 1000000;
+    public int UpgradeCost = 100000;
 
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayersManager {
     private List<PlayerData> _blueTeam = new List<PlayerData>();
@@ -11,10 +10,11 @@ public class PlayersManager {
     public List<PlayerData> RedTeam => _redTeam;
 
     public void LoadPlayer() {
-        Team playerTeam = Team.Blue;//Random.Range(0, 2) == 0 ? Team.Blue : Team.Red;
+        Team playerTeam = Team.Blue; //Random.Range(0, 2) == 0 ? Team.Blue : Team.Red;
         RealPLayer = new PlayerData();
-        RealPLayer.Nickname = "RealPlayer";
+        RealPLayer.Nickname = SaveLoadManager.Profile.Nickname;
         RealPLayer.Team = playerTeam;
+        RealPLayer.AvatarIndex = SaveLoadManager.Profile.SelectedPlayerIcon;
         if (playerTeam == Team.Blue) {
             _blueTeam.Add(RealPLayer);
         } else {

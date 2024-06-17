@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,14 @@ public class ShipUpgradeBar : MonoBehaviour {
 
     [SerializeField]
     private Button _upgradeButton;
-    public void SetData(int have, int possible) {
+
+    [SerializeField]
+    private TextMeshProUGUI _upgradeCostText, _mainUpgradeButtonText;
+
+    [SerializeField]
+    private Image _coinIcon;
+
+    public void SetData(int have, int possible, int cost) {
         for (int index = 0; index < _pointViews.Count; index++) {
             UpgradePointView pointView = _pointViews[index];
             if (index < have) {
@@ -20,6 +28,20 @@ public class ShipUpgradeBar : MonoBehaviour {
             }
         }
 
-        _upgradeButton.interactable = have < possible;
+        SetUpgradeButton(have, possible, cost);
+    }
+
+    private void SetUpgradeButton(int have, int possible, int cost) {
+        if (have == possible) {
+            _upgradeButton.interactable = false;
+            _coinIcon.gameObject.SetActive(false);
+            _mainUpgradeButtonText.text = "Максимально";
+            _upgradeCostText.text = "улучшено";
+        } else {
+            _mainUpgradeButtonText.text = "Улучшить";
+            _upgradeButton.interactable = SaveLoadManager.Profile.CoinsAmount >= cost;
+            _coinIcon.gameObject.SetActive(true);
+            _upgradeCostText.text = CoinsView.GetDottedView(cost);
+        }
     }
 }

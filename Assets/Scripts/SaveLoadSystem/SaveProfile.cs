@@ -8,7 +8,7 @@ public class SaveProfile {
     public int SelectedShip = 0;
     public int SelectedPlayerIcon = 0;
     public string Nickname = "unknownPlayer";
-
+    public List<int> BoughtIcons = new List<int>();
     public List<ShipUpgradeData> ShipUpgradeDatas = new List<ShipUpgradeData>();
 
     public static SaveProfile Load(int profileIndex) {
@@ -38,6 +38,9 @@ public class SaveProfile {
                 new ShipUpgradeData() {
                     Type = ShipType.First
                 }
+            },
+            BoughtIcons = new List<int>() {
+                0,
             }
         };
     }

@@ -10,17 +10,43 @@ public class PlayerSelectDialog : MonoBehaviour {
     [SerializeField]
     private TMP_InputField _nicknameInput;
 
+    private List<PlayerAvatarGridView> _selectIconToggles = new List<PlayerAvatarGridView>();
+
     [SerializeField]
-    private List<Toggle> _selectIconToggles;
+    private PlayerAvatarGridView _togglePrefab;
+
+    [SerializeField]
+    private Transform _avatarsHolder;
+
+    [SerializeField]
+    private ToggleGroup _toggleGroup;
+
+    [SerializeField]
+    private TextMeshProUGUI _approveButtonText;
+
+    [SerializeField]
+    private Button _approveButton;
+
+    private int _selectedIconIndex = 0;
 
     private void Awake() {
-        for (int index = 0; index < _selectIconToggles.Count; index++) {
-            Toggle iconToggle = _selectIconToggles[index];
+        CreateIcons();
+    }
 
-            iconToggle.GetComponent<Image>().sprite = AvatarFactory.GetAvatar(index);
-            int noZamikanie = index;
-            iconToggle.onValueChanged.AddListener(isOn => { OnToggleIcon(isOn, noZamikanie); });
+    private void CreateIcons() {
+        int amount = AvatarFactory.AvatarsCount;
+        for (int i = 0; i < amount; i++) {
+            PlayerAvatarGridView view = Instantiate(_togglePrefab, _avatarsHolder);
+            _selectIconToggles.Add(view);
+            bool isBought = SaveLoadManager.Profile.BoughtIcons.Contains(i);
+            _selectIconToggles[i].SetData(i, isBought);
+            int noZamikanie = i;
+            view.Toggle.onValueChanged.AddListener(isOn => { OnToggleIcon(isOn, noZamikanie); });
+            view.Toggle.group = _toggleGroup;
         }
+
+        _selectedIconIndex = SaveLoadManager.Profile.SelectedPlayerIcon;
+        _selectIconToggles[_selectedIconIndex].Toggle.isOn = true;
     }
 
     public void Toggle() {
@@ -45,16 +71,48 @@ public class PlayerSelectDialog : MonoBehaviour {
             SaveLoadManager.Save();
         } else {
             _nicknameInput.SetTextWithoutNotify(SaveLoadManager.Profile.Nickname);
+            return;
         }
 
         UpdateView();
+        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
     }
 
     public void OnToggleIcon(bool isOn, int iconId) {
         if (isOn) {
-            SaveLoadManager.Profile.SelectedPlayerIcon = iconId;
-            SaveLoadManager.Save();
-            UpdateView();
+            _selectedIconIndex = iconId;
+            UpdateApproveButton();
         }
+    }
+
+    private void UpdateApproveButton() {
+        if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
+            int cost = MainConfigTable.Instance.MainGameConfig.IconCost;
+            _approveButton.interactable = SaveLoadManager.Profile.CoinsAmount >= cost;
+            _approveButtonText.text = "Купить";
+        } else {
+            _approveButton.interactable = true;
+            _approveButtonText.text = "Подтвердить";
+        }
+    }
+
+    public void ApproveButton() {
+        if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
+            int cost = MainConfigTable.Instance.MainGameConfig.IconCost;
+            if (SaveLoadManager.Profile.CoinsAmount >= cost) {
+                SaveLoadManager.Profile.CoinsAmount -= cost;
+                SaveLoadManager.Profile.BoughtIcons.Add(_selectedIconIndex);
+                SaveLoadManager.Save();
+                _selectIconToggles[_selectedIconIndex].SetIsBought(true);
+                UpdateApproveButton();
+            } else {
+                return;
+            }
+        }
+
+        SaveLoadManager.Profile.SelectedPlayerIcon = _selectedIconIndex;
+        SaveLoadManager.Save();
+        UpdateView();
+        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
     }
 }

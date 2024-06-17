@@ -30,6 +30,7 @@ public class MenuShipsView : MonoBehaviour {
             ship.enabled = false;
             ship.transform.rotation = _rotationPrefab.rotation;
             ship.transform.position += Vector3.right * _spacing * index;
+            ship.transform.position += Vector3.up * cnfg.UpperShiftOnShowcase;
             _ships.Add(ship);
         }
     }

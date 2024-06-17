@@ -11,10 +11,15 @@ public class MainMenuUI : MonoBehaviour {
 
     public ShipUpgradeDialog ShipUpgradeDialog => _shipUpgradeDialog;
 
+    [SerializeField]
+    private PlayerMainMenuView _playerMainMenuView;
+
     //TODO Add PlayerView
 
     [SerializeField]
     private CoinsView _coinsView;
+
+    public CoinsView CoinsView => _coinsView;
 
     [SerializeField]
     private CoinsView _watchAdButtonCoinsView;
@@ -38,12 +43,18 @@ public class MainMenuUI : MonoBehaviour {
         _playerSelectDialog.Toggle();
     }
 
+    public void CloseDialogs() {
+        _shipUpgradeDialog.gameObject.SetActive(false);
+        _playerSelectDialog.gameObject.SetActive(false);
+    }
+
     public void Init() {
         _watchAdButtonCoinsView.SetData(MainConfigTable.Instance.MainGameConfig.RewardForWatchAd);
     }
 
     public void SetData(SaveProfile profile) {
         _coinsView.SetData(profile.CoinsAmount);
+        _playerMainMenuView.UpdateData(profile);
     }
 
     public void SetButtonPlay() {

@@ -26,6 +26,7 @@ public class MainMenuManager : MonoBehaviour {
         SaveLoadManager.Profile.CoinsAmount += MainConfigTable.Instance.MainGameConfig.RewardForWatchAd;
         SaveLoadManager.Save();
         _mainMenuUI.SetData(SaveLoadManager.Profile);
+        _mainMenuUI.CloseDialogs();
         Debug.Log("WatchAdButton");
     }
 

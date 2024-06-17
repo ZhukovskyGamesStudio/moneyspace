@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,12 @@ public class ShipsPanel : MonoBehaviour {
     private Button _leftButton, _rightButton;
 
     private int _curShipIndex;
+
+    [SerializeField]
+    private GameObject _coinImage;
+
+    [SerializeField]
+    private TextMeshProUGUI _costText;
 
     private void Start() {
         Init();
@@ -36,15 +43,28 @@ public class ShipsPanel : MonoBehaviour {
     }
 
     public void UpdateView(int shipIndex) {
-        var curShipConfig = ShipsFactory.Ships[shipIndex];
+        ShipConfig curShipConfig = ShipsFactory.Ships[shipIndex];
         var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
         if (upgradeData != null) {
             MainMenuUI.Instance.SetButtonPlay();
             MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, upgradeData);
+            UpdateCostView(curShipConfig, true);
         } else {
+            UpdateCostView(curShipConfig, false);
             MainMenuUI.Instance.SetButtonBuy(OnBuySelectedShip);
         }
     }
+
+    private void UpdateCostView(ShipConfig config, bool isBought) {
+        if (isBought) {
+            _coinImage.SetActive(false);
+            _costText.text = config.ShipName;
+        } else {
+            _coinImage.SetActive(true);
+            _costText.text = CoinsView.GetDottedView(config.ShipCost);
+        }
+    }
+    
 
     private void UpdateButtonsState(int curIndex) {
         _leftButton.interactable = curIndex != 0;
@@ -53,10 +73,22 @@ public class ShipsPanel : MonoBehaviour {
 
     private void OnBuySelectedShip() {
         ShipConfig curShipConfig = ShipsFactory.Ships[_curShipIndex];
+        int cost = curShipConfig.ShipCost;
+        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+            MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
+            return;
+        } else {
+            SaveLoadManager.Profile.CoinsAmount -= cost;
+            MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
+        }
+        
+        
         ShipUpgradeData newData = curShipConfig.DefaultShipUpgrades.Copy;
         SaveLoadManager.Profile.ShipUpgradeDatas.Add(newData);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetButtonPlay();
+        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, newData);
+        UpdateCostView(curShipConfig, true);
     }
 }
