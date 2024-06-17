@@ -26,10 +26,13 @@ MonoBehaviour:
     \u0435\u0433\u043E \u0438\u0434\u0435\u0430\u043B\u044C\u043D\u044B\u043C \u0434\u043B\u044F
     \u0434\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043E\u0441\u0430\u0434
     \u0438 \u043D\u0435\u0441\u043F\u0435\u0448\u043D\u043E\u0433\u043E \u0431\u043E\u044F"
+  UpperShiftOnShowcase: 1.1
   MaxHp: 150
   SpeedMax: 4
   ShieldMax: 12
   AttackMax: 4
+  ShipCost: 1000000
+  UpgradeCost: 100000
   DefaultShipUpgrades:
     Type: 6
     Speed: 1
