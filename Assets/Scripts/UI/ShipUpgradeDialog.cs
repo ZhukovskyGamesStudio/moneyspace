@@ -33,9 +33,9 @@ public class ShipUpgradeDialog : MonoBehaviour {
     }
 
     private void UpdateView() {
-        _speedUpgrade.SetData(_upgradeData.Speed, _config.SpeedMax, _config.UpgradeCost);
-        _shieldUpgrade.SetData(_upgradeData.Shield, _config.ShieldMax, _config.UpgradeCost);
-        _attackUpgrade.SetData(_upgradeData.Attack, _config.AttackMax, _config.UpgradeCost);
+        _speedUpgrade.SetData(_upgradeData.Speed, _config.SpeedMax, _config.SpeedUpgradesCost[_upgradeData.Speed]);
+        _shieldUpgrade.SetData(_upgradeData.Shield, _config.ShieldMax, _config.ShieldUpgradesCost[_upgradeData.Shield]);
+        _attackUpgrade.SetData(_upgradeData.Attack, _config.AttackMax, _config.AttackUpgradesCost[_upgradeData.Attack]);
     }
 
     public void UpgradeSpeed() {

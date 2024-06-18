@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/ShipConfig", fileName = "ShipConfig", order = 0)]
@@ -21,6 +22,10 @@ public class ShipConfig : ScriptableObject {
     public int AttackMax;
 
     public int ShipCost = 1000000;
+
+    public List<int> AttackUpgradesCost = new List<int>();
+    public List<int> ShieldUpgradesCost = new List<int>();
+    public List<int> SpeedUpgradesCost = new List<int>();
     public int UpgradeCost = 100000;
 
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
