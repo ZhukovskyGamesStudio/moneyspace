@@ -38,6 +38,12 @@ public class ArShootAssist : MonoBehaviour {
     }
 
     private void RecalculateArHelperPos(Ship target, Ship owner) {
+        if (!target.VisibleChecker.IsVisible) {
+            _arShootHelper.SetActive(false);
+            return;
+        }
+
+        _arShootHelper.SetActive(true);
         Vector3 ACv = target.transform.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
         float angleA = Vector3.Angle(target.transform.forward, ACv);

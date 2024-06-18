@@ -36,7 +36,10 @@ public abstract class IShip : MonoBehaviour {
 
     public Action<AbstractPilot, AbstractPilot> OnDestroyed;
 
-    public VisibleChecker _visibleChecker;
+    [SerializeField]
+    private VisibleChecker _visibleChecker;
+
+    public VisibleChecker VisibleChecker => _visibleChecker;
 
     public abstract void Accelerate();
 

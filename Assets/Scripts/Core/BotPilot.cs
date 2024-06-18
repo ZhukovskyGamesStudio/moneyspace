@@ -58,8 +58,8 @@ public class BotPilot : AbstractPilot {
         }
 
         _marker.SetTarget(_ship.transform);
-        _ship._visibleChecker.OnVisibleAction += () => { ChangeMarkerVisibility(true); };
-        _ship._visibleChecker.OnInvisibleAction += () => { ChangeMarkerVisibility(false); };
+        _ship.VisibleChecker.OnVisibleAction += () => { ChangeMarkerVisibility(true); };
+        _ship.VisibleChecker.OnInvisibleAction += () => { ChangeMarkerVisibility(false); };
     }
 
     private void ChangeMarkerVisibility(bool isActive) {

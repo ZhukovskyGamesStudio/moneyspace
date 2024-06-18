@@ -8,11 +8,11 @@ public class Ship : IShip {
     private int _shiedRepairSpeed = 10;
 
     [SerializeField]
-    private float _overheatFromShoot = 0.1f, _overheatFromSecond = 0.025f ;
+    private float _overheatFromShoot = 0.1f, _overheatFromSecond = 0.025f;
 
     [SerializeField]
     private float decreaseOverheatSpeed = 0.1f;
-    
+
     [SerializeField]
     private float _shipMaxSpeed = 3;
 
@@ -34,7 +34,7 @@ public class Ship : IShip {
     [SerializeField]
     private Transform _model;
 
-    [SerializeField] 
+    [SerializeField]
     private ShipThrust _shipThrust;
 
     [SerializeField]
@@ -55,9 +55,11 @@ public class Ship : IShip {
     [SerializeField]
     private GameObject _warpOnShift;
 
+    [SerializeField]
+    private AudioSource _shipSounds;
 
-    [SerializeField] private AudioSource _shipSounds;
-    [SerializeField] private AudioClip _shipShot;
+    [SerializeField]
+    private AudioClip _shipShot;
 
     [SerializeField]
     private float _decelerationSpeed = 1f;
@@ -69,7 +71,7 @@ public class Ship : IShip {
     private float _rotationSpeed = 0;
 
     private bool _recoil = false;
-    
+
     private float _overheat;
     private int _hp;
     private float _shield;
@@ -78,8 +80,7 @@ public class Ship : IShip {
 
     private float _timeCounter;
     private float _MaxTimeForCounter = 15;
-    
-    
+    private bool _isOverheated = false;
 
     private void Start() {
         //Cursor.visible = false;
@@ -91,26 +92,18 @@ public class Ship : IShip {
         DecreaseOverheat();
         RepairShield();
 
-        
-        _shipThrust.SetThrustLight(_shipSpeed/_shipMaxSpeed);
+        _shipThrust.SetThrustLight(_shipSpeed / _shipMaxSpeed);
 
-
-        if (transform.position.x > Math.Abs(5000) || transform.position.y > Math.Abs(5000) || transform.position.z > Math.Abs(5000) )
-        {
+        if (transform.position.x > Math.Abs(5000) || transform.position.y > Math.Abs(5000) || transform.position.z > Math.Abs(5000)) {
             Debug.Log($"Вы вылетели за пределы боевой зоны у вас осталось {_MaxTimeForCounter - _timeCounter} секунд что бы вернуться");
             _timeCounter += Time.fixedDeltaTime;
 
-            if (_timeCounter > _MaxTimeForCounter)
-            {
+            if (_timeCounter > _MaxTimeForCounter) {
                 TakeDamage(100000, _owner);
             }
-            
-        }
-        else
-        {
+        } else {
             _timeCounter = 0;
         }
-        
     }
 
     private void RepairShield() {
@@ -135,7 +128,6 @@ public class Ship : IShip {
             _isOverheated = false;
         }
     }
-    
 
     public override void RotateBy(Vector3 rotVector) {
         /*if (Mathf.Abs(rotVector.x) < _minVertAngle) {
@@ -146,11 +138,11 @@ public class Ship : IShip {
             rotVector.y = 0;
         }*/
         MoveModel(rotVector);
-        
+
         rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.y = Mathf.Clamp(rotVector.y, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
         rotVector.z = Mathf.Clamp(rotVector.y, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
-        
+
         Vector3 rotDistance = new Vector3(rotVector.x * _vertRotation, rotVector.y * _vertRotation, rotVector.z * _horRotation) *
                               Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
@@ -207,7 +199,7 @@ public class Ship : IShip {
         _shipSpeed -= _decelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
     }
-    
+
     public override void SlowdownKeyDown() {
         _shipSpeed -= _accelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
@@ -232,8 +224,6 @@ public class Ship : IShip {
         }
     }
 
-    private bool _isOverheated = false;
-
     private IEnumerator RecoilCoroutine(float delay) {
         _recoil = true;
         yield return new WaitForSeconds(delay);
@@ -244,14 +234,13 @@ public class Ship : IShip {
         if (_recoil || _isOverheated || !gameObject.activeSelf) {
             return;
         }
-        
+
         _overheat += _overheatFromSecond;
         if (_overheat >= 1) {
             _overheat = 1;
             _isOverheated = true;
         }
 
-        
         StartCoroutine(RecoilCoroutine(0.03f));
         foreach (var VARIABLE in _secondCanons) {
             VARIABLE.Shoot(target, _owner);
@@ -260,7 +249,7 @@ public class Ship : IShip {
 
     public override void TakeDamage(int amount, AbstractPilot fromPilot) {
         PlayerData from = fromPilot.PlayerData;
-        float damageThroughShield =  amount - _shield;
+        float damageThroughShield = amount - _shield;
         _shield -= amount;
         if (_shield >= 0) {
             _shield3dView.ShowShield();
@@ -272,9 +261,9 @@ public class Ship : IShip {
         if (damageThroughShield <= 0) {
             return;
         }
-        
+
         _hp -= Mathf.RoundToInt(damageThroughShield);
-       
+
         if (_damageDealers.ContainsKey(from)) {
             _damageDealers[from] += amount;
         } else {
