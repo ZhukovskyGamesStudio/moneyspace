@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class MainMenuManager : MonoBehaviour {
     [SerializeField]
@@ -23,11 +24,22 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     public void WatchAdButton() {
-        SaveLoadManager.Profile.CoinsAmount += MainConfigTable.Instance.MainGameConfig.RewardForWatchAd;
-        SaveLoadManager.Save();
+#if UNITY_EDITOR
+        GiveCoinsAfterRewAd();
+#else
+        YgHandler handler = new YgHandler();
+        handler.ShowRewarded(GiveCoinsAfterRewAd);
+#endif
+
         _mainMenuUI.SetData(SaveLoadManager.Profile);
         _mainMenuUI.CloseDialogs();
+
         Debug.Log("WatchAdButton");
+    }
+
+    private void GiveCoinsAfterRewAd() {
+        SaveLoadManager.Profile.CoinsAmount += MainConfigTable.Instance.MainGameConfig.RewardForWatchAd;
+        SaveLoadManager.Save();
     }
 
     public void OpenPlayerData() {
