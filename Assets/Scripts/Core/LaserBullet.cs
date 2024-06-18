@@ -36,7 +36,7 @@ public class LaserBullet : MonoBehaviour {
 
     private void Explode(Collision collision) {
         Vector3 normal = collision.GetContact(0).normal;
-        Explosion explosion = Instantiate(_explosion, transform.position, quaternion.identity, collision.GetContact(0).otherCollider.transform);
+        Explosion explosion = Instantiate(_explosion, collision.GetContact(0).point, quaternion.identity);
         explosion.transform.up = normal;
     }
 }
