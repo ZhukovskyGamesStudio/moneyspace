@@ -80,8 +80,10 @@ public class PlayerPilot : AbstractPilot {
         }
 
         if (Input.GetKeyDown(KeyCode.X)) {
-            var bot = GameManager.Instance.PilotsManager.Pilots.First(p => p.PlayerData.isBot);
-            GameUI.Instance._arView.ArShootAssist.Activate(bot.Ship, _ship as Ship);
+            AbstractPilot bot = AcquireTarget();
+            if (bot != null) {
+                GameUI.Instance._arView.ArShootAssist.Activate(bot.Ship, _ship as Ship); 
+            }
         }
 
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
@@ -96,6 +98,10 @@ public class PlayerPilot : AbstractPilot {
         _ship.RotateBy(rotVector + TrySideRotate());
         
         TurnSpeedParticles();
+    }
+
+    private AbstractPilot AcquireTarget() {
+        return  GameManager.Instance.PilotsManager.Pilots.First(p => p.PlayerData.isBot);
     }
 
     private void FirePrime() {

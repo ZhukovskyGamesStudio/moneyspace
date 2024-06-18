@@ -8087,12 +8087,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1379893705}
+  - {fileID: 1860398672}
   - {fileID: 281462544}
   - {fileID: 1404729199}
   - {fileID: 212017201}
-  - {fileID: 1146404248}
-  - {fileID: 1860398672}
   - {fileID: 1390092899}
+  - {fileID: 1146404248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
