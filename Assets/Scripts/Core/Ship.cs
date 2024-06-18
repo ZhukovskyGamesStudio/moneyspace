@@ -8,7 +8,7 @@ public class Ship : IShip {
     private int _shiedRepairSpeed = 10;
 
     [SerializeField]
-    private float _overheatFromShoot = 0.1f;
+    private float _overheatFromShoot = 0.1f, _overheatFromSecond = 0.025f ;
 
     [SerializeField]
     private float decreaseOverheatSpeed = 0.1f;
@@ -223,10 +223,10 @@ public class Ship : IShip {
             _overheat = 1;
             _isOverheated = true;
         }
-        
+
         _shipSounds.PlayOneShot(_shipShot);
 
-        StartCoroutine(RecoilCoroutine());
+        StartCoroutine(RecoilCoroutine(0.3f));
         foreach (var VARIABLE in _primeCanons) {
             VARIABLE.Shoot(target, _owner);
         }
@@ -234,17 +234,25 @@ public class Ship : IShip {
 
     private bool _isOverheated = false;
 
-    private IEnumerator RecoilCoroutine() {
+    private IEnumerator RecoilCoroutine(float delay) {
         _recoil = true;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(delay);
         _recoil = false;
     }
 
     public override void FireSecond(Vector3 target) {
-        if (!gameObject.activeSelf) {
+        if (_recoil || _isOverheated || !gameObject.activeSelf) {
             return;
         }
+        
+        _overheat += _overheatFromSecond;
+        if (_overheat >= 1) {
+            _overheat = 1;
+            _isOverheated = true;
+        }
 
+        
+        StartCoroutine(RecoilCoroutine(0.03f));
         foreach (var VARIABLE in _secondCanons) {
             VARIABLE.Shoot(target, _owner);
         }
