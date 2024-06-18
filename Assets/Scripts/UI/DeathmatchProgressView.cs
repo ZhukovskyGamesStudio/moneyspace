@@ -20,8 +20,8 @@ public class DeathmatchProgressView : MonoBehaviour {
     }
 
     public void SetData(float bluePercent, int blueCount, float redPercent, int redCount) {
-        _blueSlider.value = redPercent;
-        _redSlider.value = bluePercent;
+        _blueSlider.value = bluePercent;
+        _redSlider.value = redPercent;
         _blueText.text = blueCount.ToString();
         _redText.text = redCount.ToString();
     }
