@@ -129,7 +129,7 @@ public class PlayerPilot : AbstractPilot {
             sideRot += Vector3.forward;
         }
 
-        return sideRot;
+        return sideRot* ShipsFactory.ShipStatsGeneralConfig.TechicalParams.PlayerSideRotationSpeed;
     }
     
     private void TurnSpeedParticles()

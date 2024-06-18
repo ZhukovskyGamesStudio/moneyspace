@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/ShipStatsGeneralConfig", fileName = "ShipStatsGeneralConfig", order = 0)]
 public class ShipStatsGeneralConfig : ScriptableObject {
     public int ShieldPerPoint;
+    
 
     public int LaserDamage;
     
     public float LaserSpeed = 100;
-
+    public TechicalShipParameters TechicalParams = new TechicalShipParameters();
     [Header("BotParameters")]
     [Range(0,180)]
     public float BotShootAngle;
@@ -27,4 +29,8 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     public float BotShootDesirableSpeed;
     [Range(0,1)]
     public float BotEvadeDesirableSpeed;
+}
+[Serializable]
+public class TechicalShipParameters {
+    public float PlayerSideRotationSpeed = 35;
 }

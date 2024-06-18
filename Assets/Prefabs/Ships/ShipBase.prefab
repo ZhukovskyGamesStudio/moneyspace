@@ -368,6 +368,7 @@ MonoBehaviour:
   _visibleChecker: {fileID: 0}
   _shiedRepairSpeed: 10
   _overheatFromShoot: 0.1
+  _overheatFromSecond: 0.025
   decreaseOverheatSpeed: 0.15
   _shipMaxSpeed: 80
   _accelerationSpeed: 4
@@ -388,6 +389,10 @@ MonoBehaviour:
   - {fileID: 1703878092107300275}
   _cameraFollowTarget: {fileID: 7954330405090410225}
   _shield3dView: {fileID: 7429014968897679024}
+  _warpOnShift: {fileID: 0}
+  _shipSounds: {fileID: 0}
+  _shipShot: {fileID: 0}
+  _decelerationSpeed: 1
 --- !u!54 &1528794068189995415
 Rigidbody:
   m_ObjectHideFlags: 0
