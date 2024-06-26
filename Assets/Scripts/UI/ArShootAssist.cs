@@ -1,18 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArShootAssist : MonoBehaviour {
+   
+    [Header("Shoot Assist")]
     [SerializeField]
     private GameObject _arShootHelper;
+
+    [SerializeField]
+    private GameObject _round, _arrow;
+
+    [Header("Target Lock")]
+    [SerializeField]
+    private GameObject _targetLocked;
+
+    [SerializeField]
+    private Slider _hpSlider;
+
+    [SerializeField]
+    private Image _sliderFill;
+
+    [SerializeField]
+    private TextMeshProUGUI _targetNickname;
+
+    [SerializeField]
+    private Color _hpColor, _shieldColor;
 
     private Ship _target, _owner;
     private bool _isActive;
     private float _laserSpeed;
+    private static float SHOOT_HELPER_ARROW_RADIUS = 400;
+
+    [SerializeField]
+    private float _minLockDistance, _maxLockDistance;
+    [SerializeField]
+    private float _minLockSize, _maxLockSize;
 
     private void Start() {
         _laserSpeed = ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
+        Deactivate();
     }
 
     public void Activate(Ship target, Ship ship) {
@@ -20,11 +50,13 @@ public class ArShootAssist : MonoBehaviour {
         _owner = ship;
         _isActive = true;
         _arShootHelper.gameObject.SetActive(true);
+        _targetLocked.gameObject.SetActive(false);
     }
 
     public void Deactivate() {
         _isActive = false;
         _arShootHelper.gameObject.SetActive(false);
+        _targetLocked.gameObject.SetActive(false);
     }
 
     public void UpdatePos() {
@@ -39,10 +71,27 @@ public class ArShootAssist : MonoBehaviour {
 
     private void RecalculateArHelperPos(Ship target, Ship owner) {
         if (!target.VisibleChecker.IsVisible) {
-            _arShootHelper.SetActive(false);
+            Vector3 finPos = Camera.main.WorldToScreenPoint(target.transform.position);
+
+            //_arShootHelper.SetActive(false);
+            _arrow.SetActive(true);
+            _round.SetActive(false);
+            
+            Vector3 dirFromCenter = finPos - transform.position;
+            if (dirFromCenter.magnitude > SHOOT_HELPER_ARROW_RADIUS) {
+                finPos = transform.position + dirFromCenter.normalized * SHOOT_HELPER_ARROW_RADIUS;
+            }
+            LerpShootHelper(finPos);
+            _arrow.transform.localRotation = Quaternion.FromToRotation(Vector3.up, dirFromCenter);
+            _targetLocked.gameObject.SetActive(false);
             return;
         }
-
+        _targetLocked.gameObject.SetActive(true);
+        _targetLocked.transform.position =  Camera.main.WorldToScreenPoint(target.transform.position);
+        
+        _arrow.SetActive(false);
+        _round.SetActive(true);
+        
         _arShootHelper.SetActive(true);
         Vector3 ACv = target.transform.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
@@ -62,7 +111,24 @@ public class ArShootAssist : MonoBehaviour {
 
         float AB = (float)rootsList.First(r => r > 0);
         Vector3 posToShootAt = target.transform.position + target.transform.forward * AB;
-        Vector3 lerpedPos = Vector3.Lerp(_arShootHelper.transform.position, Camera.main.WorldToScreenPoint(posToShootAt), 0.1f);
+       
+        LerpShootHelper(Camera.main.WorldToScreenPoint(posToShootAt));
+        UpdateTargetLock();
+    }
+
+    private void UpdateTargetLock() {
+        _targetNickname.text = _target.GetOwner().PlayerData.Nickname;
+        _sliderFill.color = Color.Lerp(_hpColor, _shieldColor, Mathf.Max(_target.GetShieldPercent() - 0.1f, 0));
+        _hpSlider.value = _target.GetHpPercent();
+
+
+        Vector3 dist = _target.transform.position - Camera.main.transform.position;
+        float sizePercent = 1 -Math.Clamp(dist.magnitude, _minLockDistance, _maxLockDistance) / _maxLockDistance;
+        _targetLocked.transform.localScale = Vector3.one * Mathf.Lerp(_minLockSize, _maxLockSize, sizePercent);
+    }
+
+    private void LerpShootHelper(Vector3 target) {
+        Vector3 lerpedPos = Vector3.Lerp(_arShootHelper.transform.position, target, 0.1f);
         _arShootHelper.transform.position = lerpedPos;
     }
 }

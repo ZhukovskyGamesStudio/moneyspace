@@ -27,6 +27,10 @@ public abstract class IShip : MonoBehaviour {
         _owner = data;
     }
 
+    public AbstractPilot GetOwner() {
+        return _owner;
+    }
+    
     protected AbstractPilot _owner;
     public abstract void RotateBy(Vector3 rotVector);
     public abstract float GetSpeedPercent();

@@ -89,6 +89,8 @@ public class PlayerPilot : AbstractPilot {
             if (target != null && target != _curTarget) {
                 GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
                 _curTarget = target;
+            }else if (_curTarget != null & target == null) {
+                GameUI.Instance._arView.ArShootAssist.Deactivate();
             }
         }
 

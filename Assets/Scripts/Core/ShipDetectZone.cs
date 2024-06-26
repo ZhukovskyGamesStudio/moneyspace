@@ -25,6 +25,10 @@ public class ShipDetectZone : MonoBehaviour {
         if (collShip == null || collShip == _playerShip) {
             return;
         }
+
+        if (collShip.GetOwner().PlayerData.Team == Team.Blue) {
+            return;
+        }
         
 
         if (_shipsInsideDetection.Contains(collShip)) {
