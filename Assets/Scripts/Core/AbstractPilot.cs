@@ -4,18 +4,22 @@ using UnityEngine;
 public class AbstractPilot : MonoBehaviour {
     protected IShip _ship;
     protected PlayerData _playerData;
+    protected bool _isActive = false;
     public PlayerData PlayerData => _playerData;
     public Ship Ship => _ship as Ship;
 
     public ShipType ShipType => _ship.ShipType;
     public virtual void Init() { }
 
-    public virtual void Activate() { }
+    public virtual void Activate() {
+        _isActive = true;
+    }
 
     public virtual void DeActivate() {
-        enabled = false;
+        _isActive = false;
         StopAllCoroutines();
         _ship.gameObject.SetActive(false);
+        enabled = false;
     }
 
     public void SetPlayerData(PlayerData data) {
@@ -47,11 +51,12 @@ public class AbstractPilot : MonoBehaviour {
         GameUI.Instance.KillsTray.AddToTray(killer,victim);
     }
 
-    protected void RespawnShip() {
+    protected virtual void RespawnShip() {
         Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(_playerData.Team);
         transform.SetParent(spawnPoint);
         _ship.transform.position = spawnPoint.position;
         _ship.gameObject.SetActive(true);
         _ship.Respawn();
+        
     }
 }

@@ -9,6 +9,11 @@ public class GameUI : MonoBehaviour {
     public ARView _arView;
 
     [SerializeField]
+    private GameObject _targetMessage;
+
+    public GameObject TargetMessage => _targetMessage;
+
+    [SerializeField]
     public PlayerHpView _playerHpView;
 
     [SerializeField]

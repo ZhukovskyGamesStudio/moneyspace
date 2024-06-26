@@ -25,6 +25,7 @@ public class BotPilot : AbstractPilot {
     }
 
     public override void Activate() {
+        base.Activate();
         FindTarget();
     }
 
@@ -194,6 +195,9 @@ public class BotPilot : AbstractPilot {
     private IEnumerator RespawnCoroutine() {
         _state = BotState.Respawn;
         yield return new WaitForSeconds(MainConfigTable.Instance.MainGameConfig.BotRespawnTime);
+        if (!_isActive) {
+            yield break;
+        }
         RespawnShip();
         FindTarget();
     }

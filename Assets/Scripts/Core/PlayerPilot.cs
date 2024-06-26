@@ -52,6 +52,11 @@ public class PlayerPilot : AbstractPilot {
         GameUI.Instance._arView.SetActive(true);
     }
 
+    protected override void RespawnShip() {
+        base.RespawnShip();
+        ShipDetectZone.Instance.SetPlayerShip(_ship as Ship);
+    }
+
     private void Update() {
         GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
         GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
@@ -80,9 +85,10 @@ public class PlayerPilot : AbstractPilot {
         }
 
         if (Input.GetKeyDown(KeyCode.X)) {
-            AbstractPilot bot = AcquireTarget();
-            if (bot != null) {
-                GameUI.Instance._arView.ArShootAssist.Activate(bot.Ship, _ship as Ship); 
+            Ship target = TryAcquireTarget();
+            if (target != null && target != _curTarget) {
+                GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
+                _curTarget = target;
             }
         }
 
@@ -98,10 +104,28 @@ public class PlayerPilot : AbstractPilot {
         _ship.RotateBy(rotVector + TrySideRotate());
         
         TurnSpeedParticles();
+        UpdateTargetMessageView();
     }
 
-    private AbstractPilot AcquireTarget() {
-        return  GameManager.Instance.PilotsManager.Pilots.First(p => p.PlayerData.isBot);
+    private Ship _curTarget;
+    
+    private void UpdateTargetMessageView() {
+        bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
+        if (!canHaveTarget) {
+            GameUI.Instance.TargetMessage.SetActive(false);
+            return;
+        }
+
+        Ship nextTarget = ShipDetectZone.Instance.GetClosestShip();
+        GameUI.Instance.TargetMessage.SetActive(nextTarget != _curTarget);
+    }
+
+    private Ship TryAcquireTarget() {
+        bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
+        if (!canHaveTarget) {
+            return null;
+        }
+        return ShipDetectZone.Instance.GetClosestShip();
     }
 
     private void FirePrime() {
