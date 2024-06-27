@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
-    public static float FightRadius; 
 
     public RespawnManager RespawnManager = new RespawnManager();
     

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AbstractPilot : MonoBehaviour {
     protected IShip _ship;
@@ -54,7 +55,7 @@ public class AbstractPilot : MonoBehaviour {
     protected virtual void RespawnShip() {
         Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(_playerData.Team);
         transform.SetParent(spawnPoint);
-        _ship.transform.position = spawnPoint.position;
+        _ship.transform.position = spawnPoint.position + Random.insideUnitSphere * 50;
         _ship.gameObject.SetActive(true);
         _ship.Respawn();
         

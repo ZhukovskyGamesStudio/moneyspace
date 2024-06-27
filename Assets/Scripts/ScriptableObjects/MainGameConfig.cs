@@ -6,6 +6,7 @@ public class MainGameConfig : ScriptableObject {
     public int StartingPointsInEachTeam = 2;
     public int PlayersInGameAmount = 20;
     public float BotRespawnTime = 10;
+    public float FightRadius = 5000;
 
     [Header("Costs & Rewards")]
     public int RewardForWatchAd = 100000;

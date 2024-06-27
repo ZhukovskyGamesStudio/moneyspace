@@ -29,8 +29,17 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     public float BotShootDesirableSpeed;
     [Range(0,1)]
     public float BotEvadeDesirableSpeed;
+
+    public float BotRandomShootDelta = 10;
+    public float BotRandomShootChance = 0.5f;
+    public float BotRandomEvadePointDelta = 150;
+    public float BotRandomChasePointDelta = 10;
 }
 [Serializable]
 public class TechicalShipParameters {
     public float PlayerSideRotationSpeed = 35;
+    public float _verticalMaxRotationSpeed = 10, _horizontalMaxRotationSpeed = 10;
+    public float _horRotation = 1, _vertRotation = 1;
+    public float BotRotationSlerp;
+
 }

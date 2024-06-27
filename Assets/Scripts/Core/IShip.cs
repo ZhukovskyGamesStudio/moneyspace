@@ -33,6 +33,8 @@ public abstract class IShip : MonoBehaviour {
     
     protected AbstractPilot _owner;
     public abstract void RotateBy(Vector3 rotVector);
+    
+    public abstract void RotateTo(Quaternion rotVector);
     public abstract float GetSpeedPercent();
     public abstract float GetOverheatPercent();
     public abstract float GetHpPercent();

@@ -18,12 +18,7 @@ public class Ship : IShip {
 
     [SerializeField]
     private float _accelerationSpeed = 4f;
-
-    [SerializeField]
-    private float _horRotation = 1, _vertRotation = 1;
-
-    [SerializeField]
-    private float _verticalMaxRotationSpeed = 10, _horizontalMaxRotationSpeed = 10;
+    
 
     [SerializeField]
     private float _modelRotation = 30f;
@@ -130,14 +125,22 @@ public class Ship : IShip {
 
     public override void RotateBy(Vector3 rotVector) {
         MoveModel(rotVector);
+        var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
 
-        rotVector.x = Mathf.Clamp(rotVector.x, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
-        rotVector.y = Mathf.Clamp(rotVector.y, -_verticalMaxRotationSpeed, _verticalMaxRotationSpeed);
-        rotVector.z = Mathf.Clamp(rotVector.z, -_horizontalMaxRotationSpeed, _horizontalMaxRotationSpeed);
+        rotVector.x = Mathf.Clamp(rotVector.x, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
+        rotVector.y = Mathf.Clamp(rotVector.y, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
+        rotVector.z = Mathf.Clamp(rotVector.z, -tech._horizontalMaxRotationSpeed, tech._horizontalMaxRotationSpeed);
 
-        Vector3 rotDistance = new Vector3(rotVector.x * _vertRotation, rotVector.y * _vertRotation, rotVector.z * _horRotation) *
+        Vector3 rotDistance = new Vector3(rotVector.x * tech._vertRotation, rotVector.y * tech._vertRotation, rotVector.z * tech._horRotation) *
                               Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
+    }
+
+    public override void RotateTo(Quaternion quaternion) {
+        //MoveModel(quaternion.eulerAngles);
+        TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation,quaternion,tech.BotRotationSlerp);// Quaternion.Slerp(Quaternion.identity,  quaternion,tech._vertRotation* Time.deltaTime);
     }
 
     public override float GetSpeedPercent() {
@@ -157,7 +160,8 @@ public class Ship : IShip {
     }
 
     private void MoveModel(Vector3 rotVector) {
-        Vector3 modelRotVector = new Vector3(rotVector.x * _vertRotation, 0, -rotVector.y * _vertRotation) * _modelRotation;
+        var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
+        Vector3 modelRotVector = new Vector3(rotVector.x * tech._vertRotation, 0, -rotVector.y * tech._vertRotation) * _modelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
         modelShift.z = 0;
