@@ -316,28 +316,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 901623299330072289, guid: ec315299552ca1e4bab3a8c8b05a8d5c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7028099737024590141}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec315299552ca1e4bab3a8c8b05a8d5c, type: 3}
---- !u!1 &1579416885763860981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 901623299330072289, guid: ec315299552ca1e4bab3a8c8b05a8d5c, type: 3}
-  m_PrefabInstance: {fileID: 1830716371000735508}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7028099737024590141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1579416885763860981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c72efb8e5494221ab058aa836792ad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2069009019347148574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 422945198075127818, guid: ec315299552ca1e4bab3a8c8b05a8d5c, type: 3}
@@ -549,10 +529,6 @@ PrefabInstance:
       propertyPath: _modelRotation
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
-      propertyPath: _visibleChecker
-      value: 
-      objectReference: {fileID: 7028099737024590141}
     - target: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
       propertyPath: _shiedRepairSpeed
       value: 4
