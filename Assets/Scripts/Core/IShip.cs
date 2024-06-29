@@ -43,6 +43,8 @@ public abstract class IShip : MonoBehaviour {
     public abstract float GetHpPercent();
     public abstract float GetShieldPercent();
 
+    public abstract int GetLaserDamage();
+
     public Action<AbstractPilot, AbstractPilot> OnDestroyed;
 
     [SerializeField]

@@ -213,6 +213,10 @@ public class Ship : IShip {
         return _shield / (MaxShied + 0f);
     }
 
+    public override int GetLaserDamage() {
+        return _shipUpgradeData.Attack * ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
+    }
+
     private void MoveModel(Vector3 rotVector) {
         var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
         Vector3 modelRotVector = new Vector3(rotVector.x * tech._vertRotation, 0, -rotVector.y * tech._vertRotation) * _modelRotation;

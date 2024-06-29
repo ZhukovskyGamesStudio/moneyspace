@@ -26,7 +26,7 @@ public class LaserBullet : MonoBehaviour {
         if (rb != null) {
             Ship ship = rb.GetComponent<Ship>();
             if (ship != null) {
-                ship.TakeDamage(ShipsFactory.ShipStatsGeneralConfig.LaserDamage, _owner);
+                ship.TakeDamage(_owner.Ship.GetLaserDamage(), _owner);
             }
         }
 

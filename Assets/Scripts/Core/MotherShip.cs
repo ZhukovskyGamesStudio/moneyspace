@@ -1,73 +1,39 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
-    public class MotherShip : MonoBehaviour
-    {
-        [SerializeField] private List<GameObject> _littleGunsOfMatherShip = new List<GameObject>();
+public class MotherShip : MonoBehaviour {
+    [SerializeField]
+    private GameObject _targetOfMatherShip;
 
-        [SerializeField] private List<GameObject> _bigGunsOfMatherShip = new List<GameObject>();
+    [SerializeField]
+    private float _lasersDelay = 2;
 
-        [SerializeField] private GameObject _littleBullet;
-        
-        [SerializeField] private GameObject _BigBullet;
+    [SerializeField]
+    private List<LaserCanon> _lasers = new List<LaserCanon>();
 
-        [SerializeField] private GameObject _targetOfMatherShip;
+    [SerializeField]
+    private List<LaserCanon> _bigLasers = new List<LaserCanon>();
 
-        [SerializeField] private bool _isRed = false;
-
-        [SerializeField] private float _lasersDelay = 2;
-
-        [SerializeField] private List<LaserCanon> _lasers = new List<LaserCanon>();
-        [SerializeField] private List<LaserCanon> _bigLasers = new List<LaserCanon>();
-
-
-        private void Start()
-        {
-            StartCoroutine(ShootCoroutine());
-            StartCoroutine(BigShootCoroutine());
-        }
-
-        private void ShootLasers()
-        {
-            foreach (var VARIABLE in _lasers)
-            {
-                VARIABLE.Shoot(_targetOfMatherShip.transform.position, null);
-            }
-            
-        }
-        
-        private void ShootBigLasers()
-        {
-            foreach (var VARIABLE in _bigLasers)
-            {
-                VARIABLE.Shoot(_targetOfMatherShip.transform.position, null);
-            }
-            
-        }
-
-        private IEnumerator ShootCoroutine()
-        {
-            while (true)
-            {
-                ShootLasers();
-                yield return new WaitForSeconds(_lasersDelay);
-            }
-        }
-        
-        private IEnumerator BigShootCoroutine()
-        {
-            while (true)
-            {
-                ShootBigLasers();
-                yield return new WaitForSeconds(_lasersDelay);
-            }
-        }
-
+    private void Start() {
+        StartCoroutine(ShootCoroutine(_lasers));
+        StartCoroutine(ShootCoroutine(_bigLasers));
     }
 
-    
+    private IEnumerator ShootCoroutine(List<LaserCanon> lasers) {
+        while (true) {
+            ShootLasers(lasers);
+            yield return new WaitForSeconds(_lasersDelay);
+        }
+    }
+
+    private void ShootLasers(List<LaserCanon> lasers) {
+        if (_targetOfMatherShip == null) {
+            return;
+        }
+
+        foreach (LaserCanon canon in lasers) {
+            canon.Shoot(_targetOfMatherShip.transform.position, null);
+        }
+    }
 }

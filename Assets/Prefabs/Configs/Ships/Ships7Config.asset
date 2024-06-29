@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 4a354b2c8d1709b449e4341326267f6c, type: 3}
   Icon: {fileID: 21300000, guid: a19da5b0a2f4ee146989d160116575a7, type: 3}
-  ShipType: -1
+  ShipType: 7
   ShipName: "\u041B\u0435\u0432\u0438\u0430\u0444\u0430\u043D"
   Description: "\u041B\u0435\u0432\u0438\u0430\u0444\u0430\u043D \u0431\u044B\u043B
     \u0444\u043B\u0430\u0433\u043C\u0430\u043D\u043E\u043C \u0432\u0435\u043B\u0438\u043A\u043E\u0433\u043E
@@ -39,7 +39,7 @@ MonoBehaviour:
   ShieldUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
   SpeedUpgradesCost: e8030000d0070000b80b0000a00f00008813000070170000581b0000401f00002823000010270000f82a0000
   DefaultShipUpgrades:
-    Type: -1
+    Type: 7
     Speed: 1
     Shield: 12
     Attack: 12
