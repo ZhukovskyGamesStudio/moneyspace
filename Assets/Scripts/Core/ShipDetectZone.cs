@@ -12,6 +12,7 @@ public class ShipDetectZone : MonoBehaviour {
 
     private List<Ship> _shipsInsideDetection = new List<Ship>();
     private Ship _playerShip;
+   
     
     public void SetPlayerShip(Ship playerShip) {
         _playerShip = playerShip;

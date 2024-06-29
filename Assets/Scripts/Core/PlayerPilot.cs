@@ -30,7 +30,7 @@ public class PlayerPilot : AbstractPilot {
         var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.First(s => s.Type == _ship.ShipType);
         _ship.InitFromConfig(shipConfig, upgradeData);
         _ship.name = "PlayerShip";
-        _ship.OnDestroyed += OnShipDestroyed;
+        _ship.OnDestroyed += OnShipDestroyed;  
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
     }
 
@@ -48,7 +48,9 @@ public class PlayerPilot : AbstractPilot {
         GameUI.Instance._arView.SetActive(false);
         GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
         ClearTarget();
+        GameUI.Instance.TargetMessage.SetActive(false);
         ShipDetectZone.Instance.ClearList();
+        GameUI.Instance.warpOnSpeed.SetActive(false);
     }
 
     private void PlayerRespawn() {
@@ -62,6 +64,9 @@ public class PlayerPilot : AbstractPilot {
     }
 
     private void Update() {
+        if (!_ship.gameObject.activeSelf) {
+            return;
+        }
         GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
         GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
         if (Input.GetKey(KeyCode.W)) {
@@ -99,8 +104,6 @@ public class PlayerPilot : AbstractPilot {
         UpdateTargetMessageView();
         UpdateSpeedAndRotation();
     }
-    
-    
 
     private void UpdateSpeedAndRotation() {
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
@@ -112,7 +115,7 @@ public class PlayerPilot : AbstractPilot {
 
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
         _ship.RotateByV = rotVector + TrySideRotate();
-        
+
         TurnSpeedParticles();
     }
 
