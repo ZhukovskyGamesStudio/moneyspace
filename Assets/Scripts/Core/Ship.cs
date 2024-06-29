@@ -97,6 +97,25 @@ public class Ship : IShip {
         }
     }
 
+    private void OnCollisionEnter(Collision collision) {
+        var rb = collision.collider.attachedRigidbody;
+        if (rb == null) {
+            return;
+        }
+        
+        //столкновение с лазерами обрабатываются на стороне лазера
+        if (rb.GetComponent<LaserBullet>() != null) {
+            return;
+        }
+        
+        TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
+        
+        Ship otherShip = rb.GetComponent<Ship>();
+        if (otherShip != null) {
+            otherShip.TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
+        }
+    }
+
     private void RepairShield() {
         if (_shield >= MaxShied) {
             return;

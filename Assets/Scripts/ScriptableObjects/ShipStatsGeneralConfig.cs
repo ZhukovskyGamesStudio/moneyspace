@@ -9,6 +9,10 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     public int LaserDamage;
     
     public float LaserSpeed = 100;
+
+
+
+    public int DamageFromCollision = 100;
     public TechicalShipParameters TechicalParams = new TechicalShipParameters();
     [Header("BotParameters")]
     [Range(0,180)]

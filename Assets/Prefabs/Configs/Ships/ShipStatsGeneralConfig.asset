@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ShipStatsGeneralConfig
   m_EditorClassIdentifier: 
   ShieldPerPoint: 15
-  SpeedMaxPerPoint: 3
+  SpeedMaxPerPoint: 60
   LaserDamage: 15
   LaserSpeed: 600
+  DamageFromCollision: 50
   TechicalParams:
     PlayerSideRotationSpeed: 35
     _verticalMaxRotationSpeed: 360
