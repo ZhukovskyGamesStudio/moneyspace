@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,7 +94,14 @@ public class PlayerPilot : AbstractPilot {
                 ClearTarget();
             }
         }
+        
+        UpdateTargetMessageView();
+        UpdateSpeedAndRotation();
+    }
+    
+    
 
+    private void UpdateSpeedAndRotation() {
         Vector2 shift = Input.mousePosition - new Vector3(Screen.width, Screen.height) / 2;
         if (shift.magnitude < _minDistanceToRotate) {
             shift *= _minRotationMuliplier;
@@ -102,11 +110,9 @@ public class PlayerPilot : AbstractPilot {
         }
 
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
-
-        _ship.RotateBy(rotVector + TrySideRotate());
-
+        _ship.RotateByV = rotVector + TrySideRotate();
+        
         TurnSpeedParticles();
-        UpdateTargetMessageView();
     }
 
     private void LockOnTarget(Ship target) {

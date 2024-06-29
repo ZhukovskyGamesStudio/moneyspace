@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ship : IShip {
     [SerializeField]
@@ -73,13 +74,29 @@ public class Ship : IShip {
     private float _timeCounter;
     private float _MaxTimeForCounter = 15;
     private bool _isOverheated = false;
+    private bool _isBouncing = false;
+    private Quaternion _randomBounceDirection;
+
+   
 
     private void Start() {
         //Cursor.visible = false;
     }
 
     private void FixedUpdate() {
-        FlyForward();
+      
+        RotateBy(RotateByV);
+        RotateTo(RotateToQ);
+        
+        if (_isBouncing) {
+            RotateTo(_randomBounceDirection);
+            RotateTo(_randomBounceDirection);
+            Accelerate();
+            FlyBackward();
+        } else {
+            FlyForward();
+        }
+
         DecreaseOverheat();
         RepairShield();
 
@@ -98,22 +115,37 @@ public class Ship : IShip {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        var rb = collision.collider.attachedRigidbody;
+        Rigidbody rb = collision.collider.attachedRigidbody;
         if (rb == null) {
             return;
         }
-        
+
+        if (_isBouncing) {
+            return;
+        }
+
         //столкновение с лазерами обрабатываются на стороне лазера
         if (rb.GetComponent<LaserBullet>() != null) {
             return;
         }
-        
+
         TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
-        
-        Ship otherShip = rb.GetComponent<Ship>();
-        if (otherShip != null) {
-            otherShip.TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
+        BounceFromCollision(collision.contacts[0].normal);
+    }
+
+
+    private void BounceFromCollision(Vector3 normal) {
+        if (_isBouncing || !gameObject.activeSelf) {
+            return;
         }
+        _isBouncing = true;
+        StartCoroutine(BounceCoroutine(normal));
+    }
+
+    private IEnumerator BounceCoroutine(Vector3 normal) {
+        _randomBounceDirection = Quaternion.Euler( normal);
+        yield return new WaitForSeconds(1f);
+        _isBouncing = false;
     }
 
     private void RepairShield() {
@@ -138,10 +170,14 @@ public class Ship : IShip {
             _isOverheated = false;
         }
     }
+    
 
     public override void RotateBy(Vector3 rotVector) {
+        if (rotVector == Vector3.zero) {
+            return;
+        }
         MoveModel(rotVector);
-        var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
+        TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
 
         rotVector.x = Mathf.Clamp(rotVector.x, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
         rotVector.y = Mathf.Clamp(rotVector.y, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
@@ -153,6 +189,9 @@ public class Ship : IShip {
     }
 
     public override void RotateTo(Quaternion quaternion) {
+        if (quaternion == Quaternion.identity) {
+            return;
+        }
         //MoveModel(quaternion.eulerAngles);
         TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
 
@@ -186,6 +225,9 @@ public class Ship : IShip {
 
     private void FlyForward() {
         transform.position += transform.forward * (_shipSpeed * Time.fixedDeltaTime);
+    }
+    private void FlyBackward() {
+        transform.position -= transform.forward * (_shipSpeed * Time.fixedDeltaTime);
     }
 
     private float GetMaxSpeed =>  _shipUpgradeData.Speed * ShipsFactory.ShipStatsGeneralConfig.SpeedMaxPerPoint;
@@ -292,6 +334,7 @@ public class Ship : IShip {
         _overheat = 0;
         _isOverheated = false;
         _recoil = false;
+        _isBouncing = false;
     }
 
     public override Transform GetCameraFollowTarget() {
