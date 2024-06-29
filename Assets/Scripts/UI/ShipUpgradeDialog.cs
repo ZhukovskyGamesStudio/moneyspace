@@ -14,9 +14,11 @@ public class ShipUpgradeDialog : MonoBehaviour {
     public void Toggle() {
         if (gameObject.activeSelf) {
             gameObject.SetActive(false);
+            MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(true);
             return;
         }
 
+        MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(false);
         gameObject.SetActive(true);
         UpdateView();
     }
@@ -33,14 +35,14 @@ public class ShipUpgradeDialog : MonoBehaviour {
     }
 
     private void UpdateView() {
-        _speedUpgrade.SetData(_upgradeData.Speed, _config.SpeedMax, _config.SpeedUpgradesCost[_upgradeData.Speed]);
-        _shieldUpgrade.SetData(_upgradeData.Shield, _config.ShieldMax, _config.ShieldUpgradesCost[_upgradeData.Shield]);
-        _attackUpgrade.SetData(_upgradeData.Attack, _config.AttackMax, _config.AttackUpgradesCost[_upgradeData.Attack]);
+        _speedUpgrade.SetData(_upgradeData.Speed, _config.SpeedMax, _config.GetSpeedCost(_upgradeData.Speed));
+        _shieldUpgrade.SetData(_upgradeData.Shield, _config.ShieldMax, _config.GetShieldCost(_upgradeData.Shield));
+        _attackUpgrade.SetData(_upgradeData.Attack, _config.AttackMax, _config.GetAttackCost(_upgradeData.Attack));
     }
 
     public void UpgradeSpeed() {
         _upgradeData.Speed++;
-        SaveLoadManager.Profile.CoinsAmount -= _config.UpgradeCost;
+        SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         UpdateView();
@@ -48,7 +50,7 @@ public class ShipUpgradeDialog : MonoBehaviour {
 
     public void UpgradeShield() {
         _upgradeData.Shield++;
-        SaveLoadManager.Profile.CoinsAmount -= _config.UpgradeCost;
+        SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         UpdateView();
@@ -56,7 +58,7 @@ public class ShipUpgradeDialog : MonoBehaviour {
 
     public void UpgradeAttack() {
         _upgradeData.Attack++;
-        SaveLoadManager.Profile.CoinsAmount -= _config.UpgradeCost;
+        SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         UpdateView();

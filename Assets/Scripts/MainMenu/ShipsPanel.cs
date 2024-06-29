@@ -19,6 +19,11 @@ public class ShipsPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _costText;
 
+    [SerializeField]
+    private ShipsStatsSmallPanel _shipsStatsSmallPanel;
+
+    public ShipsStatsSmallPanel ShipsStatsSmallPanel => _shipsStatsSmallPanel;
+
     private void Start() {
         Init();
     }
@@ -29,6 +34,7 @@ public class ShipsPanel : MonoBehaviour {
         UpdateButtonsState(_curShipIndex);
         _menuShipsView.SetPos(_curShipIndex);
         UpdateView(_curShipIndex);
+        ChangeSmallStatsViewActive(true);
     }
 
     public void ChangeShip(bool isRight) {
@@ -38,8 +44,10 @@ public class ShipsPanel : MonoBehaviour {
         UpdateView(_curShipIndex);
 
         MainMenuUI.Instance.ShipUpgradeDialog.Close();
+
         SaveLoadManager.Profile.SelectedShip = _curShipIndex;
         SaveLoadManager.Save();
+        ChangeSmallStatsViewActive(true);
     }
 
     public void UpdateView(int shipIndex) {
@@ -52,6 +60,21 @@ public class ShipsPanel : MonoBehaviour {
         } else {
             UpdateCostView(curShipConfig, false);
             MainMenuUI.Instance.SetButtonBuy(OnBuySelectedShip);
+        }
+    }
+
+    public void ChangeSmallStatsViewActive(bool isActive) {
+        if (isActive) {
+            ShipConfig curShipConfig = ShipsFactory.Ships[_curShipIndex];
+            var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
+            if (upgradeData == null) {
+                upgradeData = curShipConfig.DefaultShipUpgrades;
+            }
+            
+            ShipsStatsSmallPanel.UpdateView(curShipConfig,upgradeData);
+            ShipsStatsSmallPanel.gameObject.SetActive(true);
+        } else {
+            ShipsStatsSmallPanel.gameObject.SetActive(false);
         }
     }
 

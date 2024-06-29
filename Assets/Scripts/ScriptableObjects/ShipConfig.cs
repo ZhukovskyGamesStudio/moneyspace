@@ -24,9 +24,11 @@ public class ShipConfig : ScriptableObject {
     public int ShipCost = 1000000;
 
     public List<int> AttackUpgradesCost = new List<int>();
+    public int GetAttackCost(int cur) => cur - 1 < AttackUpgradesCost.Count ? AttackUpgradesCost[cur - 1] : 0;
     public List<int> ShieldUpgradesCost = new List<int>();
+    public int GetShieldCost(int cur) => cur - 1 < ShieldUpgradesCost.Count ? ShieldUpgradesCost[cur - 1] : 0;
     public List<int> SpeedUpgradesCost = new List<int>();
-    public int UpgradeCost = 100000;
+    public int GetSpeedCost(int cur) => cur - 1 < SpeedUpgradesCost.Count ? SpeedUpgradesCost[cur - 1] : 0;
 
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
 }
