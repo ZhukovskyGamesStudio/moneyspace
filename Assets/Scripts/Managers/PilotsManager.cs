@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PilotsManager : MonoBehaviour {
@@ -39,6 +40,20 @@ public class PilotsManager : MonoBehaviour {
                 _pilots.Add(playerPilot);
             }
         }
+    }
+
+    public Ship GetClosesOppositeTeamShip(Vector3 ownerPos, bool isBlue ) {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(isBlue ? "Red" : "Blue");
+        if (targets.Length == 0) {
+            Debug.LogWarning("Somehow all ships is destroyed simultanioulsy!");
+            return null;
+        }
+
+        return targets
+            .Select(s=>s.GetComponent<Ship>())
+            .Where(s=>s.gameObject.activeSelf)
+            .OrderBy(s => (s.transform.position - ownerPos).sqrMagnitude)
+            .First();
     }
 
     public void ActivatePilots() {

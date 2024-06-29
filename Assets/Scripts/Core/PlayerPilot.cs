@@ -41,14 +41,15 @@ public class PlayerPilot : AbstractPilot {
     public override void DeActivate() {
         base.DeActivate();
         GameUI.Instance._arView.SetActive(false);
+        GameUI.Instance.UiMessages.gameObject.SetActive(false);
     }
 
     private void OnShipDestroyed(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        GameUI.Instance._arView.SetActive(false);
+        GameUI.Instance._arView.SetActive(false); 
         GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
         ClearTarget();
-        GameUI.Instance.TargetMessage.SetActive(false);
+        GameUI.Instance.UiMessages.gameObject.SetActive(false);
         ShipDetectZone.Instance.ClearList();
         GameUI.Instance.warpOnSpeed.SetActive(false);
     }
@@ -56,6 +57,7 @@ public class PlayerPilot : AbstractPilot {
     private void PlayerRespawn() {
         RespawnShip();
         GameUI.Instance._arView.SetActive(true);
+        GameUI.Instance.UiMessages.gameObject.SetActive(false);
     }
 
     protected override void RespawnShip() {
@@ -140,20 +142,30 @@ public class PlayerPilot : AbstractPilot {
     }
 
     private void UpdateTargetMessageView() {
-        bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget() && _ship.gameObject.activeSelf;
+        bool canHaveTarget = _ship.gameObject.activeSelf;
         if (!canHaveTarget) {
-            GameUI.Instance.TargetMessage.SetActive(false);
+            GameUI.Instance.UiMessages.ChangeTargetMessage.SetActive(false);
+            GameUI.Instance.UiMessages.FindTargetMessage.SetActive(false);
             return;
         }
 
-        Ship nextTarget = ShipDetectZone.Instance.GetClosestShip();
-        GameUI.Instance.TargetMessage.SetActive(nextTarget != _curTarget);
+        bool hasShipsToTarget = ShipDetectZone.Instance.HasShipsToTarget();
+        if (hasShipsToTarget) {
+            Ship nextTarget = ShipDetectZone.Instance.GetClosestShip();
+            if (nextTarget != _curTarget) {
+                GameUI.Instance.UiMessages.ChangeTargetMessage.SetActive(true);
+                GameUI.Instance.UiMessages.FindTargetMessage.SetActive(false);
+            }
+        } else {
+            GameUI.Instance.UiMessages.ChangeTargetMessage.SetActive(false);
+            GameUI.Instance.UiMessages.FindTargetMessage.SetActive(true);
+        }
     }
 
     private Ship TryAcquireTarget() {
         bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
         if (!canHaveTarget) {
-            return null;
+            return GameManager.Instance.PilotsManager.GetClosesOppositeTeamShip(_ship.transform.position, true);
         }
 
         return ShipDetectZone.Instance.GetClosestShip();

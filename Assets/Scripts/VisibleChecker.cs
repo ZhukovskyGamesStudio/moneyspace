@@ -7,6 +7,7 @@ public class VisibleChecker : MonoBehaviour {
     public bool IsVisible => _isVisible;
     private bool _isVisible;
 
+    //TODO rework via angle check
     private void OnBecameVisible() {
         OnVisibleAction?.Invoke();
         _isVisible = true;
