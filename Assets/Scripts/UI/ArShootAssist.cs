@@ -71,7 +71,8 @@ public class ArShootAssist : MonoBehaviour {
 
     private void RecalculateArHelperPos(Ship target, Ship owner) {
         Transform targetAnchor = target.GetTargetLockAnchor;
-        if (!target.VisibleChecker.IsVisible) {
+        bool isVisible = CheckTargetVisible(target);
+        if (!isVisible) {
             Vector3 finPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
 
             //_arShootHelper.SetActive(false);
@@ -115,6 +116,15 @@ public class ArShootAssist : MonoBehaviour {
        
         LerpShootHelper(Camera.main.WorldToScreenPoint(posToShootAt));
         UpdateTargetLock();
+    }
+
+    public static bool CheckTargetVisible(Ship target) {
+        if (!target.gameObject.activeSelf) {
+            return false;
+        }
+        Transform cameraTr = Camera.main.transform;
+        float angle = Vector3.Angle(cameraTr.forward, target.transform.position - cameraTr.position);
+        return angle < 90;
     }
 
     private void UpdateTargetLock() {

@@ -88,3 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f087a25a54e569d51ae2e60de0134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minScale: 0.3
+  _maxScale: 1.5
+  _minUpShift: 5
+  _maxUpShift: 30
+  _minDistance: 100
+  _maxDistance: 1000

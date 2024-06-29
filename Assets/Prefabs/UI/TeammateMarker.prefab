@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 883016659460870328}
   - component: {fileID: 7650149334257599799}
   - component: {fileID: 1121344080221814310}
-  - component: {fileID: 5251015190694873711}
+  - component: {fileID: 3814039359357805899}
   m_Layer: 5
   m_Name: TeammateMarker
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5251015190694873711
+--- !u!114 &3814039359357805899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,3 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f087a25a54e569d51ae2e60de0134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minScale: 0.3
+  _maxScale: 1.5
+  _minUpShift: 5
+  _maxUpShift: 30
+  _minDistance: 100
+  _maxDistance: 1000

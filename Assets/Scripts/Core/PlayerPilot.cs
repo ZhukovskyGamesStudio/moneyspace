@@ -158,7 +158,7 @@ public class PlayerPilot : AbstractPilot {
             }
         } else {
             GameUI.Instance.UiMessages.ChangeTargetMessage.SetActive(false);
-            GameUI.Instance.UiMessages.FindTargetMessage.SetActive(true);
+            GameUI.Instance.UiMessages.FindTargetMessage.SetActive(_curTarget == null);
         }
     }
 

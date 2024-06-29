@@ -3336,7 +3336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMarker: {fileID: 5251015190694873711, guid: 0fba369eacbd6404b8fc9cd9965c700f, type: 3}
-  _teammateMarker: {fileID: 5251015190694873711, guid: 34ea2e225f6c626479099798ce8f979c, type: 3}
+  _teammateMarker: {fileID: 3814039359357805899, guid: 34ea2e225f6c626479099798ce8f979c, type: 3}
   _markersHolder: {fileID: 1860398672}
 --- !u!1001 &1912992578
 PrefabInstance:

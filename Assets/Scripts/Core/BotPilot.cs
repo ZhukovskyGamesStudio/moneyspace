@@ -63,9 +63,7 @@ public class BotPilot : AbstractPilot {
             _marker = GameUI.Instance.ArMarkersManager.CreateBlueMarker();
         }
 
-        _marker.SetTarget(_ship.transform);
-        _ship.VisibleChecker.OnVisibleAction += () => { ChangeMarkerVisibility(true); };
-        _ship.VisibleChecker.OnInvisibleAction += () => { ChangeMarkerVisibility(false); };
+        _marker.SetTarget((_ship as Ship).GetTargetLockAnchor);
     }
 
     private void ChangeMarkerVisibility(bool isActive) {
@@ -85,7 +83,13 @@ public class BotPilot : AbstractPilot {
         _attackCoroutine = StartCoroutine(AttackCoroutine());
     }
 
+    private void UpdateMarkerVisible() {
+        ChangeMarkerVisibility(ArShootAssist.CheckTargetVisible(_ship as Ship));
+    }
+
     private void Update() {
+        UpdateMarkerVisible();
+        
         if (_state == BotState.Respawn || !_ship.gameObject.activeSelf) {
             return;
         }
