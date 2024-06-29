@@ -12,13 +12,14 @@ public class PlayerPilot : AbstractPilot {
     [SerializeField]
     private float _minRotationMuliplier = 0.1f;
 
+    private Ship _curTarget;
+
     public override void Init() {
         GetShip();
         RespawnShip();
     }
-    
-    protected override ShipType GetShipType() {
 
+    protected override ShipType GetShipType() {
         return ShipsFactory.Ships[SaveLoadManager.Profile.SelectedShip].ShipType;
     }
 
@@ -45,6 +46,8 @@ public class PlayerPilot : AbstractPilot {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         GameUI.Instance._arView.SetActive(false);
         GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
+        ClearTarget();
+        ShipDetectZone.Instance.ClearList();
     }
 
     private void PlayerRespawn() {
@@ -62,16 +65,14 @@ public class PlayerPilot : AbstractPilot {
         GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
-        }
-        else
-        {
+        } else {
             _ship.Slowdown();
         }
 
         if (Input.GetKey(KeyCode.S)) {
             _ship.SlowdownKeyDown();
         }
-        
+
         if (Input.GetKeyDown(KeyCode.M)) {
             SceneManager.LoadScene("Menu");
         }
@@ -87,10 +88,9 @@ public class PlayerPilot : AbstractPilot {
         if (Input.GetKeyDown(KeyCode.X)) {
             Ship target = TryAcquireTarget();
             if (target != null && target != _curTarget) {
-                GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
-                _curTarget = target;
-            }else if (_curTarget != null & target == null) {
-                GameUI.Instance._arView.ArShootAssist.Deactivate();
+                LockOnTarget(target);
+            } else if (_curTarget != null & target == null) {
+                ClearTarget();
             }
         }
 
@@ -104,13 +104,21 @@ public class PlayerPilot : AbstractPilot {
         Vector3 rotVector = new Vector3(-shift.y, shift.x, 0);
 
         _ship.RotateBy(rotVector + TrySideRotate());
-        
+
         TurnSpeedParticles();
         UpdateTargetMessageView();
     }
 
-    private Ship _curTarget;
-    
+    private void LockOnTarget(Ship target) {
+        GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
+        _curTarget = target;
+    }
+
+    private void ClearTarget() {
+        GameUI.Instance._arView.ArShootAssist.Deactivate();
+        _curTarget = null;
+    }
+
     private void UpdateTargetMessageView() {
         bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
         if (!canHaveTarget) {
@@ -127,6 +135,7 @@ public class PlayerPilot : AbstractPilot {
         if (!canHaveTarget) {
             return null;
         }
+
         return ShipDetectZone.Instance.GetClosestShip();
     }
 
@@ -155,12 +164,10 @@ public class PlayerPilot : AbstractPilot {
             sideRot += Vector3.forward;
         }
 
-        return sideRot* ShipsFactory.ShipStatsGeneralConfig.TechicalParams.PlayerSideRotationSpeed;
-    }
-    
-    private void TurnSpeedParticles()
-    {
-        GameUI.Instance.warpOnSpeed.SetActive(_ship.GetSpeedPercent() >= 0.8);
+        return sideRot * ShipsFactory.ShipStatsGeneralConfig.TechicalParams.PlayerSideRotationSpeed;
     }
 
+    private void TurnSpeedParticles() {
+        GameUI.Instance.warpOnSpeed.SetActive(_ship.GetSpeedPercent() >= 0.8);
+    }
 }

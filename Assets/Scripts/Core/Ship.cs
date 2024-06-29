@@ -14,9 +14,6 @@ public class Ship : IShip {
     private float decreaseOverheatSpeed = 0.1f;
 
     [SerializeField]
-    private float _shipMaxSpeed = 3;
-
-    [SerializeField]
     private float _accelerationSpeed = 4f;
     
 
@@ -86,7 +83,7 @@ public class Ship : IShip {
         DecreaseOverheat();
         RepairShield();
 
-        _shipThrust.SetThrustLight(_shipSpeed / _shipMaxSpeed);
+        _shipThrust.SetThrustLight(_shipSpeed / GetMaxSpeed);
 
         if (transform.position.x > Math.Abs(5000) || transform.position.y > Math.Abs(5000) || transform.position.z > Math.Abs(5000)) {
             Debug.Log($"Вы вылетели за пределы боевой зоны у вас осталось {_MaxTimeForCounter - _timeCounter} секунд что бы вернуться");
@@ -144,7 +141,7 @@ public class Ship : IShip {
     }
 
     public override float GetSpeedPercent() {
-        return _shipSpeed / _shipMaxSpeed;
+        return _shipSpeed / GetMaxSpeed;
     }
 
     public override float GetOverheatPercent() {
@@ -172,19 +169,22 @@ public class Ship : IShip {
         transform.position += transform.forward * (_shipSpeed * Time.fixedDeltaTime);
     }
 
+    private float GetMaxSpeed =>  _shipUpgradeData.Speed * ShipsFactory.ShipStatsGeneralConfig.SpeedMaxPerPoint;
+    
+
     public override void Accelerate() {
         _shipSpeed += _accelerationSpeed;
-        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
+        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public override void Slowdown() {
         _shipSpeed -= _decelerationSpeed;
-        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
+        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public override void SlowdownKeyDown() {
         _shipSpeed -= _accelerationSpeed;
-        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, _shipMaxSpeed);
+        _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public override void FirePrime(Vector3 target) {
@@ -268,7 +268,7 @@ public class Ship : IShip {
     }
 
     public override void Respawn() {
-        _shipSpeed = _shipMaxSpeed / 2;
+        _shipSpeed = GetMaxSpeed / 2;
         _hp = _shipConfig.MaxHp;
         _overheat = 0;
         _isOverheated = false;

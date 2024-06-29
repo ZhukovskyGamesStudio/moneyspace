@@ -73,4 +73,8 @@ public class ShipDetectZone : MonoBehaviour {
     private void TryClearShipsFromDestroyed() {
         _shipsInsideDetection = _shipsInsideDetection.FindAll(s => s != null);
     }
+
+    public void ClearList() {
+        _shipsInsideDetection = new List<Ship>();
+    }
 }
