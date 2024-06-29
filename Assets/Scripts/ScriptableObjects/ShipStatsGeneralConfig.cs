@@ -44,5 +44,6 @@ public class TechicalShipParameters {
     public float _verticalMaxRotationSpeed = 10, _horizontalMaxRotationSpeed = 10;
     public float _horRotation = 1, _vertRotation = 1;
     public float BotRotationSlerp;
+    public float DelayDropLockAfterShipMovedAwayFromCenter = 0.7f;
 
 }

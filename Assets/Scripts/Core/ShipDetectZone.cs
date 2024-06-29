@@ -51,7 +51,7 @@ public class ShipDetectZone : MonoBehaviour {
     }
 
     private IEnumerator RemoveFromList(Ship ship) {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(ShipsFactory.ShipStatsGeneralConfig.TechicalParams.DelayDropLockAfterShipMovedAwayFromCenter);
         RemoveFromListInstant(ship);
     }
 
