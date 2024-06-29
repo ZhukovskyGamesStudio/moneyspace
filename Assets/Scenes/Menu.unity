@@ -1289,11 +1289,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spacing: 25
-  _upgradePosShift: 7
+  _upgradePosShift: 6
   _moveTime: 0.3
   _moveToUpgradeTime: 0.15
   _startingLookDirection: {x: 12.846702, y: 187.79027, z: 1.742163}
-  _upgradePosDirection: {x: 12.846702, y: 187.79027, z: -1.7}
+  _upgradePosDirection: {x: 19.999998, y: 140, z: 325.09998}
   _rotationPrefab: {fileID: 1963742616}
   _shipsHolder: {fileID: 447652141}
 --- !u!1 &447652140
