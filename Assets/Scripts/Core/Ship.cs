@@ -343,6 +343,7 @@ public class Ship : IShip {
         _isOverheated = false;
         _recoil = false;
         _isBouncing = false;
+        _shield3dView.HideShieldInstant();
     }
 
     public override Transform GetCameraFollowTarget() {

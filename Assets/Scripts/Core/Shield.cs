@@ -23,6 +23,10 @@ public class Shield : MonoBehaviour {
         _showCoroutine = StartCoroutine(ShowShieldCoroutine());
     }
 
+    public void HideShieldInstant() {
+        SetAlpha(0);
+    }
+
     private IEnumerator ShowShieldCoroutine() {
         SetAlpha(1);
         float curTime = 0;
