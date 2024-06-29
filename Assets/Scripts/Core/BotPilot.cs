@@ -86,7 +86,7 @@ public class BotPilot : AbstractPilot {
     }
 
     private void Update() {
-        if (_state == BotState.Respawn) {
+        if (_state == BotState.Respawn || !_ship.gameObject.activeSelf) {
             return;
         }
 
