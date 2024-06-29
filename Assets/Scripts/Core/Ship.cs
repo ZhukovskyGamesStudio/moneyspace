@@ -42,6 +42,9 @@ public class Ship : IShip {
     private Transform _cameraFollowTarget;
 
     [SerializeField]
+    private Transform _modelContainer;
+    
+    [SerializeField]
     private Shield _shield3dView;
 
     [SerializeField]
@@ -140,6 +143,8 @@ public class Ship : IShip {
         _isBouncing = true;
         StartCoroutine(BounceCoroutine(normal));
     }
+
+    public Transform GetTargetLockAnchor => _modelContainer.transform;
 
     private IEnumerator BounceCoroutine(Vector3 normal) {
         _randomBounceDirection = Quaternion.Euler( normal);

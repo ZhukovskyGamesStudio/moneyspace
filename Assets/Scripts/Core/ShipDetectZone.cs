@@ -52,9 +52,7 @@ public class ShipDetectZone : MonoBehaviour {
 
     private IEnumerator RemoveFromList(Ship ship) {
         yield return new WaitForSeconds(2);
-        if (_shipsInsideDetection.Contains(ship)) {
-            _shipsInsideDetection.Remove(ship);
-        }
+        RemoveFromListInstant(ship);
     }
 
     public bool HasShipsToTarget() {
@@ -76,5 +74,11 @@ public class ShipDetectZone : MonoBehaviour {
 
     public void ClearList() {
         _shipsInsideDetection = new List<Ship>();
+    }
+
+    public void RemoveFromListInstant(Ship toRemove) {
+        if (_shipsInsideDetection.Contains(toRemove)) {
+            _shipsInsideDetection.Remove(toRemove);
+        }
     }
 }

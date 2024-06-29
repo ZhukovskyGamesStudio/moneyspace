@@ -89,6 +89,7 @@ public class PlayerPilot : AbstractPilot {
         if (Input.GetKeyDown(KeyCode.X)) {
             Ship target = TryAcquireTarget();
             if (target != null && target != _curTarget) {
+                ClearTarget();
                 LockOnTarget(target);
             } else if (_curTarget != null & target == null) {
                 ClearTarget();
@@ -118,15 +119,25 @@ public class PlayerPilot : AbstractPilot {
     private void LockOnTarget(Ship target) {
         GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
         _curTarget = target;
+        _curTarget.OnDestroyed += OnCurTargetDestroyed; 
+    }
+
+    private void OnCurTargetDestroyed(AbstractPilot arg1, AbstractPilot arg2) {
+        ShipDetectZone.Instance.RemoveFromListInstant(_curTarget);
+        ClearTarget();
     }
 
     private void ClearTarget() {
+        if (_curTarget == null) {
+            return;
+        }
+        _curTarget.OnDestroyed -= OnCurTargetDestroyed; 
         GameUI.Instance._arView.ArShootAssist.Deactivate();
         _curTarget = null;
     }
 
     private void UpdateTargetMessageView() {
-        bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
+        bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget() && _ship.gameObject.activeSelf;
         if (!canHaveTarget) {
             GameUI.Instance.TargetMessage.SetActive(false);
             return;

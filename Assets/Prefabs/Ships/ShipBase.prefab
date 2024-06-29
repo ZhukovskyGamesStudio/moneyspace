@@ -365,17 +365,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shipType: -1
+  RotateByV: {x: 0, y: 0, z: 0}
+  RotateToQ: {x: 0, y: 0, z: 0, w: 1}
   _visibleChecker: {fileID: 0}
   _shiedRepairSpeed: 10
   _overheatFromShoot: 0.1
   _overheatFromSecond: 0.025
   decreaseOverheatSpeed: 0.15
-  _shipMaxSpeed: 80
   _accelerationSpeed: 4
-  _horRotation: 0.5
-  _vertRotation: 0.5
-  _verticalMaxRotationSpeed: 180
-  _horizontalMaxRotationSpeed: 100
   _modelRotation: 0.1
   _modelMovement: -0.0075
   _model: {fileID: 4876068726841697235}
@@ -388,6 +385,7 @@ MonoBehaviour:
   - {fileID: 9048708533191588857}
   - {fileID: 1703878092107300275}
   _cameraFollowTarget: {fileID: 7954330405090410225}
+  _modelContainer: {fileID: 8349244645297410330}
   _shield3dView: {fileID: 7429014968897679024}
   _warpOnShift: {fileID: 0}
   _shipSounds: {fileID: 0}

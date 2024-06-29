@@ -70,8 +70,9 @@ public class ArShootAssist : MonoBehaviour {
     }
 
     private void RecalculateArHelperPos(Ship target, Ship owner) {
+        Transform targetAnchor = target.GetTargetLockAnchor;
         if (!target.VisibleChecker.IsVisible) {
-            Vector3 finPos = Camera.main.WorldToScreenPoint(target.transform.position);
+            Vector3 finPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
 
             //_arShootHelper.SetActive(false);
             _arrow.SetActive(true);
@@ -87,15 +88,15 @@ public class ArShootAssist : MonoBehaviour {
             return;
         }
         _targetLocked.gameObject.SetActive(true);
-        _targetLocked.transform.position =  Camera.main.WorldToScreenPoint(target.transform.position);
+        _targetLocked.transform.position =  Camera.main.WorldToScreenPoint(targetAnchor.position);
         
         _arrow.SetActive(false);
         _round.SetActive(true);
         
         _arShootHelper.SetActive(true);
-        Vector3 ACv = target.transform.position - owner.transform.position;
+        Vector3 ACv = targetAnchor.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
-        float angleA = Vector3.Angle(target.transform.forward, ACv);
+        float angleA = Vector3.Angle(targetAnchor.forward, ACv);
         double cosA = Math.Cos(angleA);
         float shipSpeed = target.ShipSpeed;
 
@@ -110,7 +111,7 @@ public class ArShootAssist : MonoBehaviour {
         }
 
         float AB = (float)rootsList.First(r => r > 0);
-        Vector3 posToShootAt = target.transform.position + target.transform.forward * AB;
+        Vector3 posToShootAt = targetAnchor.position + targetAnchor.forward * AB;
        
         LerpShootHelper(Camera.main.WorldToScreenPoint(posToShootAt));
         UpdateTargetLock();
