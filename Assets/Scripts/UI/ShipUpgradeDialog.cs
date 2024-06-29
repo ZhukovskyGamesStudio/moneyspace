@@ -15,10 +15,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
         if (gameObject.activeSelf) {
             gameObject.SetActive(false);
             MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(true);
+            MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(false);
             return;
         }
 
         MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(false);
+        MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(true);
         gameObject.SetActive(true);
         UpdateView();
     }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ships4Config
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 4cab03324de62374d8de53df5cd4319a, type: 3}
+  ModelPrefab: {fileID: 7220405440486538863, guid: f2a993a56ddc21f4c9d5ea281b35e2ce, type: 3}
   Icon: {fileID: 21300000, guid: f4449ffed1f8c4248b1d92bd95dc98c6, type: 3}
   ShipType: 4
   ShipName: "\u0424\u0435\u043D\u0438\u043Ac"

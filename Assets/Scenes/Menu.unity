@@ -1289,7 +1289,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spacing: 25
+  _upgradePosShift: 7
   _moveTime: 0.3
+  _moveToUpgradeTime: 0.15
+  _startingLookDirection: {x: 12.846702, y: 187.79027, z: 1.742163}
+  _upgradePosDirection: {x: 12.846702, y: 187.79027, z: -1.7}
   _rotationPrefab: {fileID: 1963742616}
   _shipsHolder: {fileID: 447652141}
 --- !u!1 &447652140
@@ -1317,7 +1321,7 @@ Transform:
   m_GameObject: {fileID: 447652140}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 25}
+  m_LocalPosition: {x: 0, y: 0, z: 12.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

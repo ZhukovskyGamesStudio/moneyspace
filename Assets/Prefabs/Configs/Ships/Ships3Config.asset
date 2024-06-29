@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ships3Config
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 5addf6dc0f4130947888e49951b11b39, type: 3}
+  ModelPrefab: {fileID: 860384189131155440, guid: 6a7b254c2724c174396daac967b2eaed, type: 3}
   Icon: {fileID: 21300000, guid: a755db135e618bb498479350db72ea9f, type: 3}
   ShipType: 3
   ShipName: "\u0413\u043B\u0430\u0434\u0438\u0430\u0442\u043E\u0440"

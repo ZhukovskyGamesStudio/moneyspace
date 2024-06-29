@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/ShipConfig", fileName = "ShipConfig", order = 0)]
 public class ShipConfig : ScriptableObject {
     public IShip Prefab;
+    public GameObject ModelPrefab;
     public Sprite Icon;
     public ShipType ShipType;
 

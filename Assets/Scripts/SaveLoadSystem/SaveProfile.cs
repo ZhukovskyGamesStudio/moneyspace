@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -35,9 +36,7 @@ public class SaveProfile {
             SelectedPlayerIcon = 0,
             Nickname = "unknownPlayer",
             ShipUpgradeDatas = new List<ShipUpgradeData>() {
-                new ShipUpgradeData() {
-                    Type = ShipType.First
-                }
+                ShipsFactory.Ships.First(s=>s.ShipType == ShipType.First).DefaultShipUpgrades
             },
             BoughtIcons = new List<int>() {
                 0,

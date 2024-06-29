@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ShipsPanel : MonoBehaviour {
     [SerializeField]
     private MenuShipsView _menuShipsView;
+    public MenuShipsView MenuShipsView => _menuShipsView;
 
     [SerializeField]
     private Button _leftButton, _rightButton;
