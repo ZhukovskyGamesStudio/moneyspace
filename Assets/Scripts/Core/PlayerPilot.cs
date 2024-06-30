@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,7 +29,7 @@ public class PlayerPilot : AbstractPilot {
         var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.First(s => s.Type == _ship.ShipType);
         _ship.InitFromConfig(shipConfig, upgradeData);
         _ship.name = "PlayerShip";
-        _ship.OnDestroyed += OnShipDestroyed;  
+        _ship.OnDestroyed += OnShipDestroyed;
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
     }
 
@@ -46,7 +45,7 @@ public class PlayerPilot : AbstractPilot {
 
     private void OnShipDestroyed(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
-        GameUI.Instance._arView.SetActive(false); 
+        GameUI.Instance._arView.SetActive(false);
         GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
         ClearTarget();
         GameUI.Instance.UiMessages.gameObject.SetActive(false);
@@ -62,13 +61,15 @@ public class PlayerPilot : AbstractPilot {
 
     protected override void RespawnShip() {
         base.RespawnShip();
-        ShipDetectZone.Instance.SetPlayerShip(_ship as Ship);
+        ShipDetectZone.Instance.SetPlayerShip(_ship);
+        _ship.StartRespawnAnimation();
     }
 
     private void Update() {
         if (!_ship.gameObject.activeSelf) {
             return;
         }
+
         GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
         GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
         if (Input.GetKey(KeyCode.W)) {
@@ -102,7 +103,7 @@ public class PlayerPilot : AbstractPilot {
                 ClearTarget();
             }
         }
-        
+
         UpdateTargetMessageView();
         UpdateSpeedAndRotation();
         UpdateOverheatMessage();
@@ -130,7 +131,7 @@ public class PlayerPilot : AbstractPilot {
     private void LockOnTarget(Ship target) {
         GameUI.Instance._arView.ArShootAssist.Activate(target, _ship as Ship);
         _curTarget = target;
-        _curTarget.OnDestroyed += OnCurTargetDestroyed; 
+        _curTarget.OnDestroyed += OnCurTargetDestroyed;
     }
 
     private void OnCurTargetDestroyed(AbstractPilot arg1, AbstractPilot arg2) {
@@ -142,7 +143,8 @@ public class PlayerPilot : AbstractPilot {
         if (_curTarget == null) {
             return;
         }
-        _curTarget.OnDestroyed -= OnCurTargetDestroyed; 
+
+        _curTarget.OnDestroyed -= OnCurTargetDestroyed;
         GameUI.Instance._arView.ArShootAssist.Deactivate();
         _curTarget = null;
     }

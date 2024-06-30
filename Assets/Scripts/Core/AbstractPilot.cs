@@ -58,6 +58,5 @@ public class AbstractPilot : MonoBehaviour {
         _ship.transform.position = spawnPoint.position + Random.insideUnitSphere * 50;
         _ship.gameObject.SetActive(true);
         _ship.Respawn();
-        
     }
 }

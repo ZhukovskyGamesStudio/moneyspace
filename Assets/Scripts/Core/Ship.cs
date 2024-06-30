@@ -40,6 +40,7 @@ public class Ship : IShip {
     private bool _recoil = false;
     private bool _isOverheated = false;
     private bool _isBouncing = false;
+    private bool _isRespawning = false;
     
     private int _hp;
     private float _shipSpeed = 0;
@@ -58,6 +59,9 @@ public class Ship : IShip {
     }
 
     private void FixedUpdate() {
+        if (_isRespawning) {
+            return;
+        }
       
         RotateBy(RotateByV);
         RotateTo(RotateToQ);
@@ -76,7 +80,8 @@ public class Ship : IShip {
 
         _shipThrust.SetThrustLight(_shipSpeed / GetMaxSpeed);
 
-        if (transform.position.x > Math.Abs(5000) || transform.position.y > Math.Abs(5000) || transform.position.z > Math.Abs(5000)) {
+        float maxRadius = MainConfigTable.Instance.MainGameConfig.FightRadius;
+        if (Math.Abs(transform.position.x) > maxRadius || Math.Abs(transform.position.y) > maxRadius || Math.Abs(transform.position.z) > maxRadius) {
             Debug.Log($"Вы вылетели за пределы боевой зоны у вас осталось {_MaxTimeForCounter - _timeCounter} секунд что бы вернуться");
             _timeCounter += Time.fixedDeltaTime;
 
@@ -94,7 +99,7 @@ public class Ship : IShip {
             return;
         }
 
-        if (_isBouncing) {
+        if (_isBouncing || _isRespawning) {
             return;
         }
 
@@ -106,8 +111,6 @@ public class Ship : IShip {
         TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
         BounceFromCollision(collision.contacts[0].normal);
     }
-
-
     private void BounceFromCollision(Vector3 normal) {
         if (_isBouncing || !gameObject.activeSelf) {
             return;
@@ -118,10 +121,30 @@ public class Ship : IShip {
 
     public Transform GetTargetLockAnchor => _modelContainer.transform;
 
+    public bool IsRespawning => _isRespawning;
+
     private IEnumerator BounceCoroutine(Vector3 normal) {
         _randomBounceDirection = Quaternion.Euler( normal);
         yield return new WaitForSeconds(1f);
         _isBouncing = false;
+    }
+
+    public void StartRespawnAnimation() {
+        StartCoroutine(PlayerRespawnAnimationCoroutine());
+    }
+
+    private IEnumerator PlayerRespawnAnimationCoroutine() {
+        _isRespawning = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        float animTime = 0, maxAnimTime = 2;
+        while (animTime < maxAnimTime) {
+            Vector3 shift = new Vector3(0, -5, -10);
+            MoveModel(Vector3.zero, (1 - animTime / maxAnimTime) * shift);
+            yield return new WaitForEndOfFrame();
+            animTime += Time.deltaTime;
+        }
+        Cursor.lockState = CursorLockMode.Confined;
+        _isRespawning = false;
     }
 
     private void RepairShield() {
@@ -152,7 +175,7 @@ public class Ship : IShip {
         if (rotVector == Vector3.zero) {
             return;
         }
-        MoveModel(rotVector);
+        MoveModel(rotVector, Vector3.zero);
 
         Vector3 rotDistance = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, rotVector.y * _shipConfig.VertRotationMultiplier, rotVector.z * _shipConfig.HorRotationMultiplier) *
                               Time.deltaTime;
@@ -189,13 +212,17 @@ public class Ship : IShip {
         return _shipUpgradeData.Attack * ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
     }
 
-    private void MoveModel(Vector3 rotVector) {
-        var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
-        Vector3 modelRotVector = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, 0, -rotVector.y * _shipConfig.VertRotationMultiplier) * _shipConfig.ModelRotation;
-        _model.localRotation = Quaternion.Euler(modelRotVector);
+    private void MoveModel(Vector3 rotVector, Vector3 shift) {
+        float lerpStep = 0.15f;
+        Vector3 modelRotVector =
+            new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, 0, -rotVector.y * _shipConfig.VertRotationMultiplier) *
+            _shipConfig.ModelRotation;
+
+        _model.localRotation = Quaternion.Slerp(_model.localRotation, Quaternion.Euler(modelRotVector), lerpStep);
+
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
-        modelShift.z = 0;
-        _model.localPosition = modelShift * _shipConfig.ModelMovement;
+        Vector3 summedShift = modelShift * _shipConfig.ModelMovement +  shift;
+        _model.localPosition = Vector3.Slerp(_model.localPosition, summedShift, lerpStep);
     }
 
     private void FlyForward() {
@@ -267,6 +294,10 @@ public class Ship : IShip {
     }
 
     public override void TakeDamage(int amount, AbstractPilot fromPilot) {
+        if (_isRespawning) {
+            return;
+        }
+        
         PlayerData from = fromPilot.PlayerData;
         float damageThroughShield = amount - _shield;
         _shield -= amount;

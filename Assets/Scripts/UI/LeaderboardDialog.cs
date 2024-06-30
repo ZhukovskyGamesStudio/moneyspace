@@ -106,7 +106,6 @@ public class LeaderboardDialog : MonoBehaviour {
     }
 
     private IEnumerator RespawnCoroutine() {
-        _respawnTimerText.gameObject.SetActive(true);
         _respawnButton.interactable = false;
         MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
         float curRespawnTime = Random.Range(cnfg.MinPlayerRespawnTime, cnfg.MaxPlayerRespawnTime);
@@ -115,8 +114,6 @@ public class LeaderboardDialog : MonoBehaviour {
             _respawnTimerText.text = "Возрождение через " + Mathf.CeilToInt(curRespawnTime) + "..";
             yield return new WaitForEndOfFrame();
         }
-
-        _respawnTimerText.gameObject.SetActive(false);
         _onRespawnClicked?.Invoke();
         gameObject.SetActive(false);
         _isFixedOpen = false;
