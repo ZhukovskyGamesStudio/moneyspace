@@ -57,7 +57,7 @@ public class PlayerPilot : AbstractPilot {
     private void PlayerRespawn() {
         RespawnShip();
         GameUI.Instance._arView.SetActive(true);
-        GameUI.Instance.UiMessages.gameObject.SetActive(false);
+        GameUI.Instance.UiMessages.gameObject.SetActive(true);
     }
 
     protected override void RespawnShip() {

@@ -22,6 +22,7 @@ public class BotPilot : AbstractPilot {
     private Coroutine _respawnCoroutine;
     private Vector3 _cachedRandomVector;
     private float _cachedRandomValue;
+    private bool _isFiringSecond;
 
     public override void Init() {
         GetShip();
@@ -148,7 +149,12 @@ public class BotPilot : AbstractPilot {
             Vector3 shootDelta = Random.Range(0, 1f) < ShipsFactory.ShipStatsGeneralConfig.BotRandomShootChance
                 ? Random.insideUnitSphere * ShipsFactory.ShipStatsGeneralConfig.BotRandomShootDelta
                 : Vector3.zero;
-            _ship.FirePrime(_target.position + shootDelta);
+            Vector3 summedShootPoint = _target.position + shootDelta;
+            if (_isFiringSecond) {
+                _ship.FirePrime(summedShootPoint);
+            } else {
+                _ship.FireSecond(summedShootPoint);
+            }
         }
 
         if (_shipSpeed < ShipsFactory.ShipStatsGeneralConfig.BotShootDesirableSpeed) {
@@ -203,6 +209,7 @@ public class BotPilot : AbstractPilot {
         _startShootDistance = Random.Range(cnfg.BotMinStartShootDistance, cnfg.BotMaxStartShootDistance);
         _attackTime = Random.Range(cnfg.BotMinAttackTime, cnfg.BotMaxAttackTime);
         _cachedRandomValue = Random.Range(0, 1f);
+        _isFiringSecond = Random.Range(0, 1f) < cnfg.BotChanceToShootWithSecondGun;
     }
 
     private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position - (_state == BotState.Evade ? _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta : Vector3.zero));

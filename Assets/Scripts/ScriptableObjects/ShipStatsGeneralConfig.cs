@@ -35,6 +35,7 @@ public class ShipStatsGeneralConfig : ScriptableObject {
 
     public float BotRandomShootDelta = 10;
     public float BotRandomShootChance = 0.5f;
+    public float BotChanceToShootWithSecondGun = 0.3f;
     public float BotRandomEvadePointDelta = 150;
     public float BotRandomChasePointDelta = 10;
 }
