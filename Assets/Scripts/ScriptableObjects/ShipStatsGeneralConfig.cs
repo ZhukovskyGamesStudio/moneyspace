@@ -40,10 +40,6 @@ public class ShipStatsGeneralConfig : ScriptableObject {
 }
 [Serializable]
 public class TechicalShipParameters {
-    public float PlayerSideRotationSpeed = 35;
-    public float _verticalMaxRotationSpeed = 10, _horizontalMaxRotationSpeed = 10;
-    public float _horRotation = 1, _vertRotation = 1;
     public float BotRotationSlerp;
     public float DelayDropLockAfterShipMovedAwayFromCenter = 0.7f;
-
 }

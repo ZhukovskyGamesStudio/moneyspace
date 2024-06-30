@@ -153,13 +153,8 @@ public class Ship : IShip {
             return;
         }
         MoveModel(rotVector);
-        TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
 
-        rotVector.x = Mathf.Clamp(rotVector.x, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
-        rotVector.y = Mathf.Clamp(rotVector.y, -tech._verticalMaxRotationSpeed, tech._verticalMaxRotationSpeed);
-        rotVector.z = Mathf.Clamp(rotVector.z, -tech._horizontalMaxRotationSpeed, tech._horizontalMaxRotationSpeed);
-
-        Vector3 rotDistance = new Vector3(rotVector.x * tech._vertRotation, rotVector.y * tech._vertRotation, rotVector.z * tech._horRotation) *
+        Vector3 rotDistance = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, rotVector.y * _shipConfig.VertRotationMultiplier, rotVector.z * _shipConfig.HorRotationMultiplier) *
                               Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
     }
@@ -168,15 +163,15 @@ public class Ship : IShip {
         if (quaternion == Quaternion.identity) {
             return;
         }
-        //MoveModel(quaternion.eulerAngles);
         TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
-
-        transform.rotation = Quaternion.Slerp(transform.rotation,quaternion,tech.BotRotationSlerp);// Quaternion.Slerp(Quaternion.identity,  quaternion,tech._vertRotation* Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation,quaternion,tech.BotRotationSlerp);
     }
 
     public override float GetSpeedPercent() {
         return _shipSpeed / GetMaxSpeed;
     }
+
+    public float SideRotationSpeed => _shipConfig.PlayerSideRotationSpeed;
 
     public override float GetOverheatPercent() {
         return _overheat;
@@ -196,7 +191,7 @@ public class Ship : IShip {
 
     private void MoveModel(Vector3 rotVector) {
         var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
-        Vector3 modelRotVector = new Vector3(rotVector.x * tech._vertRotation, 0, -rotVector.y * tech._vertRotation) * _shipConfig.ModelRotation;
+        Vector3 modelRotVector = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, 0, -rotVector.y * _shipConfig.VertRotationMultiplier) * _shipConfig.ModelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
         modelShift.z = 0;

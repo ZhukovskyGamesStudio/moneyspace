@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class AbstractPilot : MonoBehaviour {
-    protected IShip _ship;
+    protected Ship _ship;
     protected PlayerData _playerData;
     protected bool _isActive = false;
     public PlayerData PlayerData => _playerData;
@@ -32,7 +32,7 @@ public class AbstractPilot : MonoBehaviour {
     }
 
     protected virtual void GetShip() {
-        _ship = ShipsFactory.GetShip(GetShipType());
+        _ship = ShipsFactory.GetShip(GetShipType()) as Ship;
         _ship.SetOwner(this);
         _ship.gameObject.SetActive(false);
         _ship.transform.SetParent(transform);

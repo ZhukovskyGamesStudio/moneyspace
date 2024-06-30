@@ -193,14 +193,7 @@ public class BotPilot : AbstractPilot {
             to = Vector3.Lerp(to, dirToCenter, rotPercent);
         }
 
-        //_ship.transform.rotation = Quaternion.LookRotation(to);
-        
         Quaternion finRotation = Quaternion.LookRotation(to);
-        Quaternion rotation = Quaternion.RotateTowards(_ship.transform.rotation, finRotation, ShipsFactory.ShipStatsGeneralConfig.TechicalParams._vertRotation);// FromToRotation(_ship.transform.forward, to);
-        Vector3 rotVector = rotation.eulerAngles;
-
-        // Vector3 from = _ship.transform.forward;  
-        // Vector3 rotVector = new Vector3(Vector3.SignedAngle(from, to, -_ship.transform.up), Vector3.SignedAngle(from, to, _ship.transform.right));
         _ship.RotateToQ = finRotation;
     }
 
