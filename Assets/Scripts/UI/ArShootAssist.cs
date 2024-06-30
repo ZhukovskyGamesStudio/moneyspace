@@ -71,30 +71,30 @@ public class ArShootAssist : MonoBehaviour {
 
     private void RecalculateArHelperPos(Ship target, Ship owner) {
         Transform targetAnchor = target.GetTargetLockAnchor;
-        bool isVisible = CheckTargetVisible(target);
+        bool isVisible = CheckTargetVisible(target, 40);
         if (!isVisible) {
             Vector3 finPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
-
-            //_arShootHelper.SetActive(false);
             _arrow.SetActive(true);
             _round.SetActive(false);
             
+            finPos.z = 0;
             Vector3 dirFromCenter = finPos - transform.position;
-            if (dirFromCenter.magnitude > SHOOT_HELPER_ARROW_RADIUS) {
-                finPos = transform.position + dirFromCenter.normalized * SHOOT_HELPER_ARROW_RADIUS;
-            }
+            dirFromCenter.z = 0;
+            finPos = transform.position + dirFromCenter.normalized * SHOOT_HELPER_ARROW_RADIUS;
+           
             LerpShootHelper(finPos);
             _arrow.transform.localRotation = Quaternion.FromToRotation(Vector3.up, dirFromCenter);
             _targetLocked.gameObject.SetActive(false);
             return;
         }
         _targetLocked.gameObject.SetActive(true);
-        _targetLocked.transform.position =  Camera.main.WorldToScreenPoint(targetAnchor.position);
+        Vector3 lockPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
+        lockPos.z = 0;
+        _targetLocked.transform.position = lockPos;
         
         _arrow.SetActive(false);
         _round.SetActive(true);
         
-        _arShootHelper.SetActive(true);
         Vector3 ACv = targetAnchor.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
         float angleA = Vector3.Angle(targetAnchor.forward, ACv);
@@ -113,18 +113,20 @@ public class ArShootAssist : MonoBehaviour {
 
         float AB = (float)rootsList.First(r => r > 0);
         Vector3 posToShootAt = targetAnchor.position + targetAnchor.forward * AB;
-       
-        LerpShootHelper(Camera.main.WorldToScreenPoint(posToShootAt));
+
+        Vector3 posToShootPos = Camera.main.WorldToScreenPoint(posToShootAt);
+        posToShootAt.z = 0;
+        LerpShootHelper(posToShootPos);
         UpdateTargetLock();
     }
 
-    public static bool CheckTargetVisible(Ship target) {
+    public static bool CheckTargetVisible(Ship target, float maxAngle = 90) {
         if (!target.gameObject.activeSelf) {
             return false;
         }
         Transform cameraTr = Camera.main.transform;
         float angle = Vector3.Angle(cameraTr.forward, target.transform.position - cameraTr.position);
-        return angle < 90;
+        return angle < maxAngle;
     }
 
     private void UpdateTargetLock() {
@@ -140,6 +142,7 @@ public class ArShootAssist : MonoBehaviour {
 
     private void LerpShootHelper(Vector3 target) {
         Vector3 lerpedPos = Vector3.Lerp(_arShootHelper.transform.position, target, 0.1f);
+        lerpedPos.z = 0;
         _arShootHelper.transform.position = lerpedPos;
     }
 }
