@@ -182,6 +182,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 494976, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
   m_PrefabInstance: {fileID: 443390033}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &150204868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 436278789560298848, guid: 354efa42d0920dc42b12cda3f2192285, type: 3}
+  m_PrefabInstance: {fileID: 1087378592}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &164157407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1963,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6533248968077888933, guid: 354efa42d0920dc42b12cda3f2192285, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6833653769230141997, guid: 354efa42d0920dc42b12cda3f2192285, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2275,6 +2284,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4696934177092583358, guid: 14e56d0486183074f86e7c78227f9635, type: 3}
+      propertyPath: _warpOnSpeed
+      value: 
+      objectReference: {fileID: 150204868}
     - target: {fileID: 4696934177092583358, guid: 14e56d0486183074f86e7c78227f9635, type: 3}
       propertyPath: _overheatFill
       value: 

@@ -13,6 +13,7 @@ public class ShipStatsGeneralConfig : ScriptableObject {
 
     public int DamageFromCollision = 100;
     public TechicalShipParameters TechicalParams = new TechicalShipParameters();
+    
     [Header("BotParameters")]
     [Range(0,180)]
     public float BotShootAngle;

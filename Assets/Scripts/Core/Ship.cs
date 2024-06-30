@@ -47,6 +47,7 @@ public class Ship : IShip {
     private float _rotationSpeed = 0;
     private float _shield;
     private float _overheat;
+    private float _boost;
     private float _timeCounter;
     private float _MaxTimeForCounter = 15;
   
@@ -76,6 +77,7 @@ public class Ship : IShip {
         }
 
         DecreaseOverheat();
+        IncreaseBoost();
         RepairShield();
 
         _shipThrust.SetThrustLight(_shipSpeed / GetMaxSpeed);
@@ -169,6 +171,13 @@ public class Ship : IShip {
             _isOverheated = false;
         }
     }
+
+    private void IncreaseBoost() {
+        _boost += _shipConfig.BoostIncreasePerSecond * Time.fixedDeltaTime;
+        if (_boost > 1) {
+            _boost = 1;
+        }
+    }
     
 
     public override void RotateBy(Vector3 rotVector) {
@@ -240,6 +249,18 @@ public class Ship : IShip {
         _shipSpeed += _shipConfig.AccelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
+
+    public void Boost() {
+        if (_boost > 0) {
+            _shipSpeed *= _shipConfig.BoostSpeedMultiplier;
+            _boost -= (_shipConfig.BoostDecreasePerSecond - _shipConfig.BoostIncreasePerSecond) * Time.deltaTime;
+            if (_boost < 0) {
+                _boost = 0;
+            }
+        }
+    }
+
+    public float GetBoostPercent => _boost;
 
     public override void Slowdown() {
         _shipSpeed -= _shipConfig.DecelerationSpeed;

@@ -70,10 +70,11 @@ public class PlayerPilot : AbstractPilot {
             return;
         }
 
-        GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
-        GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                _ship.Boost();
+            }
         } else {
             _ship.Slowdown();
         }
@@ -103,10 +104,22 @@ public class PlayerPilot : AbstractPilot {
                 ClearTarget();
             }
         }
-
+        
+        UpdateArSliders();
         UpdateTargetMessageView();
         UpdateSpeedAndRotation();
         UpdateOverheatMessage();
+        UpdateBoostArView();
+    }
+
+    private void UpdateArSliders() {
+        GameUI.Instance._playerHpView.SetData(_ship.GetHpPercent(), _ship.GetShieldPercent());
+        GameUI.Instance._arView.SetData(_ship.GetSpeedPercent(), _ship.GetOverheatPercent());
+    }
+
+    private void UpdateBoostArView() {
+        bool isHoldingShift = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
+        GameUI.Instance._arView.SetBoostState(isHoldingShift && _ship.GetBoostPercent > 0.05f, _ship.GetBoostPercent);
     }
 
     private void UpdateOverheatMessage() {

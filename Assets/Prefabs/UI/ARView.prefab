@@ -690,6 +690,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speedSlider: {fileID: 6420013009413754585}
   _overheatSlider: {fileID: 1982337506723905589}
+  _speedFill: {fileID: 4515732657137232851}
+  _overheatFill: {fileID: 1815059999174126320}
+  _normalOverheat: {r: 1, g: 1, b: 1, a: 1}
+  _overheatedOverheat: {r: 1, g: 0, b: 0, a: 1}
+  _normalSpeed: {r: 1, g: 1, b: 1, a: 1}
+  _boostedSpeed: {r: 0.23113209, g: 0.4984617, b: 1, a: 1}
   _arShootAssist: {fileID: 4966512052467607097}
 --- !u!114 &4966512052467607097
 MonoBehaviour:

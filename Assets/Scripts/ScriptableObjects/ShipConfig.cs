@@ -25,6 +25,9 @@ public class ShipConfig : ScriptableObject {
     [Header("Movement Parameters")]
     public float PlayerSideRotationSpeed = 35;
     public float HorRotationMultiplier = 1, VertRotationMultiplier = 1;
+    public float BoostSpeedMultiplier = 1.5f;
+    public float BoostDecreasePerSecond = 0.33f;
+    public float BoostIncreasePerSecond = 0.1f;
 
     [Header("Model Movement")]
     public float ModelRotation = 30f;
