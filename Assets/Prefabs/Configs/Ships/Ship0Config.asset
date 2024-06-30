@@ -37,10 +37,11 @@ MonoBehaviour:
   AccelerationSpeed: 1
   DecelerationSpeed: 0.05
   PlayerSideRotationSpeed: 35
-  VerticalMaxRotationSpeed: 10
-  HorizontalMaxRotationSpeed: 10
   HorRotationMultiplier: 0.5
   VertRotationMultiplier: 0.5
+  BoostSpeedMultiplier: 1.5
+  BoostDecreasePerSecond: 0.33
+  BoostIncreasePerSecond: 0.1
   ModelRotation: 0.1
   ModelMovement: -0.0075
   DefaultShipUpgrades:
@@ -48,9 +49,9 @@ MonoBehaviour:
     Speed: 1
     Shield: 1
     Attack: 1
-  SpeedMax: 4
-  ShieldMax: 5
-  AttackMax: 5
-  AttackUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
-  ShieldUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
-  SpeedUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
+  SpeedMax: 7
+  ShieldMax: 4
+  AttackMax: 4
+  AttackUpgradesCost: a0860100f0490200400d030090d00300e093040030570500801a0600a0860100a0860100a0860100a0860100
+  ShieldUpgradesCost: a0860100f0490200400d030090d00300e093040030570500a0860100a0860100a0860100a0860100a0860100
+  SpeedUpgradesCost: a0860100f0490200400d030090d00300e093040030570500801a0600d0dd060020a1070070640800c0270900
