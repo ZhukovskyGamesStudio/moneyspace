@@ -84,7 +84,7 @@ public class PlayerPilot : AbstractPilot {
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
-            SceneManager.LoadScene("Menu");
+            LoadingPanel.ShowAndLoadScene("Menu"); 
         }
 
         if (Input.GetMouseButton(0)) {
