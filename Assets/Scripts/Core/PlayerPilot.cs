@@ -105,6 +105,12 @@ public class PlayerPilot : AbstractPilot {
         
         UpdateTargetMessageView();
         UpdateSpeedAndRotation();
+        UpdateOverheatMessage();
+    }
+
+    private void UpdateOverheatMessage() {
+        GameUI.Instance.UiMessages.OverheatMessage.SetActive(_ship.IsOverheated);
+        GameUI.Instance._arView.SetOverheatColor(_ship.IsOverheated);
     }
 
     private void UpdateSpeedAndRotation() {

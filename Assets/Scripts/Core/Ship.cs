@@ -206,7 +206,8 @@ public class Ship : IShip {
     }
 
     private float GetMaxSpeed =>  _shipUpgradeData.Speed * ShipsFactory.ShipStatsGeneralConfig.SpeedMaxPerPoint;
-    
+
+    public bool IsOverheated => _isOverheated;
 
     public override void Accelerate() {
         _shipSpeed += _shipConfig.AccelerationSpeed;

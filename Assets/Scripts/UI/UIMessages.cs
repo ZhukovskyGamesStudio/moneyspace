@@ -11,4 +11,9 @@ public class UIMessages : MonoBehaviour {
 
     public GameObject FindTargetMessage => _findTargetMessage;
     
+    [SerializeField]
+    private GameObject _overheatMessage;
+
+    public GameObject OverheatMessage => _overheatMessage;
+    
 }
