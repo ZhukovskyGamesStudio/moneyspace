@@ -23,8 +23,8 @@ public class PlayersManager {
     }
 
     public void GenerateBots(int playersAmount) {
-        int blueBots = playersAmount / 2;
-        int redBots = playersAmount / 2;
+        int blueBots = playersAmount;
+        int redBots = playersAmount;
         if (RealPLayer.Team == Team.Blue) {
             blueBots--;
         } else {

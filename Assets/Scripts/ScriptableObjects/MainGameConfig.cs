@@ -4,8 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/MainGameConfig", fileName = "MainGameConfig", order = 0)]
 public class MainGameConfig : ScriptableObject {
     [Header("Deathmatch")]
+    [Min(1)]
     public int StartingPointsInEachTeam = 2;
-    public int PlayersInGameAmount = 20;
+    [Min(1)]
+    public int PlayersInTeamAmount = 10;
     public float BotRespawnTime = 10;
     public float MinPlayerRespawnTime = 2, MaxPlayerRespawnTime = 6;
     public float FightRadius = 5000;
