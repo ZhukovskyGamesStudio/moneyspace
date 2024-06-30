@@ -46,26 +46,44 @@ public class ShipUpgradeDialog : MonoBehaviour {
     }
 
     public void UpgradeSpeed() {
+        int cost = _config.GetSpeedCost(_upgradeData.Speed);
+        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+            MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
+            return;
+        }
         _upgradeData.Speed++;
         SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }
 
     public void UpgradeShield() {
+        int cost = _config.GetShieldCost(_upgradeData.Shield);
+        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+            MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
+            return;
+        }
         _upgradeData.Shield++;
         SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }
 
     public void UpgradeAttack() {
+        int cost = _config.GetAttackCost(_upgradeData.Attack);
+        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+            MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
+            return;
+        }
         _upgradeData.Attack++;
         SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }
 }

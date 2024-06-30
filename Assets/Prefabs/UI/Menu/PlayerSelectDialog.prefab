@@ -276,6 +276,7 @@ MonoBehaviour:
   _toggleGroup: {fileID: 6385609067978810947}
   _approveButtonText: {fileID: 4511486835716216105}
   _approveButton: {fileID: 7673018296457689750}
+  _animationHandler: {fileID: 0}
 --- !u!1 &618867606808686236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,8 +1183,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1616f41023e383548b0de9141106666a, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 63e1de4a898a63a48880e8828c055364, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1221,10 +1222,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 9de05ec080508aa4caf44379e7d64538, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 2fe57c5a6b2ab774c874cf90ec91c3f0, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: b0e8c0b6cc0b1d749ac36cfabada99bd, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 9de05ec080508aa4caf44379e7d64538, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: fa7192f33b8c6bd408314b3c543190c7, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted

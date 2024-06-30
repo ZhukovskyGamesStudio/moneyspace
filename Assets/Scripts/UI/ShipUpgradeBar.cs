@@ -39,7 +39,6 @@ public class ShipUpgradeBar : MonoBehaviour {
             _upgradeCostText.text = "улучшено";
         } else {
             _mainUpgradeButtonText.text = "Улучшить";
-            _upgradeButton.interactable = SaveLoadManager.Profile.CoinsAmount >= cost;
             _coinIcon.gameObject.SetActive(true);
             _upgradeCostText.text = CoinsView.GetDottedView(cost);
         }
