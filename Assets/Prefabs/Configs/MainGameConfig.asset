@@ -16,8 +16,9 @@ MonoBehaviour:
   PlayersInGameAmount: 20
   BotRespawnTime: 10
   FightRadius: 5000
+  StartingCoinsAmount: 123456
   RewardForWatchAd: 100000
   MultiplierForWatchAdInGame: 2
   RewardForKill: 10000
   RewardForWin: 100000
-  IconCost: 100000
+  IconCost: 00000000a0860100f0490200400d030090d0030020a1070040420f0080841e00

@@ -87,7 +87,7 @@ public class PlayerSelectDialog : MonoBehaviour {
 
     private void UpdateApproveButton() {
         if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
-            int cost = MainConfigTable.Instance.MainGameConfig.IconCost;
+            int cost = MainConfigTable.Instance.MainGameConfig.IconCost[_selectedIconIndex];
             _approveButton.interactable = SaveLoadManager.Profile.CoinsAmount >= cost;
             _approveButtonText.text = "Купить";
         } else {
@@ -98,7 +98,7 @@ public class PlayerSelectDialog : MonoBehaviour {
 
     public void ApproveButton() {
         if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
-            int cost = MainConfigTable.Instance.MainGameConfig.IconCost;
+            int cost = MainConfigTable.Instance.MainGameConfig.IconCost[_selectedIconIndex];
             if (SaveLoadManager.Profile.CoinsAmount >= cost) {
                 SaveLoadManager.Profile.CoinsAmount -= cost;
                 SaveLoadManager.Profile.BoughtIcons.Add(_selectedIconIndex);
