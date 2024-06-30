@@ -7,7 +7,9 @@ public abstract class IShip : MonoBehaviour {
 
     public ShipType ShipType => _shipType;
     
+    [HideInInspector]
     public Vector3 RotateByV = Vector3.zero;
+    [HideInInspector]
     public Quaternion RotateToQ = Quaternion.identity;
 
     protected ShipConfig _shipConfig;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0924b05b87429824283ee415c01e01b0, type: 3}
-  m_Name: Ships5Config
+  m_Name: Ship5Config
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4782289128174166581, guid: 358c97a88778d0f49a2439c342ae199c, type: 3}
   ModelPrefab: {fileID: 6122904392932909826, guid: cf6c7c7d4fb8129498b33b381e63565f, type: 3}
