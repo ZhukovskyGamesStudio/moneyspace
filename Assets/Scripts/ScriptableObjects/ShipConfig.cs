@@ -10,33 +10,24 @@ public class ShipConfig : ScriptableObject {
 
     [Header("Shop Parameters")]
     public string ShipName;
-
     [TextArea]
     public string Description;
-
     public int ShipCost = 1000000;
-
-    public float UpperShiftOnShowcase = 0;
+    public float UpperShiftOnShowcase;
 
     [Header("Fight Parameters")]
     public int MaxHp;
-
     public int ShiedRepairSpeed = 10;
     public float OverheatFromShoot = 0.1f, OverheatFromSecond = 0.025f;
-
     public float DecreaseOverheatSpeed = 0.1f;
-
     public float AccelerationSpeed = 4f, DecelerationSpeed = 4f;
 
     [Header("Movement Parameters")]
     public float PlayerSideRotationSpeed = 35;
-
-    public float VerticalMaxRotationSpeed = 10, HorizontalMaxRotationSpeed = 10;
     public float HorRotationMultiplier = 1, VertRotationMultiplier = 1;
 
     [Header("Model Movement")]
     public float ModelRotation = 30f;
-
     public float ModelMovement = 30f;
 
     [Header("Upgrades")]
@@ -44,10 +35,8 @@ public class ShipConfig : ScriptableObject {
 
     [Range(1, 12)]
     public int SpeedMax;
-
     [Range(1, 12)]
     public int ShieldMax;
-
     [Range(1, 12)]
     public int AttackMax;
 
