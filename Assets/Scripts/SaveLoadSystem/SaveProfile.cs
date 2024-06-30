@@ -31,7 +31,7 @@ public class SaveProfile {
 
     public static SaveProfile Empty() {
         return new SaveProfile() {
-            CoinsAmount = 0,
+            CoinsAmount = MainConfigTable.Instance.MainGameConfig.StartingCoinsAmount,
             SelectedShip = 0,
             SelectedPlayerIcon = 0,
             Nickname = "unknownPlayer",

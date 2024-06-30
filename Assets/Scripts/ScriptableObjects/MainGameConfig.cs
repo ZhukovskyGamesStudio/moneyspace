@@ -9,6 +9,7 @@ public class MainGameConfig : ScriptableObject {
     public float FightRadius = 5000;
 
     [Header("Costs & Rewards")]
+    public int StartingCoinsAmount = 123456;
     public int RewardForWatchAd = 100000;
     public int MultiplierForWatchAdInGame = 2;
     public int RewardForKill = 10000;
