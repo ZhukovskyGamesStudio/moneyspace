@@ -2171,6 +2171,7 @@ MonoBehaviour:
   _playerSelectDialog: {fileID: 1384446809}
   _playerMainMenuView: {fileID: 1811340682}
   _shipsPanel: {fileID: 4833577}
+  _playerHpView: {fileID: 1125340006}
   _coinsView: {fileID: 135866035}
   _watchAdButtonCoinsView: {fileID: 978606921}
   _playButton: {fileID: 187249355}
@@ -3110,6 +3111,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4339508878616795796, guid: e2548306d05d37b4dac4ed33e182b9c8, type: 3}
   m_PrefabInstance: {fileID: 1125340004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1125340006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6416916627116608211, guid: e2548306d05d37b4dac4ed33e182b9c8, type: 3}
+  m_PrefabInstance: {fileID: 1125340004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3cecde707a4266b52d2ef7938a30ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1165969867
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,6 +62,11 @@ public class ShipsPanel : MonoBehaviour {
             UpdateCostView(curShipConfig, false);
             MainMenuUI.Instance.SetButtonBuy(OnBuySelectedShip);
         }
+        
+        if (upgradeData == null) {
+            upgradeData = curShipConfig.DefaultShipUpgrades; 
+        }
+        MainMenuUI.Instance.PlayerHpView.SetMaxTexts(curShipConfig.MaxHp, upgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint);
     }
 
     public void ChangeSmallStatsViewActive(bool isActive) {

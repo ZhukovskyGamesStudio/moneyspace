@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class PlayerHpView : MonoBehaviour {
     [SerializeField]
@@ -9,12 +9,21 @@ public class PlayerHpView : MonoBehaviour {
     [SerializeField]
     private Slider _shieldSlider;
 
-    private void Awake() {
-        SetData(Random.Range(0,1f),Random.Range(0,1f));
-    }
+    [SerializeField]
+    private TextMeshProUGUI _hpText, _shieldText;
 
     public void SetData(float hpPercent, float shieldPercent) {
         _hpSlider.value = hpPercent;
         _shieldSlider.value = shieldPercent;
+    }
+
+    public void SetMaxTexts(int hp, int shield) {
+        if (_hpText) {
+            _hpText.text = hp.ToString();
+        }
+
+        if (_shieldText) {
+            _shieldText.text = shield.ToString();
+        }
     }
 }

@@ -19,7 +19,10 @@ public class MainMenuUI : MonoBehaviour {
 
     public ShipsPanel ShipsPanel => _shipsPanel;
 
-    //TODO Add PlayerView
+    [SerializeField]
+    private PlayerHpView _playerHpView;
+
+    public PlayerHpView PlayerHpView => _playerHpView;
 
     [SerializeField]
     private CoinsView _coinsView;
