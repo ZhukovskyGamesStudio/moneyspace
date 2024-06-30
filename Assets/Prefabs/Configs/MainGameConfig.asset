@@ -15,6 +15,8 @@ MonoBehaviour:
   StartingPointsInEachTeam: 50
   PlayersInGameAmount: 20
   BotRespawnTime: 10
+  MinPlayerRespawnTime: 2
+  MaxPlayerRespawnTime: 6
   FightRadius: 5000
   StartingCoinsAmount: 123456
   RewardForWatchAd: 100000

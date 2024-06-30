@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardPanel : MonoBehaviour {
     [SerializeField]
@@ -9,12 +10,18 @@ public class RewardPanel : MonoBehaviour {
     private TextMeshProUGUI _winRewardText, _sumAllText;
 
     [SerializeField]
-    private Animation _killsBonus, _winBonus, _devSupportBonus, _allSum;
+    private Animation  _devSupportBonus;
 
+    [SerializeField]
+    private Button _doubleRewardsButton;
+
+    [SerializeField]
+    private ShowHideAnimationHandler _animationHandler;
+    
     private int _coinsRewardCount;
 
     public void Show(int killsCount, bool isWin) {
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
         MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
         _killsCountText.text = killsCount + " x " + cnfg.RewardForKill;
         int sumForKills = killsCount * cnfg.RewardForKill;
@@ -25,19 +32,18 @@ public class RewardPanel : MonoBehaviour {
 
         _coinsRewardCount = sumForKills + sumForWin;
         _sumAllText.text = _coinsRewardCount.ToString();
-        
-        _devSupportBonus.gameObject.SetActive(false);
     }
 
     public void Collect() {
         SaveLoadManager.Profile.CoinsAmount += _coinsRewardCount;
         SaveLoadManager.Save();
-        gameObject.SetActive(false);
+        _animationHandler.ChangeWithAnimation(false);
     }
 
     public void DoubleRewards() {
         _coinsRewardCount *= MainConfigTable.Instance.MainGameConfig.MultiplierForWatchAdInGame;
-        _devSupportBonus.gameObject.SetActive(true);
+        _devSupportBonus.Play("RewardBonusActivatedIdle");
+        _doubleRewardsButton.interactable = false;
         _sumAllText.text = _coinsRewardCount.ToString();
     }
 }
