@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -28,12 +27,11 @@ public class LeaderboardDialog : MonoBehaviour {
     [SerializeField]
     private RewardPanel _rewardPanel;
 
+    [SerializeField]
+    private ShowHideAnimationHandler _animationHandler;
+    
     private Action _onRespawnClicked;
     private bool _isFixedOpen;
-
-    private void OnEnable() {
-        UpdateData();
-    }
 
     public void Init(PlayersManager playersManager) {
         _playersManager = playersManager;
@@ -68,7 +66,8 @@ public class LeaderboardDialog : MonoBehaviour {
             return;
         }
 
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
+        UpdateData();
         _respawnContainer.SetActive(false);
         _endContainer.SetActive(false);
     }
@@ -78,7 +77,7 @@ public class LeaderboardDialog : MonoBehaviour {
             return;
         }
 
-        gameObject.SetActive(false);
+        _animationHandler.ChangeWithAnimation(false);
     }
 
     public void OpenRespawnState(Action onRespawnButton) {
@@ -86,7 +85,8 @@ public class LeaderboardDialog : MonoBehaviour {
         _respawnButton.interactable = true;
         _respawnTimerText.text = "Возродиться";
         _onRespawnClicked = onRespawnButton;
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
+        UpdateData();
         _respawnContainer.SetActive(true);
         _endContainer.SetActive(false);
     }
@@ -94,7 +94,8 @@ public class LeaderboardDialog : MonoBehaviour {
     public void SetEndGameState(int killsCount, bool isWin) {
         StopAllCoroutines();
         _isFixedOpen = true;
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
+        UpdateData();
         _respawnContainer.SetActive(false);
         _endContainer.SetActive(true);
 
@@ -115,7 +116,7 @@ public class LeaderboardDialog : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         _onRespawnClicked?.Invoke();
-        gameObject.SetActive(false);
+        _animationHandler.ChangeWithAnimation(false);
         _isFixedOpen = false;
     }
 
