@@ -8,7 +8,7 @@ public class ShipConfig : ScriptableObject {
     public Sprite Icon;
     public ShipType ShipType;
 
-    [Header("ShopParameters")]
+    [Header("Shop Parameters")]
     public string ShipName;
 
     [TextArea]
@@ -18,8 +18,26 @@ public class ShipConfig : ScriptableObject {
 
     public float UpperShiftOnShowcase = 0;
 
-    [Header("FightParameters")]
+    [Header("Fight Parameters")]
     public int MaxHp;
+
+    public int ShiedRepairSpeed = 10;
+    public float OverheatFromShoot = 0.1f, OverheatFromSecond = 0.025f;
+
+    public float DecreaseOverheatSpeed = 0.1f;
+
+    public float AccelerationSpeed = 4f, DecelerationSpeed = 4f;
+
+    [Header("Movement Parameters")]
+    public float PlayerSideRotationSpeed = 35;
+
+    public float VerticalMaxRotationSpeed = 10, HorizontalMaxRotationSpeed = 10;
+    public float HorRotationMultiplier = 1, VertRotationMultiplier = 1;
+
+    [Header("Model Movement")]
+    public float ModelRotation = 30f;
+
+    public float ModelMovement = 30f;
 
     [Header("Upgrades")]
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();

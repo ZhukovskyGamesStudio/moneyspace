@@ -5,25 +5,6 @@ using UnityEngine;
 
 public class Ship : IShip {
     [SerializeField]
-    private int _shiedRepairSpeed = 10;
-
-    [SerializeField]
-    private float _overheatFromShoot = 0.1f, _overheatFromSecond = 0.025f;
-
-    [SerializeField]
-    private float decreaseOverheatSpeed = 0.1f;
-
-    [SerializeField]
-    private float _accelerationSpeed = 4f;
-    
-
-    [SerializeField]
-    private float _modelRotation = 30f;
-
-    [SerializeField]
-    private float _modelMovement = 30f;
-
-    [SerializeField]
     private Transform _model;
 
     [SerializeField]
@@ -55,31 +36,22 @@ public class Ship : IShip {
 
     [SerializeField]
     private AudioClip _shipShot;
-
-    [SerializeField]
-    private float _decelerationSpeed = 1f;
-
-    private float _shipSpeed = 0;
-
-    public float ShipSpeed => _shipSpeed;
-
-    private float _rotationSpeed = 0;
-
+    
     private bool _recoil = false;
-
-    private float _overheat;
-    private int _hp;
-    private float _shield;
-
-    private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
-
-    private float _timeCounter;
-    private float _MaxTimeForCounter = 15;
     private bool _isOverheated = false;
     private bool _isBouncing = false;
+    
+    private int _hp;
+    private float _shipSpeed = 0;
+    private float _rotationSpeed = 0;
+    private float _shield;
+    private float _overheat;
+    private float _timeCounter;
+    private float _MaxTimeForCounter = 15;
+  
     private Quaternion _randomBounceDirection;
-
-   
+    private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
+    public float ShipSpeed => _shipSpeed;
 
     private void Start() {
         //Cursor.visible = false;
@@ -157,7 +129,7 @@ public class Ship : IShip {
             return;
         }
 
-        _shield += _shiedRepairSpeed * Time.fixedDeltaTime;
+        _shield += _shipConfig.ShiedRepairSpeed * Time.fixedDeltaTime;
         if (_shield > MaxShied) {
             _shield = MaxShied;
         }
@@ -168,7 +140,7 @@ public class Ship : IShip {
             return;
         }
 
-        _overheat -= decreaseOverheatSpeed * Time.fixedDeltaTime;
+        _overheat -= _shipConfig.DecreaseOverheatSpeed * Time.fixedDeltaTime;
         if (_overheat <= 0) {
             _overheat = 0;
             _isOverheated = false;
@@ -224,11 +196,11 @@ public class Ship : IShip {
 
     private void MoveModel(Vector3 rotVector) {
         var tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
-        Vector3 modelRotVector = new Vector3(rotVector.x * tech._vertRotation, 0, -rotVector.y * tech._vertRotation) * _modelRotation;
+        Vector3 modelRotVector = new Vector3(rotVector.x * tech._vertRotation, 0, -rotVector.y * tech._vertRotation) * _shipConfig.ModelRotation;
         _model.localRotation = Quaternion.Euler(modelRotVector);
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
         modelShift.z = 0;
-        _model.localPosition = modelShift * _modelMovement;
+        _model.localPosition = modelShift * _shipConfig.ModelMovement;
     }
 
     private void FlyForward() {
@@ -242,17 +214,17 @@ public class Ship : IShip {
     
 
     public override void Accelerate() {
-        _shipSpeed += _accelerationSpeed;
+        _shipSpeed += _shipConfig.AccelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public override void Slowdown() {
-        _shipSpeed -= _decelerationSpeed;
+        _shipSpeed -= _shipConfig.DecelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public override void SlowdownKeyDown() {
-        _shipSpeed -= _accelerationSpeed;
+        _shipSpeed -= _shipConfig.AccelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
@@ -261,7 +233,7 @@ public class Ship : IShip {
             return;
         }
 
-        _overheat += _overheatFromShoot;
+        _overheat += _shipConfig.OverheatFromShoot;
         if (_overheat >= 1) {
             _overheat = 1;
             _isOverheated = true;
@@ -286,7 +258,7 @@ public class Ship : IShip {
             return;
         }
 
-        _overheat += _overheatFromSecond;
+        _overheat += _shipConfig.OverheatFromSecond;
         if (_overheat >= 1) {
             _overheat = 1;
             _isOverheated = true;
