@@ -78,9 +78,9 @@ public class ShipsPanel : MonoBehaviour {
             }
             
             ShipsStatsSmallPanel.UpdateView(curShipConfig,upgradeData);
-            ShipsStatsSmallPanel.gameObject.SetActive(true);
+            ShipsStatsSmallPanel.ShowViaAnim(true);
         } else {
-            ShipsStatsSmallPanel.gameObject.SetActive(false);
+            ShipsStatsSmallPanel.ShowViaAnim(false);
         }
     }
 

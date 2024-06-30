@@ -5,6 +5,13 @@ public class ShipsStatsSmallPanel : MonoBehaviour
     [SerializeField]
     private ShipUpgradeBar _speedBar, _shieldBar, _attackBar;
 
+    [SerializeField]
+    private ShowHideAnimationHandler _animationHandler;
+    
+    public void ShowViaAnim(bool isOn) {
+        _animationHandler.ChangeWithAnimation(isOn);
+    }
+    
     public void UpdateView(ShipConfig config, ShipUpgradeData upgradeData) {
         UpdateBarsView(config,upgradeData);
         
