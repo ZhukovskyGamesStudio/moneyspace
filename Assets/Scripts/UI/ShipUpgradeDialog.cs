@@ -8,12 +8,15 @@ public class ShipUpgradeDialog : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _nameText, _descriptionText;
 
+    [SerializeField]
+    private ShowHideAnimationHandler _animationHandler;
+    
     private ShipConfig _config;
     private ShipUpgradeData _upgradeData;
 
     public void Toggle() {
-        if (gameObject.activeSelf) {
-            gameObject.SetActive(false);
+        if (_animationHandler.IsOn) {
+            _animationHandler.ChangeWithAnimation(false);
             MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(true);
             MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(false);
             return;
@@ -21,12 +24,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
 
         MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(false);
         MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(true);
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
         UpdateView();
     }
 
     public void Close() {
-        gameObject.SetActive(false);
+          _animationHandler.ChangeWithAnimation(false);
     }
 
     public void SetData(ShipConfig config, ShipUpgradeData upgradeData) {

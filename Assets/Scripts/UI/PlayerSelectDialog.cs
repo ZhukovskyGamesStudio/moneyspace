@@ -27,6 +27,9 @@ public class PlayerSelectDialog : MonoBehaviour {
     [SerializeField]
     private Button _approveButton;
 
+    [SerializeField]
+    private ShowHideAnimationHandler _animationHandler;
+
     private int _selectedIconIndex = 0;
 
     private void Awake() {
@@ -50,13 +53,17 @@ public class PlayerSelectDialog : MonoBehaviour {
     }
 
     public void Toggle() {
-        if (gameObject.activeSelf) {
-            gameObject.SetActive(false);
+        if (_animationHandler.IsOn) {
+            _animationHandler.ChangeWithAnimation(false);
             return;
         }
 
-        gameObject.SetActive(true);
+        _animationHandler.ChangeWithAnimation(true);
         UpdateView();
+    }
+
+    public void Close() {
+        _animationHandler.ChangeWithAnimation(false);
     }
 
     private void UpdateView() {

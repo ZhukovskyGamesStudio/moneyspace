@@ -52,8 +52,8 @@ public class MainMenuUI : MonoBehaviour {
     }
 
     public void CloseDialogs() {
-        _shipUpgradeDialog.gameObject.SetActive(false);
-        _playerSelectDialog.gameObject.SetActive(false);
+        _shipUpgradeDialog.Close();
+        _playerSelectDialog.Close();
     }
 
     public void Init() {

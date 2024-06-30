@@ -8,7 +8,7 @@ public class ShowHideAnimationHandler : MonoBehaviour {
     private Animation _animation;
 
     private bool _isOn;
-
+    public bool IsOn => _isOn;
     public void ChangeWithAnimation(bool isOn) {
         if (_isOn == isOn) {
             return;
