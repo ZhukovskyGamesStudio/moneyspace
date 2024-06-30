@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LeaderboardDialog : MonoBehaviour {
     [SerializeField]
@@ -15,6 +19,12 @@ public class LeaderboardDialog : MonoBehaviour {
     [SerializeField]
     private GameObject _respawnContainer, _endContainer;
 
+    [SerializeField]
+    private Button _respawnButton;
+    
+    [SerializeField]
+    private TextMeshProUGUI _respawnTimerText;
+    
     [SerializeField]
     private RewardPanel _rewardPanel;
 
@@ -73,6 +83,8 @@ public class LeaderboardDialog : MonoBehaviour {
 
     public void OpenRespawnState(Action onRespawnButton) {
         _isFixedOpen = true;
+        _respawnButton.interactable = true;
+        _respawnTimerText.text = "Возродиться";
         _onRespawnClicked = onRespawnButton;
         gameObject.SetActive(true);
         _respawnContainer.SetActive(true);
@@ -80,6 +92,7 @@ public class LeaderboardDialog : MonoBehaviour {
     }
 
     public void SetEndGameState(int killsCount, bool isWin) {
+        StopAllCoroutines();
         _isFixedOpen = true;
         gameObject.SetActive(true);
         _respawnContainer.SetActive(false);
@@ -89,6 +102,21 @@ public class LeaderboardDialog : MonoBehaviour {
     }
 
     public void RespawnButton() {
+        StartCoroutine(RespawnCoroutine());
+    }
+
+    private IEnumerator RespawnCoroutine() {
+        _respawnTimerText.gameObject.SetActive(true);
+        _respawnButton.interactable = false;
+        MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
+        float curRespawnTime = Random.Range(cnfg.MinPlayerRespawnTime, cnfg.MaxPlayerRespawnTime);
+        while (curRespawnTime > 0) {
+            curRespawnTime -= Time.deltaTime;
+            _respawnTimerText.text = "Возрождение через " + Mathf.CeilToInt(curRespawnTime) + "..";
+            yield return new WaitForEndOfFrame();
+        }
+
+        _respawnTimerText.gameObject.SetActive(false);
         _onRespawnClicked?.Invoke();
         gameObject.SetActive(false);
         _isFixedOpen = false;

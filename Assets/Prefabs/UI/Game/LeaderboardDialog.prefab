@@ -929,6 +929,8 @@ MonoBehaviour:
   - {fileID: 8447271588149472770}
   _respawnContainer: {fileID: 4639212176274106526}
   _endContainer: {fileID: 9186299198729892175}
+  _respawnButton: {fileID: 5855457488893058920}
+  _respawnTimerText: {fileID: 4731437400072647961}
   _rewardPanel: {fileID: 3991510487757538179}
 --- !u!1 &1962592458926859760
 GameObject:
@@ -2347,9 +2349,9 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
