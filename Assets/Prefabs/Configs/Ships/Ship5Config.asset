@@ -30,21 +30,21 @@ MonoBehaviour:
     \u0431\u043E\u044F."
   ShipCost: 1000000
   UpperShiftOnShowcase: -0.3
-  MaxHp: 150
+  MaxHp: 295
   ShiedRepairSpeed: 10
   OverheatFromShoot: 0.1
   OverheatFromSecond: 0.025
   DecreaseOverheatSpeed: 0.15
-  AccelerationSpeed: 4
-  DecelerationSpeed: 1
-  PlayerSideRotationSpeed: 35
-  HorRotationMultiplier: 0.5
-  VertRotationMultiplier: 0.5
+  AccelerationSpeed: 1
+  DecelerationSpeed: 0.05
+  PlayerSideRotationSpeed: 140
+  HorRotationMultiplier: 0.2
+  VertRotationMultiplier: 0.2
   BoostSpeedMultiplier: 1.5
   BoostDecreasePerSecond: 0.33
   BoostIncreasePerSecond: 0.1
-  ModelRotation: 0.1
-  ModelMovement: -0.0075
+  ModelRotation: 0.09
+  ModelMovement: -0.0025
   DefaultShipUpgrades:
     Type: 5
     Speed: 3
