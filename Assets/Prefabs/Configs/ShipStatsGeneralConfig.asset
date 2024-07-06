@@ -21,16 +21,16 @@ MonoBehaviour:
     BotRotationSlerp: 0.01
     DelayDropLockAfterShipMovedAwayFromCenter: 0.7
   BotShootAngle: 10
-  BotMinStartShootDistance: 250
-  BotMaxStartShootDistance: 400
-  BotMinAttackTime: 5
-  BotMaxAttackTime: 30
+  BotMinStartShootDistance: 450
+  BotMaxStartShootDistance: 900
+  BotMinAttackTime: 0.5
+  BotMaxAttackTime: 10
   StartEvadeDistance: 100
   BotHuntDesirableSpeed: 0.8
   BotShootDesirableSpeed: 0.4
   BotEvadeDesirableSpeed: 1
-  BotRandomShootDelta: 5
-  BotRandomShootChance: 0.1
+  BotRandomShootDelta: 25
+  BotRandomShootChance: 0.25
   BotChanceToShootWithSecondGun: 0.3
   BotRandomEvadePointDelta: 400
   BotRandomChasePointDelta: 5
