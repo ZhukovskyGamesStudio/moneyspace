@@ -32,10 +32,10 @@ MonoBehaviour:
   MaxHp: 150
   ShiedRepairSpeed: 4
   OverheatFromShoot: 0.09
-  OverheatFromSecond: 0.025
+  OverheatFromSecond: 0.05
   DecreaseOverheatSpeed: 0.15
-  AccelerationSpeed: 1
-  DecelerationSpeed: 0.05
+  AccelerationSpeed: 0.5
+  DecelerationSpeed: 0.003
   PlayerSideRotationSpeed: 145
   HorRotationMultiplier: 0.3
   VertRotationMultiplier: 0.3

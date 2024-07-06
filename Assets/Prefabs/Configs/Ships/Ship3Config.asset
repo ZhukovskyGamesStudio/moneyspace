@@ -32,11 +32,11 @@ MonoBehaviour:
   UpperShiftOnShowcase: 0.5
   MaxHp: 250
   ShiedRepairSpeed: 10
-  OverheatFromShoot: 0.1
-  OverheatFromSecond: 0.025
+  OverheatFromShoot: 0.07
+  OverheatFromSecond: 0.04
   DecreaseOverheatSpeed: 0.15
-  AccelerationSpeed: 4
-  DecelerationSpeed: 1
+  AccelerationSpeed: 1
+  DecelerationSpeed: 0.03
   PlayerSideRotationSpeed: 190
   HorRotationMultiplier: 0.2
   VertRotationMultiplier: 0.2
