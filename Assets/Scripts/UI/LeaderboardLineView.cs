@@ -10,6 +10,9 @@ public class LeaderboardLineView : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _nameText, _killCount, deathCount, assistCount;
 
+    [SerializeField]
+    private GameObject _playerIndicator;
+
     public void SetData(PlayerData data) {
         gameObject.SetActive(true);
         _nameText.text = data.Nickname;
@@ -17,6 +20,8 @@ public class LeaderboardLineView : MonoBehaviour {
         deathCount.text = data.Deaths.ToString();
         assistCount.text = data.Assists.ToString();
         _avatarIcon.sprite = AvatarFactory.GetAvatar(data.AvatarIndex);
+       
+        _playerIndicator.SetActive(!data.isBot);
     }
 
     public void SetInactive() {
