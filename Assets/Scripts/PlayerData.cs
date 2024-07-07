@@ -7,10 +7,10 @@ public class PlayerData {
     public int Kills, Deaths, Assists;
     public Team Team;
 
-    public static PlayerData RandomBot() =>
+    public static PlayerData RandomBot(string name) =>
         new PlayerData {
             isBot = true,
-            Nickname = "Player#" + Random.Range(0, 999),
+            Nickname = name,
             AvatarIndex = Random.Range(0,AvatarFactory.AvatarsCount)
         };
 }

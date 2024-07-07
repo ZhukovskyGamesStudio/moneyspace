@@ -22,23 +22,26 @@ public class PlayersManager {
         }
     }
 
-    public void GenerateBots(int playersAmount) {
-        int blueBots = playersAmount;
-        int redBots = playersAmount;
+    public void GenerateBots(int playersInTeamAmount) {
+        int blueBots = playersInTeamAmount;
+        int redBots = playersInTeamAmount;
         if (RealPLayer.Team == Team.Blue) {
             blueBots--;
         } else {
             redBots--;
         }
 
+        List<string> botnames = BotsFactory.Instance.GetRandomBotsNames(playersInTeamAmount*2);
+        
         for (int i = 0; i < blueBots; i++) {
-            var botData = PlayerData.RandomBot();
+            
+            var botData = PlayerData.RandomBot(botnames[i]);
             botData.Team = Team.Blue;
             _blueTeam.Add(botData);
         }
 
         for (int i = 0; i < redBots; i++) {
-            var botData = PlayerData.RandomBot();
+            var botData = PlayerData.RandomBot(botnames[blueBots-1+i]);
             botData.Team = Team.Red;
             _redTeam.Add(botData);
         }

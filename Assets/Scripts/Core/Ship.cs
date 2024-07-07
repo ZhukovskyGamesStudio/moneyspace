@@ -222,7 +222,7 @@ public class Ship : IShip {
     }
 
     private void MoveModel(Vector3 rotVector, Vector3 shift) {
-        float lerpStep = 0.15f;
+        float lerpStep = _shipConfig.ModelLerp;
         Vector3 modelRotVector =
             new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, 0, -rotVector.y * _shipConfig.VertRotationMultiplier) *
             _shipConfig.ModelRotation;
@@ -285,9 +285,9 @@ public class Ship : IShip {
 
         _shipSounds.PlayOneShot(_shipShot);
 
-        StartCoroutine(RecoilCoroutine(0.3f));
+        StartCoroutine(RecoilCoroutine(_shipConfig.ShootRecoil));
         foreach (var VARIABLE in _primeCanons) {
-            VARIABLE.Shoot(target, _owner);
+            VARIABLE.Shoot(target,ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime, _owner);
         }
     }
 
@@ -308,9 +308,9 @@ public class Ship : IShip {
             _isOverheated = true;
         }
 
-        StartCoroutine(RecoilCoroutine(0.03f));
+        StartCoroutine(RecoilCoroutine(_shipConfig.SecondRecoil));
         foreach (var VARIABLE in _secondCanons) {
-            VARIABLE.Shoot(target, _owner);
+            VARIABLE.Shoot(target,ShipsFactory.ShipStatsGeneralConfig.SecondLaserLifetime, _owner);
         }
     }
 
@@ -364,6 +364,7 @@ public class Ship : IShip {
         _recoil = false;
         _isBouncing = false;
         _shield3dView.HideShieldInstant();
+        _boost = 1;
     }
 
     public override Transform GetCameraFollowTarget() {

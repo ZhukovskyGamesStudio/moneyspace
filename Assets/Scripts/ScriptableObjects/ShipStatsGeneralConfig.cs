@@ -8,6 +8,8 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     public int LaserDamagePerPoint;
     
     public float LaserSpeed = 100;
+    public float PrimeLaserLifetime = 3;
+    public float SecondLaserLifetime = 1;
 
 
 

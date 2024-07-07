@@ -18,7 +18,8 @@ public class ShipConfig : ScriptableObject {
     [Header("Fight Parameters")]
     public int MaxHp;
     public int ShiedRepairSpeed = 10;
-    public float OverheatFromShoot = 0.1f, OverheatFromSecond = 0.025f;
+    public float OverheatFromShoot = 0.1f, ShootRecoil = 0.3f;
+    public float OverheatFromSecond = 0.025f, SecondRecoil = 0.03f;
     public float DecreaseOverheatSpeed = 0.1f;
     public float AccelerationSpeed = 4f, DecelerationSpeed = 4f;
 
@@ -32,6 +33,7 @@ public class ShipConfig : ScriptableObject {
     [Header("Model Movement")]
     public float ModelRotation = 30f;
     public float ModelMovement = 30f;
+    public float ModelLerp = 0.15f;
 
     [Header("Upgrades")]
     public ShipUpgradeData DefaultShipUpgrades = new ShipUpgradeData();
@@ -49,4 +51,13 @@ public class ShipConfig : ScriptableObject {
     public int GetShieldCost(int cur) => cur - 1 < ShieldUpgradesCost.Count ? ShieldUpgradesCost[cur - 1] : 0;
     public List<int> SpeedUpgradesCost = new List<int>();
     public int GetSpeedCost(int cur) => cur - 1 < SpeedUpgradesCost.Count ? SpeedUpgradesCost[cur - 1] : 0;
+    
+    
+    public ShipUpgradeData GetRandomizedUpgrades() {
+        ShipUpgradeData shipUpgradeData = DefaultShipUpgrades.Copy;
+        shipUpgradeData.Speed = Random.Range(shipUpgradeData.Speed, SpeedMax);
+        shipUpgradeData.Shield = Random.Range(shipUpgradeData.Shield, ShieldMax);
+        shipUpgradeData.Attack = Random.Range(shipUpgradeData.Attack, AttackMax);
+        return shipUpgradeData;
+    }
 }

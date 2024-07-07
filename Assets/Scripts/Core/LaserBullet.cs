@@ -8,12 +8,12 @@ public class LaserBullet : MonoBehaviour {
 
     private AbstractPilot _owner;
 
-    public void Init(Vector3 dir, float speed, int layer, AbstractPilot owner) {
+    public void Init(Vector3 dir, float speed, int layer,float lifeTime, AbstractPilot owner) {
         transform.forward = dir;
         _speed = speed;
         gameObject.layer = layer;
         transform.GetChild(0).gameObject.layer = layer;
-        Destroy(gameObject, 3);
+        Destroy(gameObject, lifeTime);
         _owner = owner;
     }
 

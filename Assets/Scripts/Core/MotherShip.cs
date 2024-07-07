@@ -15,6 +15,9 @@ public class MotherShip : MonoBehaviour {
     [SerializeField]
     private List<LaserCanon> _bigLasers = new List<LaserCanon>();
 
+    [SerializeField]
+    private float _laserLifetime = 5;
+    
     private void Start() {
         StartCoroutine(ShootCoroutine(_lasers));
         StartCoroutine(ShootCoroutine(_bigLasers));
@@ -33,7 +36,7 @@ public class MotherShip : MonoBehaviour {
         }
 
         foreach (LaserCanon canon in lasers) {
-            canon.Shoot(_targetOfMatherShip.transform.position, null);
+            canon.Shoot(_targetOfMatherShip.transform.position,_laserLifetime, null);
         }
     }
 }

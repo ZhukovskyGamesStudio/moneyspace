@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,7 +21,6 @@ public class BotPilot : AbstractPilot {
     private Vector3 _cachedRandomVector;
     private float _cachedRandomValue;
     private bool _isFiringSecond;
-
     public override void Init() {
         GetShip();
         CreateMarker();
@@ -48,8 +45,9 @@ public class BotPilot : AbstractPilot {
 
     protected override void GetShip() {
         base.GetShip();
-        var shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
-        _ship.InitFromDefaultConfig(shipConfig);
+        ShipConfig shipConfig = ShipsFactory.Ships.First(s => s.ShipType == _ship.ShipType);
+        ShipUpgradeData upgrades = shipConfig.GetRandomizedUpgrades();
+        _ship.InitFromConfig(shipConfig, upgrades);
         _ship.OnDestroyed += StartRespawning;
     }
 
@@ -64,7 +62,7 @@ public class BotPilot : AbstractPilot {
             _marker = GameUI.Instance.ArMarkersManager.CreateBlueMarker();
         }
 
-        _marker.SetTarget((_ship as Ship).GetTargetLockAnchor);
+        _marker.SetTarget(_ship.GetTargetLockAnchor);
     }
 
     private void ChangeMarkerVisibility(bool isActive) {
