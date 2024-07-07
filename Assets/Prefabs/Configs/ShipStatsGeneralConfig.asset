@@ -12,29 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa37e32dbc14908a0aa65c34603938a, type: 3}
   m_Name: ShipStatsGeneralConfig
   m_EditorClassIdentifier: 
-  ShieldPerPoint: 15
-  SpeedMaxPerPoint: 60
-  LaserDamagePerPoint: 5
-  LaserSpeed: 600
+  ShieldPerPoint: 50
+  SpeedMaxPerPoint: 10
+  LaserDamagePerPoint: 15
+  LaserSpeed: 1200
   DamageFromCollision: 50
   TechicalParams:
-    PlayerSideRotationSpeed: 35
-    _verticalMaxRotationSpeed: 360
-    _horizontalMaxRotationSpeed: 360
-    _horRotation: 0.5
-    _vertRotation: 0.5
     BotRotationSlerp: 0.01
     DelayDropLockAfterShipMovedAwayFromCenter: 0.7
-  BotShootAngle: 40
-  BotMinStartShootDistance: 250
-  BotMaxStartShootDistance: 400
-  BotMinAttackTime: 5
-  BotMaxAttackTime: 30
+  BotShootAngle: 10
+  BotMinStartShootDistance: 450
+  BotMaxStartShootDistance: 900
+  BotMinAttackTime: 0.5
+  BotMaxAttackTime: 10
   StartEvadeDistance: 100
   BotHuntDesirableSpeed: 0.8
   BotShootDesirableSpeed: 0.4
   BotEvadeDesirableSpeed: 1
-  BotRandomShootDelta: 5
-  BotRandomShootChance: 0.1
+  BotRandomShootDelta: 25
+  BotRandomShootChance: 0.25
+  BotChanceToShootWithSecondGun: 0.3
   BotRandomEvadePointDelta: 400
   BotRandomChasePointDelta: 5

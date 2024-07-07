@@ -28,29 +28,30 @@ MonoBehaviour:
     \u0434\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043E\u0441\u0430\u0434
     \u0438 \u043D\u0435\u0441\u043F\u0435\u0448\u043D\u043E\u0433\u043E \u0431\u043E\u044F"
   ShipCost: 1000000
-  UpperShiftOnShowcase: 1.1
-  MaxHp: 150
+  UpperShiftOnShowcase: 0.7
+  MaxHp: 350
   ShiedRepairSpeed: 10
-  OverheatFromShoot: 0.1
-  OverheatFromSecond: 0.025
+  OverheatFromShoot: 0.07
+  OverheatFromSecond: 0.07
   DecreaseOverheatSpeed: 0.15
-  AccelerationSpeed: 4
-  DecelerationSpeed: 1
-  PlayerSideRotationSpeed: 35
-  VerticalMaxRotationSpeed: 10
-  HorizontalMaxRotationSpeed: 10
-  HorRotationMultiplier: 0.5
-  VertRotationMultiplier: 0.5
-  ModelRotation: 0.1
-  ModelMovement: -0.0075
+  AccelerationSpeed: 1
+  DecelerationSpeed: 0.003
+  PlayerSideRotationSpeed: 140
+  HorRotationMultiplier: 0.3
+  VertRotationMultiplier: 0.3
+  BoostSpeedMultiplier: 1.5
+  BoostDecreasePerSecond: 0.33
+  BoostIncreasePerSecond: 0.1
+  ModelRotation: 0.08
+  ModelMovement: -0.0035
   DefaultShipUpgrades:
     Type: 6
-    Speed: 1
-    Shield: 5
-    Attack: 1
-  SpeedMax: 4
+    Speed: 2
+    Shield: 6
+    Attack: 2
+  SpeedMax: 9
   ShieldMax: 12
-  AttackMax: 4
+  AttackMax: 7
   AttackUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
   ShieldUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
   SpeedUpgradesCost: a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100a0860100
