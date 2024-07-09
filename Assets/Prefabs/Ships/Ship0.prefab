@@ -514,10 +514,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
-      propertyPath: _shipSounds
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2462914844045690213, guid: 0138ec0d3682af3468aee01929bbb7fc, type: 3}
       propertyPath: _shipMaxSpeed
       value: 100
       objectReference: {fileID: 0}

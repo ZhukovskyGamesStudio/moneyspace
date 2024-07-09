@@ -93,7 +93,8 @@ public class ArShootAssist : MonoBehaviour {
         _targetLocked.transform.position = lockPos;
         
         _arrow.SetActive(false);
-        _round.SetActive(true);
+        bool isInShootRange = CheckTargetInShootDistance(target);
+        _round.SetActive(isInShootRange);
         
         Vector3 ACv = targetAnchor.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
@@ -127,6 +128,11 @@ public class ArShootAssist : MonoBehaviour {
         Transform cameraTr = Camera.main.transform;
         float angle = Vector3.Angle(cameraTr.forward, target.transform.position - cameraTr.position);
         return angle < maxAngle;
+    }
+
+    public bool CheckTargetInShootDistance(Ship target) {
+        float dist = (Camera.main.transform.position - target.transform.position).magnitude;
+        return dist <= ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime * ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
     }
 
     private void UpdateTargetLock() {
