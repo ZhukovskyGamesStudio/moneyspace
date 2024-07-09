@@ -49,6 +49,7 @@ public class BotPilot : AbstractPilot {
         ShipUpgradeData upgrades = shipConfig.GetRandomizedUpgrades();
         _ship.InitFromConfig(shipConfig, upgrades);
         _ship.OnDestroyed += StartRespawning;
+        _ship.OnTakeDamage += OnTakingDamage;
     }
 
     private void CreateMarker() {
@@ -181,8 +182,11 @@ public class BotPilot : AbstractPilot {
             return;
         }
 
-        if (_shipSpeed < ShipsFactory.ShipStatsGeneralConfig.BotEvadeDesirableSpeed) {
+        if (_shipSpeed <= ShipsFactory.ShipStatsGeneralConfig.BotEvadeDesirableSpeed) {
             _ship.Accelerate();
+            if (_ship.GetShieldPercent() < 0.5f) {
+                _ship.Boost();
+            }
         }
 
         Vector3 dir = _ship.transform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta - _target.position;
@@ -216,6 +220,15 @@ public class BotPilot : AbstractPilot {
     private void StartRespawning(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         _respawnCoroutine = StartCoroutine(RespawnCoroutine());
+    }
+
+    private void OnTakingDamage(AbstractPilot from) {
+        if (_state != BotState.Evade && _ship.GetShieldPercent() < 0.1f) {
+            _target = from.Ship.transform;
+            _state = BotState.Evade;
+            _cachedRandomValue = Random.Range(0, 1f);
+            StopCoroutine(_attackCoroutine);
+        }
     }
 
     private IEnumerator RespawnCoroutine() {

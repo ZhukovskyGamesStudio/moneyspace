@@ -200,7 +200,7 @@ public class Ship : IShip {
     }
 
     public override float GetSpeedPercent() {
-        return _shipSpeed / GetMaxSpeed;
+        return Math.Clamp(_shipSpeed / GetMaxSpeed, 0, 1f);
     }
 
     public float SideRotationSpeed => _shipConfig.PlayerSideRotationSpeed;
@@ -334,10 +334,10 @@ public class Ship : IShip {
         }
 
         _hp -= Mathf.RoundToInt(damageThroughShield);
-
+        OnTakeDamage?.Invoke(fromPilot);
         if (_damageDealers.ContainsKey(from)) {
             _damageDealers[from] += amount;
-        } else {
+        } else { 
             _damageDealers.Add(from, amount);
         }
 
