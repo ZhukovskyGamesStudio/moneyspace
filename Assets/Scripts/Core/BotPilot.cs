@@ -72,7 +72,8 @@ public class BotPilot : AbstractPilot {
 
     private void FindTarget() {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue");
-        _target = targets[Random.Range(0, targets.Length)].transform;
+        targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
+        _target = targets[Random.Range(0, 2)].transform;
         if (_target == null) {
             Debug.Log("no target found!");
         }
