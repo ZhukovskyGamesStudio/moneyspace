@@ -32,7 +32,7 @@ public class MenuShipsView : MonoBehaviour {
         CreateShips();
     }
 
-    public void CreateShips() {
+    private void CreateShips() {
         for (int index = 0; index < ShipsFactory.Ships.Count; index++) {
             ShipConfig cnfg = ShipsFactory.Ships[index];
             GameObject ship = Instantiate(cnfg.ModelPrefab, _shipsHolder);
@@ -90,10 +90,10 @@ public class MenuShipsView : MonoBehaviour {
     }
 
     public void ToggleUpgradePos(bool isOn) {
-        if (isOn) {
+        if (isOn && ! _inUpgradePos) {
             _inUpgradePos = true;
             MoveShipToUpgradePos();
-        } else {
+        } else if (_inUpgradePos) {
             _inUpgradePos = false;
             MoveShipBackFromUpgradePos();
         }

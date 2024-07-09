@@ -37,7 +37,7 @@ public class PlayerSelectDialog : MonoBehaviour {
     }
 
     private void CreateIcons() {
-        int amount = AvatarFactory.AvatarsCount;
+        int amount = MainConfigTable.Instance.MainGameConfig.IconCost.Count;
         for (int i = 0; i < amount; i++) {
             PlayerAvatarGridView view = Instantiate(_togglePrefab, _avatarsHolder);
             _selectIconToggles.Add(view);

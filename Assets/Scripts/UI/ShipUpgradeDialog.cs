@@ -10,15 +10,15 @@ public class ShipUpgradeDialog : MonoBehaviour {
 
     [SerializeField]
     private ShowHideAnimationHandler _animationHandler;
-    
+
     private ShipConfig _config;
     private ShipUpgradeData _upgradeData;
 
     public void Toggle() {
         if (_animationHandler.IsOn) {
-            _animationHandler.ChangeWithAnimation(false);
-            MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(true);
-            MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(false);
+            Close();
+
+           
             return;
         }
 
@@ -29,7 +29,9 @@ public class ShipUpgradeDialog : MonoBehaviour {
     }
 
     public void Close() {
-          _animationHandler.ChangeWithAnimation(false);
+        _animationHandler.ChangeWithAnimation(false);
+        MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(true);
+        MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(false);
     }
 
     public void SetData(ShipConfig config, ShipUpgradeData upgradeData) {
@@ -51,8 +53,10 @@ public class ShipUpgradeDialog : MonoBehaviour {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
-        _upgradeData.Speed++;
+
+      
         SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
+        _upgradeData.Speed++;
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
@@ -65,8 +69,10 @@ public class ShipUpgradeDialog : MonoBehaviour {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
-        _upgradeData.Shield++;
+
+       
         SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
+        _upgradeData.Shield++;
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
@@ -79,8 +85,10 @@ public class ShipUpgradeDialog : MonoBehaviour {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
-        _upgradeData.Attack++;
+
+  
         SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
+        _upgradeData.Attack++;
         SaveLoadManager.Save();
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();

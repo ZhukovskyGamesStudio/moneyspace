@@ -29,7 +29,7 @@ public class ShipsPanel : MonoBehaviour {
         Init();
     }
 
-    public void Init() {
+    private void Init() {
         _menuShipsView.Init();
         _curShipIndex = SaveLoadManager.Profile.SelectedShip;
         UpdateButtonsState(_curShipIndex);
