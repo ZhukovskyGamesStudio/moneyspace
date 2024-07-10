@@ -48,6 +48,7 @@ public abstract class IShip : MonoBehaviour {
     public abstract int GetLaserDamage();
 
     public Action<AbstractPilot, AbstractPilot> OnDestroyed;
+    public Action<AbstractPilot> OnTakeDamage;
 
     public abstract void Accelerate();
 
