@@ -45,6 +45,7 @@ public class MainMenuManager : MonoBehaviour {
     private void GiveCoinsAfterRewAd() {
         SaveLoadManager.Profile.CoinsAmount += MainConfigTable.Instance.MainGameConfig.RewardForWatchAd;
         SaveLoadManager.Save();
+        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
     }
 
     public void OpenPlayerData() {
