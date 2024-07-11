@@ -7,20 +7,21 @@ public class RewardPanel : MonoBehaviour {
     private TextMeshProUGUI _killsCountText, _killsSumReward;
 
     [SerializeField]
-    private TextMeshProUGUI _winRewardText, _sumAllText;
+    private TextMeshProUGUI _winHeaderText, _winRewardText, _sumAllText;
 
     [SerializeField]
-    private Animation  _devSupportBonus;
+    private Animation _devSupportBonus;
 
     [SerializeField]
     private Button _doubleRewardsButton;
 
     [SerializeField]
     private ShowHideAnimationHandler _animationHandler;
-    
+
     private int _coinsRewardCount;
 
     public void Show(int killsCount, bool isWin) {
+        _winHeaderText.text = isWin ? "ПОБЕДА" : "ПОРАЖЕНИЕ";
         _animationHandler.ChangeWithAnimation(true);
         MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
         _killsCountText.text = killsCount + " x " + cnfg.RewardForKill;
@@ -38,6 +39,7 @@ public class RewardPanel : MonoBehaviour {
         SaveLoadManager.Profile.CoinsAmount += _coinsRewardCount;
         SaveLoadManager.Save();
         _animationHandler.ChangeWithAnimation(false);
+        GameUI.Instance.LeaderboardDialog.SetEndGameState();
     }
 
     public void DoubleRewards() {

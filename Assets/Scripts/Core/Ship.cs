@@ -31,11 +31,14 @@ public class Ship : IShip {
     [SerializeField]
     private GameObject _warpOnShift;
 
+    [Header("Sounds")]
     [SerializeField]
-    private TypedAudioSource _shipSounds;
+    private TypedAudioSource _laserSoundSource;
+    [SerializeField]
+    private TypedAudioSource _secondLaserSoundSource, _boostAudioSource, _shieldAudioSource, _takeDamageSource;
 
     [SerializeField]
-    private AudioClip _shipShot;
+    private AudioClip _laserSound, _secondLaserSound;
     
     private bool _recoil = false;
     private bool _isOverheated = false;
@@ -250,13 +253,16 @@ public class Ship : IShip {
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
-    public void Boost() {
-        if (_boost > 0) {
+    public void SetBoost(bool isBoosting) {
+        if (_boost > 0 && isBoosting) {
+            _boostAudioSource.gameObject.SetActive(true);
             _shipSpeed *= _shipConfig.BoostSpeedMultiplier;
             _boost -= (_shipConfig.BoostDecreasePerSecond - _shipConfig.BoostIncreasePerSecond) * Time.deltaTime;
             if (_boost < 0) {
                 _boost = 0;
             }
+        } else {
+            _boostAudioSource.gameObject.SetActive(false);
         }
     }
 
@@ -283,7 +289,7 @@ public class Ship : IShip {
             _isOverheated = true;
         }
 
-        _shipSounds.PlayOneShot(_shipShot);
+        _laserSoundSource.PlayOneShot(_laserSound);
 
         StartCoroutine(RecoilCoroutine(_shipConfig.ShootRecoil));
         foreach (var VARIABLE in _primeCanons) {
@@ -307,6 +313,7 @@ public class Ship : IShip {
             _overheat = 1;
             _isOverheated = true;
         }
+        _secondLaserSoundSource.PlayOneShot(_secondLaserSound);
 
         StartCoroutine(RecoilCoroutine(_shipConfig.SecondRecoil));
         foreach (var VARIABLE in _secondCanons) {
@@ -324,6 +331,7 @@ public class Ship : IShip {
         _shield -= amount;
         if (_shield >= 0) {
             _shield3dView.ShowShield();
+            _shieldAudioSource.Play();
             return;
         } else {
             _shield = 0;
@@ -332,7 +340,7 @@ public class Ship : IShip {
         if (damageThroughShield <= 0) {
             return;
         }
-
+        _takeDamageSource.Play();
         _hp -= Mathf.RoundToInt(damageThroughShield);
         OnTakeDamage?.Invoke(fromPilot);
         if (_damageDealers.ContainsKey(from)) {

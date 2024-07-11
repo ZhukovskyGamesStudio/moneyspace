@@ -72,9 +72,7 @@ public class PlayerPilot : AbstractPilot {
 
         if (Input.GetKey(KeyCode.W)) {
             _ship.Accelerate();
-            if (Input.GetKey(KeyCode.LeftShift)) {
-                _ship.Boost();
-            }
+            _ship.SetBoost(Input.GetKey(KeyCode.LeftShift));
         } else {
             _ship.Slowdown();
         }
