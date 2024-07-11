@@ -29,6 +29,6 @@ public class RespawnManager {
 
     private void EndGame() {
         GameManager.Instance.PilotsManager.DeactivatePilots();
-        GameUI.Instance.LeaderboardDialog.SetEndGameState(PlayersManager.RealPLayer.Kills, _redTeamScore == 0);
+        GameUI.Instance.EndGameDialog.Show(PlayersManager.RealPLayer.Kills, _redTeamScore == 0);
     }
 }

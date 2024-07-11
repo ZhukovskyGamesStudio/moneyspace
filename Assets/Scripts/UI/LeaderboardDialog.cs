@@ -23,9 +23,6 @@ public class LeaderboardDialog : MonoBehaviour {
     
     [SerializeField]
     private TextMeshProUGUI _respawnTimerText;
-    
-    [SerializeField]
-    private RewardPanel _rewardPanel;
 
     [SerializeField]
     private ShowHideAnimationHandler _animationHandler;
@@ -91,15 +88,13 @@ public class LeaderboardDialog : MonoBehaviour {
         _endContainer.SetActive(false);
     }
 
-    public void SetEndGameState(int killsCount, bool isWin) {
+    public void SetEndGameState() {
         StopAllCoroutines();
         _isFixedOpen = true;
         _animationHandler.ChangeWithAnimation(true);
         UpdateData();
         _respawnContainer.SetActive(false);
         _endContainer.SetActive(true);
-
-        _rewardPanel.Show(killsCount, isWin);
     }
 
     public void RespawnButton() {
