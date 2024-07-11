@@ -190,9 +190,7 @@ public class BotPilot : AbstractPilot {
 
         if (_shipSpeed <= ShipsFactory.ShipStatsGeneralConfig.BotEvadeDesirableSpeed) {
             _ship.Accelerate();
-            if (_ship.GetShieldPercent() < 0.5f) {
-                _ship.Boost();
-            }
+            _ship.SetBoost(_ship.GetShieldPercent() < 0.5f);
         }
 
         Vector3 dir = _ship.transform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta - _target.position;

@@ -29,6 +29,10 @@ public class TypedAudioSource : MonoBehaviour {
         UpdateVolume();
         _source.PlayOneShot(clip);
     }
+
+    public void Play() {
+        _source.Play();
+    }
 }
 
 [Serializable]
