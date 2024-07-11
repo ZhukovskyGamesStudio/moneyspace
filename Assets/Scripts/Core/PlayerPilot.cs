@@ -184,7 +184,7 @@ public class PlayerPilot : AbstractPilot {
     private Ship TryAcquireTarget() {
         bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
         if (!canHaveTarget) {
-            return GameManager.Instance.PilotsManager.GetClosesOppositeTeamShip(_ship.transform.position, true);
+            return GameManager.Instance.PilotsManager.GetClosesOppositeTeamShip(_ship.transform.position, true, _curTarget);
         }
 
         return ShipDetectZone.Instance.GetClosestShip();

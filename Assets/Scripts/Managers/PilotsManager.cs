@@ -42,7 +42,7 @@ public class PilotsManager : MonoBehaviour {
         }
     }
 
-    public Ship GetClosesOppositeTeamShip(Vector3 ownerPos, bool isBlue ) {
+    public Ship GetClosesOppositeTeamShip(Vector3 ownerPos, bool isBlue, Ship exceptTarget ) {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(isBlue ? "Red" : "Blue");
         if (targets.Length == 0) {
             Debug.LogWarning("Somehow all ships is destroyed simultanioulsy!");
@@ -51,7 +51,7 @@ public class PilotsManager : MonoBehaviour {
 
         return targets
             .Select(s=>s.GetComponent<Ship>())
-            .Where(s=>s.gameObject.activeSelf)
+            .Where(s=>s.gameObject.activeSelf && s != exceptTarget)
             .OrderBy(s => (s.transform.position - ownerPos).sqrMagnitude)
             .First();
     }
