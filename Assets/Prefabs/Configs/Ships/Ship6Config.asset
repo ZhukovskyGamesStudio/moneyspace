@@ -37,7 +37,7 @@ MonoBehaviour:
   SecondRecoil: 0.03
   DecreaseOverheatSpeed: 0.15
   AccelerationSpeed: 1
-  DecelerationSpeed: 0.003
+  DecelerationSpeed: 1
   PlayerSideRotationSpeed: 140
   HorRotationMultiplier: 0.3
   VertRotationMultiplier: 0.3

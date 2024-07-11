@@ -32,10 +32,12 @@ MonoBehaviour:
   MaxHp: 150
   ShiedRepairSpeed: 4
   OverheatFromShoot: 0.09
+  ShootRecoil: 0.3
   OverheatFromSecond: 0.05
+  SecondRecoil: 0.03
   DecreaseOverheatSpeed: 0.15
-  AccelerationSpeed: 0.5
-  DecelerationSpeed: 0.003
+  AccelerationSpeed: 1
+  DecelerationSpeed: 1
   PlayerSideRotationSpeed: 145
   HorRotationMultiplier: 0.3
   VertRotationMultiplier: 0.3
@@ -44,6 +46,7 @@ MonoBehaviour:
   BoostIncreasePerSecond: 0.1
   ModelRotation: 0.08
   ModelMovement: -0.0035
+  ModelLerp: 0.15
   DefaultShipUpgrades:
     Type: 0
     Speed: 1

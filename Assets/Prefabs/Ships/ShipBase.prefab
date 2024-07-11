@@ -81,7 +81,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ac5391ce515eb6f4393cc3292d41ed2a, type: 3}
   m_Resource: {fileID: 8300000, guid: ac5391ce515eb6f4393cc3292d41ed2a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1107,8 +1107,8 @@ MonoBehaviour:
   _shieldAudioSource: {fileID: 282435787059148255}
   _takeDamageSource: {fileID: 7518204277878354205}
   _engineAudioSource: {fileID: 161679904707128894}
-  _laserSound: {fileID: 8300000, guid: 2fc995ced7e749c4886d98b1a3f85bd8, type: 3}
-  _secondLaserSound: {fileID: 8300000, guid: b6aba00884f7a9549abe0e8300252eb9, type: 3}
+  _laserSound: {fileID: 8300000, guid: cb815781b810b4d418e090741e5f3c42, type: 3}
+  _secondLaserSound: {fileID: 8300000, guid: afcb627cbacf25d4796497229ce41567, type: 3}
 --- !u!54 &1528794068189995415
 Rigidbody:
   m_ObjectHideFlags: 0
