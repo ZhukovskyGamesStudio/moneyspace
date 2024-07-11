@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class SaveProfile {
@@ -35,7 +36,7 @@ public class SaveProfile {
             CoinsAmount = MainConfigTable.Instance.MainGameConfig.StartingCoinsAmount,
             SelectedShip = 0,
             SelectedPlayerIcon = 0,
-            Nickname = "unknownPlayer",
+            Nickname = "Player#" + Random.Range(99,999),
             ShipUpgradeDatas = new List<ShipUpgradeData>() {
                 ShipsFactory.Ships.First(s=>s.ShipType == ShipType.First).DefaultShipUpgrades
             },

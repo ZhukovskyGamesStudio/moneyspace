@@ -35,7 +35,7 @@ public class Ship : IShip {
     [SerializeField]
     private TypedAudioSource _laserSoundSource;
     [SerializeField]
-    private TypedAudioSource _secondLaserSoundSource, _boostAudioSource, _shieldAudioSource, _takeDamageSource;
+    private TypedAudioSource _secondLaserSoundSource, _boostAudioSource, _shieldAudioSource, _takeDamageSource, _engineAudioSource;
 
     [SerializeField]
     private AudioClip _laserSound, _secondLaserSound;
@@ -249,6 +249,7 @@ public class Ship : IShip {
     public bool IsOverheated => _isOverheated;
 
     public override void Accelerate() {
+        _engineAudioSource.gameObject.SetActive(true);
         _shipSpeed += _shipConfig.AccelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
@@ -269,6 +270,7 @@ public class Ship : IShip {
     public float GetBoostPercent => _boost;
 
     public override void Slowdown() {
+        _engineAudioSource.gameObject.SetActive(false);
         _shipSpeed -= _shipConfig.DecelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }

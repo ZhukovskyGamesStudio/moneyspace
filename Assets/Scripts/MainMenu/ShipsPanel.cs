@@ -15,10 +15,10 @@ public class ShipsPanel : MonoBehaviour {
     private int _curShipIndex;
 
     [SerializeField]
-    private GameObject _coinImage;
+    private GameObject _coinImage,_unboughtNameBack;
 
     [SerializeField]
-    private TextMeshProUGUI _costText;
+    private TextMeshProUGUI _costText, _unboughtNameText;
 
     [SerializeField]
     private ShipsStatsSmallPanel _shipsStatsSmallPanel;
@@ -87,9 +87,12 @@ public class ShipsPanel : MonoBehaviour {
     private void UpdateCostView(ShipConfig config, bool isBought) {
         if (isBought) {
             _coinImage.SetActive(false);
+            _unboughtNameBack.gameObject.SetActive(false);
             _costText.text = config.ShipName;
         } else {
             _coinImage.SetActive(true);
+            _unboughtNameBack.gameObject.SetActive(true);
+            _unboughtNameText.text = config.ShipName;
             _costText.text = CoinsView.GetDottedView(config.ShipCost);
         }
     }

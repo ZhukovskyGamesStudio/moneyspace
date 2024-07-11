@@ -17,10 +17,14 @@ public class MainMenuManager : MonoBehaviour {
 
     public void UpgradesButton() {
         _mainMenuUI.ShipUpgradeDialog.Toggle();
+        _mainMenuUI.SettingsDialog.Close();
+        _mainMenuUI.PlayerSelectDialog.Close();
     }
 
     public void SettingsButton() {
         _mainMenuUI.SettingsDialog.Toggle();
+        _mainMenuUI.ShipUpgradeDialog.Close();
+        _mainMenuUI.PlayerSelectDialog.Close();
     }
 
     public void WatchAdButton() {
@@ -44,5 +48,7 @@ public class MainMenuManager : MonoBehaviour {
 
     public void OpenPlayerData() {
         _mainMenuUI.PlayerSelectDialog.Toggle();
+        _mainMenuUI.ShipUpgradeDialog.Close();
+        _mainMenuUI.SettingsDialog.Close();
     }
 }
