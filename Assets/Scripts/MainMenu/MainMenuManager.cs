@@ -16,11 +16,11 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     public void UpgradesButton() {
-        _mainMenuUI.ToggleShipUpgradeDialog();
+        _mainMenuUI.ShipUpgradeDialog.Toggle();
     }
 
     public void SettingsButton() {
-        Debug.Log("SettingsButton");
+        _mainMenuUI.SettingsDialog.Toggle();
     }
 
     public void WatchAdButton() {
@@ -43,6 +43,6 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     public void OpenPlayerData() {
-        _mainMenuUI.TogglePlayerSelectDialog();
+        _mainMenuUI.PlayerSelectDialog.Toggle();
     }
 }

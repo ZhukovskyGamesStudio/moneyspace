@@ -5,6 +5,7 @@ using UnityEngine;
 
 [Serializable]
 public class SaveProfile {
+    public float MasterVolume = 1f, EffectVolume = 0.5f, MusicVolume = 0.5f;
     public int CoinsAmount = 0;
     public int SelectedShip = 0;
     public int SelectedPlayerIcon = 0;

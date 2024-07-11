@@ -24649,7 +24649,7 @@ MonoBehaviour:
   _spawnPointsRed:
   - {fileID: 591792845}
   - {fileID: 1570215654}
-  - {fileID: 0}
+  - {fileID: 1075989825}
 --- !u!1001 &617719504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44414,6 +44414,7 @@ GameObject:
   - component: {fileID: 1080326028}
   - component: {fileID: 1080326027}
   - component: {fileID: 1080326029}
+  - component: {fileID: 1080326030}
   m_Layer: 0
   m_Name: BackgroundMusic
   m_TagString: Untagged
@@ -44558,6 +44559,19 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1080326030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080326026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845add63a9f54218aa2e9563294955c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
 --- !u!4 &1080373930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 446090, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}

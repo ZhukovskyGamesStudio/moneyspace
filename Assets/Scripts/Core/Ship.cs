@@ -32,7 +32,7 @@ public class Ship : IShip {
     private GameObject _warpOnShift;
 
     [SerializeField]
-    private AudioSource _shipSounds;
+    private TypedAudioSource _shipSounds;
 
     [SerializeField]
     private AudioClip _shipShot;

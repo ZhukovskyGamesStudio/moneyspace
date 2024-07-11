@@ -9,7 +9,14 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField]
     private PlayerSelectDialog _playerSelectDialog;
 
+    public PlayerSelectDialog PlayerSelectDialog => _playerSelectDialog;
+
     public ShipUpgradeDialog ShipUpgradeDialog => _shipUpgradeDialog;
+
+    [SerializeField]
+    private SettingsDialog _settingsDialog;
+
+    public SettingsDialog SettingsDialog => _settingsDialog;
 
     [SerializeField]
     private PlayerMainMenuView _playerMainMenuView;
@@ -43,17 +50,10 @@ public class MainMenuUI : MonoBehaviour {
         Instance = this;
     }
 
-    public void ToggleShipUpgradeDialog() {
-        _shipUpgradeDialog.Toggle();
-    }
-
-    public void TogglePlayerSelectDialog() {
-        _playerSelectDialog.Toggle();
-    }
-
     public void CloseDialogs() {
         _shipUpgradeDialog.Close();
         _playerSelectDialog.Close();
+        _settingsDialog.Close();
     }
 
     public void Init() {

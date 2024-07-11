@@ -104,6 +104,9 @@ GameObject:
   - component: {fileID: 7458824173136834260}
   - component: {fileID: 5366284849284273744}
   - component: {fileID: 203448670718790076}
+  - component: {fileID: 1021503507929188708}
+  - component: {fileID: 3154050218010827409}
+  - component: {fileID: 462955670561120890}
   m_Layer: 5
   m_Name: ShipUpgradeDialog
   m_TagString: Untagged
@@ -156,6 +159,52 @@ MonoBehaviour:
   _attackUpgrade: {fileID: 1131750646520768226}
   _nameText: {fileID: 4499693302702140779}
   _descriptionText: {fileID: 6917831943567989208}
+  _animationHandler: {fileID: 3154050218010827409}
+--- !u!111 &1021503507929188708
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296670803693617493}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: befdf1d954aedca4abaa1967ef29b5d5, type: 2}
+  - {fileID: 7400000, guid: 2a00c885d5f0b3543b7298ba8ce0c5a2, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!114 &3154050218010827409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296670803693617493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b77f40512344858266ef436d2b601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showClip: {fileID: 7400000, guid: befdf1d954aedca4abaa1967ef29b5d5, type: 2}
+  _hideClip: {fileID: 7400000, guid: 2a00c885d5f0b3543b7298ba8ce0c5a2, type: 2}
+  _animation: {fileID: 1021503507929188708}
+--- !u!225 &462955670561120890
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296670803693617493}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &328026459448661441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,6 +1631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7866977756762904564}
   - component: {fileID: 8117423275955659685}
+  - component: {fileID: 4807063746125977111}
   m_Layer: 5
   m_Name: Speed UpgradeBar
   m_TagString: Untagged
@@ -1640,6 +1690,35 @@ MonoBehaviour:
   _upgradeCostText: {fileID: 508570093261006910}
   _mainUpgradeButtonText: {fileID: 3866693649940969693}
   _coinIcon: {fileID: 4158648885389620873}
+--- !u!114 &4807063746125977111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2840673758117277480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DefaultNamespace.MenuSoundManager, Assembly-CSharp
+          m_MethodName: HoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2868640485659028802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,6 +2841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7386808450543454657}
   - component: {fileID: 7960557908577786115}
+  - component: {fileID: 8866932139832351076}
   m_Layer: 5
   m_Name: Shield UpgradeBar
   m_TagString: Untagged
@@ -2820,6 +2900,35 @@ MonoBehaviour:
   _upgradeCostText: {fileID: 7906411207499277144}
   _mainUpgradeButtonText: {fileID: 4774284790927520759}
   _coinIcon: {fileID: 4811868452243022797}
+--- !u!114 &8866932139832351076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4303322293411911905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DefaultNamespace.MenuSoundManager, Assembly-CSharp
+          m_MethodName: HoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4684164591401634506
 GameObject:
   m_ObjectHideFlags: 0
@@ -3225,6 +3334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7783920556482365447}
   - component: {fileID: 1131750646520768226}
+  - component: {fileID: 2922786883255855047}
   m_Layer: 5
   m_Name: Attack UpgradeBar
   m_TagString: Untagged
@@ -3283,6 +3393,35 @@ MonoBehaviour:
   _upgradeCostText: {fileID: 6230967163747643178}
   _mainUpgradeButtonText: {fileID: 6704928954412215991}
   _coinIcon: {fileID: 152601435809548478}
+--- !u!114 &2922786883255855047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594129282780399994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DefaultNamespace.MenuSoundManager, Assembly-CSharp
+          m_MethodName: HoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5599952052931726317
 GameObject:
   m_ObjectHideFlags: 0

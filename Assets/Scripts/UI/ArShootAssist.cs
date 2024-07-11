@@ -122,6 +122,10 @@ public class ArShootAssist : MonoBehaviour {
     }
 
     public static bool CheckTargetVisible(Ship target, float maxAngle = 90) {
+        if (target == null) {
+            return false;
+        }
+        
         if (!target.gameObject.activeSelf) {
             return false;
         }

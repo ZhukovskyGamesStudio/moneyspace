@@ -73,10 +73,12 @@ public class BotPilot : AbstractPilot {
 
     private void FindTarget() {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue");
-        targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
-        _target = targets[Random.Range(0, 2)].transform;
-        if (_target == null) {
-            Debug.Log("no target found!");
+        if (targets.Length > 0) {
+            targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
+            _target = targets[Random.Range(0, 2)].transform;
+            if (_target == null) {
+                Debug.Log("no target found!");
+            }
         }
 
         RndAttackParameters();
@@ -91,7 +93,11 @@ public class BotPilot : AbstractPilot {
     private void Update() {
         UpdateMarkerVisible();
         
-        if (_state == BotState.Respawn || !_ship.gameObject.activeSelf) {
+        if (_state == BotState.Respawn || _ship == null) {
+            return;
+        }
+
+        if (!_ship.gameObject.activeSelf) {
             return;
         }
 

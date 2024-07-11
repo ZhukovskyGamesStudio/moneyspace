@@ -17,11 +17,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
     public void Toggle() {
         if (_animationHandler.IsOn) {
             Close();
-
-           
-            return;
+        } else {
+            Open();
         }
+    }
 
+    private void Open() {
         MainMenuUI.Instance.ShipsPanel.ChangeSmallStatsViewActive(false);
         MainMenuUI.Instance.ShipsPanel.MenuShipsView.ToggleUpgradePos(true);
         _animationHandler.ChangeWithAnimation(true);
