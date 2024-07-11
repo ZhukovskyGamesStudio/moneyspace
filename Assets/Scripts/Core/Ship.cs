@@ -328,7 +328,8 @@ public class Ship : IShip {
             return;
         }
         
-        PlayerData from = fromPilot.PlayerData;
+        
+        PlayerData from = fromPilot != null ? fromPilot.PlayerData : null;
         float damageThroughShield = amount - _shield;
         _shield -= amount;
         if (_shield >= 0) {
@@ -345,16 +346,20 @@ public class Ship : IShip {
         _takeDamageSource.Play();
         _hp -= Mathf.RoundToInt(damageThroughShield);
         OnTakeDamage?.Invoke(fromPilot);
-        if (_damageDealers.ContainsKey(from)) {
-            _damageDealers[from] += amount;
-        } else { 
-            _damageDealers.Add(from, amount);
+        if (from != null) {
+            if (_damageDealers.ContainsKey(from)) {
+                _damageDealers[from] += amount;
+            } else { 
+                _damageDealers.Add(from, amount);
+            }
         }
 
         if (_hp < 0 && gameObject.activeSelf) {
             _hp = 0;
             _owner.PlayerData.Deaths++;
-            from.Kills++;
+            if (from != null) {
+                from.Kills++;
+            }
             foreach (var kvp in _damageDealers) {
                 if (kvp.Key != from) {
                     kvp.Key.Assists++;

@@ -26,12 +26,23 @@ public class LaserBullet : MonoBehaviour {
         if (rb != null) {
             Ship ship = rb.GetComponent<Ship>();
             if (ship != null) {
-                ship.TakeDamage(_owner.Ship.GetLaserDamage(), _owner);
+                int damage = GetDamage();
+                ship.TakeDamage(damage, _owner);
             }
         }
 
         Explode(collision);
         Destroy(gameObject);
+    }
+
+    private int GetDamage() {
+        if (_owner != null) {
+            if (_owner.Ship != null) {
+                return _owner.Ship.GetLaserDamage();
+            }
+        }
+
+        return ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
     }
 
     private void Explode(Collision collision) {
