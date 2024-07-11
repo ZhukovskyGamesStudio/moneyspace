@@ -18,9 +18,17 @@ public class RewardPanel : MonoBehaviour {
     [SerializeField]
     private ShowHideAnimationHandler _animationHandler;
 
+    [Header("Звуки")]
+    [SerializeField]
+    private TypedAudioSource _typedAudioSource;
+
+    [SerializeField]
+    private AudioClip _winAudio, _loseAudio;
+
     private int _coinsRewardCount;
 
     public void Show(int killsCount, bool isWin) {
+        _typedAudioSource.PlayOneShot(isWin ? _winAudio : _loseAudio);
         _winHeaderText.text = isWin ? "ПОБЕДА" : "ПОРАЖЕНИЕ";
         _animationHandler.ChangeWithAnimation(true);
         MainGameConfig cnfg = MainConfigTable.Instance.MainGameConfig;
