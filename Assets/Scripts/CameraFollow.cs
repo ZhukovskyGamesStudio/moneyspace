@@ -1,8 +1,8 @@
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
-
     public static CameraFollow Instance;
+
     [SerializeField]
     private Transform _target;
 
@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour {
 
     [SerializeField]
     private bool _isInstantCopyAllParameters = true;
-    
+
     private void Awake() {
         Instance = this;
         _transform = transform;
@@ -37,13 +37,14 @@ public class CameraFollow : MonoBehaviour {
         if (_target == null) {
             return;
         }
+
         Vector3 targetPos = _target.position;
         if (_isInstantCopyAllParameters) {
             transform.position = targetPos;
             transform.rotation = _target.rotation;
             return;
         }
-        
+
         //targetPos.y = Mathf.Lerp(targetPos.y, _stickTarget.position.y, 0.5f);
         Vector3 position = _transform.position;
         //targetPos.z = position.z;

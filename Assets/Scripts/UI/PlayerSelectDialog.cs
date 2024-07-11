@@ -32,7 +32,7 @@ public class PlayerSelectDialog : MonoBehaviour {
 
     private int _selectedIconIndex = 0;
 
-    private void Awake() {
+    private void Start() {
         CreateIcons();
     }
 

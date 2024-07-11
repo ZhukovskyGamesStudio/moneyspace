@@ -13,7 +13,11 @@ public class DeathmatchProgressView : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _blueText, _redText;
 
-    private void Awake() {
+    private void Start() {
+        Init();
+    }
+
+    private void Init() {
         int redCount = Random.Range(0, 101);
         int blueCount = Random.Range(0, 101);
         SetData(blueCount / 100f, blueCount, redCount / 100f, redCount);

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class Explosion : MonoBehaviour {
-    private void Awake() {
+    private void Start() {
         Destroy(gameObject, 1);
     }
 }

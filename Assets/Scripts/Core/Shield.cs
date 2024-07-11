@@ -11,7 +11,7 @@ public class Shield : MonoBehaviour {
     private Coroutine _showCoroutine;
     private static readonly int Threshold = Shader.PropertyToID("_Cutoff");
 
-    private void Awake() {
+    private void Start() {
         SetAlpha(0);
     }
 
