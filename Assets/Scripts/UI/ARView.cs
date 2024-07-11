@@ -44,6 +44,7 @@ public class ARView : MonoBehaviour {
     }
     
     public void SetBoostState(bool isBoosted, float boostPercent) {
+        isBoosted = true; // всегда отображается с бустом
         _speedFill.color = isBoosted ? _boostedSpeed : _normalSpeed;
         _warpOnSpeed.gameObject.SetActive(isBoosted);
         if (isBoosted) {
