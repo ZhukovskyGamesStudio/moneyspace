@@ -8,7 +8,11 @@ public class AmmoView : MonoBehaviour {
 
     private int _maxLaser = -1, _maxRocket = -1;
 
-    private void Awake() {
+    private void Start() {
+        //Init();
+    }
+
+    private void Init() {
         int MAX_LASER = 26;
         int MAX_ROCKET = 5;
         SetMaxData(MAX_LASER, MAX_ROCKET);
