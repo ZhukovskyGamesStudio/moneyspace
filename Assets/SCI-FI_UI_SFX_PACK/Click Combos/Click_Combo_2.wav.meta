@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 966cf95f5f24ab94a9f7bf14ba7ce55b
+AssetOrigin:
+  serializedVersion: 1
+  productId: 263876
+  packageName: SCI-FI UI SOUND EFFECTS HOVE AUDIO
+  packageVersion: 1.0
+  assetPath: Assets/SCI-FI_UI_SFX_PACK/Click Combos/Click_Combo_2.wav
+  uploadId: 630978
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -11,7 +18,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 1
     conversionMode: 0
-    preloadAudioData: 0
+    preloadAudioData: 1
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
@@ -21,10 +28,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 263876
-  packageName: SCI-FI UI SOUND EFFECTS HOVE AUDIO
-  packageVersion: 1.0
-  assetPath: Assets/SCI-FI_UI_SFX_PACK/Click Combos/Click_Combo_2.wav
-  uploadId: 630978

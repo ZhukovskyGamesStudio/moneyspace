@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 0a61abcf7290c7145bcc43b0270bcf37
+AssetOrigin:
+  serializedVersion: 1
+  productId: 263876
+  packageName: SCI-FI UI SOUND EFFECTS HOVE AUDIO
+  packageVersion: 1.0
+  assetPath: Assets/SCI-FI_UI_SFX_PACK/Clicks/Click_Scoop_Up.wav
+  uploadId: 630978
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -11,7 +18,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 1
     conversionMode: 0
-    preloadAudioData: 0
+    preloadAudioData: 1
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
@@ -21,10 +28,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 263876
-  packageName: SCI-FI UI SOUND EFFECTS HOVE AUDIO
-  packageVersion: 1.0
-  assetPath: Assets/SCI-FI_UI_SFX_PACK/Clicks/Click_Scoop_Up.wav
-  uploadId: 630978

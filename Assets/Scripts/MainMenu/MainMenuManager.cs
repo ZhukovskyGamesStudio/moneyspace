@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using YG;
 
 public class MainMenuManager : MonoBehaviour {
@@ -7,6 +6,8 @@ public class MainMenuManager : MonoBehaviour {
     private MainMenuUI _mainMenuUI;
 
     private void Start() {
+        YandexGame.GameReadyAPI();
+        
         _mainMenuUI.Init();
         _mainMenuUI.SetData(SaveLoadManager.Profile);
     }

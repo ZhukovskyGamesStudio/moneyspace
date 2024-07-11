@@ -1,14 +1,15 @@
 using UnityEngine;
 
-public class MainConfigTable : MonoBehaviour {
-
+public class MainConfigTable : BaseFactory {
     public static MainConfigTable Instance;
 
     [SerializeField]
     private MainGameConfig _mainGameConfig;
 
     public MainGameConfig MainGameConfig => _mainGameConfig;
-    private void Awake() {
+
+    public override void InitInstance() {
+        base.InitInstance();
         Instance = this;
     }
 }

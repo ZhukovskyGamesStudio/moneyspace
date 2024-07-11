@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarFactory : MonoBehaviour {
+public class AvatarFactory : BaseFactory {
     [SerializeField]
     private List<Sprite> _avatars = new List<Sprite>();
 
@@ -9,7 +9,8 @@ public class AvatarFactory : MonoBehaviour {
 
     public static int AvatarsCount => Instance._avatars.Count;
 
-    private void Awake() {
+    public override void InitInstance() {
+        base.InitInstance();
         Instance = this;
     }
 

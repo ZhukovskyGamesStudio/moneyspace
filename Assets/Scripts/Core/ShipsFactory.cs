@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShipsFactory : MonoBehaviour {
+public class ShipsFactory : BaseFactory {
     [SerializeField]
     private List<ShipConfig> _shipsConfigsList;
 
@@ -11,12 +11,13 @@ public class ShipsFactory : MonoBehaviour {
     private ShipStatsGeneralConfig _shipStatsGeneralConfig;
 
     public static ShipStatsGeneralConfig ShipStatsGeneralConfig => Instance._shipStatsGeneralConfig;
-    
+
     public static List<ShipConfig> Ships => Instance._shipsConfigsList;
-    
+
     public static ShipsFactory Instance;
 
-    private void Awake() {
+    public override void InitInstance() {
+        base.InitInstance();
         Instance = this;
     }
 

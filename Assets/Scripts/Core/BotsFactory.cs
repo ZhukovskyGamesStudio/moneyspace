@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BotsFactory : MonoBehaviour {
+public class BotsFactory : BaseFactory {
     [SerializeField]
     private TextAsset _botNamesFile;
 
@@ -16,7 +16,8 @@ public class BotsFactory : MonoBehaviour {
         _botNames = _botNamesFile.text.Split('\n').ToList();
     }
 
-    private void Awake() {
+    public override void InitInstance() {
+        base.InitInstance();
         Instance = this;
         ParseFile();
     }

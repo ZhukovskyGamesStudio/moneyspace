@@ -116,6 +116,6 @@ public class LeaderboardDialog : MonoBehaviour {
     }
 
     public void ToMenuButton() {
-        LoadingPanel.ShowAndLoadScene("Menu");
+        LoadingPanel.ShowAndLoadScene("MenuScene");
     }
 }
