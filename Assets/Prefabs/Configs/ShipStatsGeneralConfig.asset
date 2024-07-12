@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShieldPerPoint: 50
   SpeedMaxPerPoint: 15
-  LaserDamagePerPoint: 15
+  LaserBaseDamage: 20
+  LaserDamagePerPoint: 5
   LaserSpeed: 1200
   PrimeLaserLifetime: 3
   SecondLaserLifetime: 1

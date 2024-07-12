@@ -221,7 +221,8 @@ public class Ship : IShip {
     }
 
     public override int GetLaserDamage() {
-        return _shipUpgradeData.Attack * ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
+        return ShipsFactory.ShipStatsGeneralConfig.LaserBaseDamage +
+               _shipUpgradeData.Attack * ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
     }
 
     private void MoveModel(Vector3 rotVector, Vector3 shift) {

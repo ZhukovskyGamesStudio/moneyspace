@@ -42,7 +42,7 @@ public class LaserBullet : MonoBehaviour {
             }
         }
 
-        return ShipsFactory.ShipStatsGeneralConfig.LaserDamagePerPoint;
+        return ShipsFactory.ShipStatsGeneralConfig.LaserBaseDamage;
     }
 
     private void Explode(Collision collision) {

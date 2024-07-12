@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShipStatsGeneralConfig : ScriptableObject {
     public int ShieldPerPoint;
     public int SpeedMaxPerPoint;
+    public int LaserBaseDamage = 10;
     public int LaserDamagePerPoint;
     
     public float LaserSpeed = 100;
