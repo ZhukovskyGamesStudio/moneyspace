@@ -22,5 +22,6 @@ MonoBehaviour:
   RewardForWatchAd: 250000
   MultiplierForWatchAdInGame: 2
   RewardForKill: 100000
+  RewardForAssist: 10000
   RewardForWin: 1500000
   IconCost: 00000000a0860100804f1200804f12002075380020753800a0d6c400a0d6c400

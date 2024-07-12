@@ -7,6 +7,9 @@ public class EndGameRewardDialog : MonoBehaviour {
     private TextMeshProUGUI _killsCountText, _killsSumReward;
 
     [SerializeField]
+    private TextMeshProUGUI _assistCountText, _assistSumReward;
+
+    [SerializeField]
     private TextMeshProUGUI _winHeaderText, _winRewardText, _sumAllText;
 
     [SerializeField]
@@ -27,7 +30,7 @@ public class EndGameRewardDialog : MonoBehaviour {
 
     private int _coinsRewardCount;
 
-    public void Show(int killsCount, bool isWin) {
+    public void Show(int killsCount, int supportCount, bool isWin) {
         _typedAudioSource.PlayOneShot(isWin ? _winAudio : _loseAudio);
         _winHeaderText.text = isWin ? "ПОБЕДА" : "ПОРАЖЕНИЕ";
         _animationHandler.ChangeWithAnimation(true);
@@ -36,10 +39,14 @@ public class EndGameRewardDialog : MonoBehaviour {
         int sumForKills = killsCount * cnfg.RewardForKill;
         _killsSumReward.text = sumForKills.ToString();
 
+        _assistCountText.text = supportCount + " x " + cnfg.RewardForAssist;
+        int sumForAssist = supportCount * cnfg.RewardForAssist;
+        _assistSumReward.text = sumForAssist.ToString();
+
         int sumForWin = isWin ? cnfg.RewardForWin : 0;
         _winRewardText.text = sumForWin.ToString();
 
-        _coinsRewardCount = sumForKills + sumForWin;
+        _coinsRewardCount = sumForKills + sumForAssist + sumForWin;
         _sumAllText.text = _coinsRewardCount.ToString();
     }
 
