@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardPanel : MonoBehaviour {
+public class EndGameRewardDialog : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _killsCountText, _killsSumReward;
 
@@ -51,6 +51,15 @@ public class RewardPanel : MonoBehaviour {
     }
 
     public void DoubleRewards() {
+#if UNITY_EDITOR
+        DoubleCoinsAfterRewAd();
+#else
+        YgHandler handler = new YgHandler();
+        handler.ShowRewarded(DoubleCoinsAfterRewAd);
+#endif
+    }
+
+    private void DoubleCoinsAfterRewAd() {
         _coinsRewardCount *= MainConfigTable.Instance.MainGameConfig.MultiplierForWatchAdInGame;
         _devSupportBonus.Play("RewardBonusActivatedIdle");
         _doubleRewardsButton.interactable = false;

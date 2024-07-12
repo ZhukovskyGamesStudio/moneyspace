@@ -6,7 +6,7 @@ public class GameUI : MonoBehaviour {
     private LeaderboardDialog _leaderboardDialog;
 
     [SerializeField]
-    private RewardPanel _endGameDialog;
+    private EndGameRewardDialog _endGameDialog;
 
     [SerializeField]
     public ARView _arView;
@@ -40,7 +40,7 @@ public class GameUI : MonoBehaviour {
     public ArMarkersManager ArMarkersManager => _arMarkersManager;
     public LeaderboardDialog LeaderboardDialog => _leaderboardDialog;
 
-    public RewardPanel EndGameDialog => _endGameDialog;
+    public EndGameRewardDialog EndGameDialog => _endGameDialog;
 
     public static GameUI Instance;
 
