@@ -31,7 +31,7 @@ public class PlayersManager {
             redBots--;
         }
 
-        List<string> botnames = BotsFactory.Instance.GetRandomBotsNames(playersInTeamAmount*2);
+        List<string> botnames = BotsFactory.Instance.GetRandomBotsNames(playersInTeamAmount*2+5);
         
         for (int i = 0; i < blueBots; i++) {
             
@@ -41,7 +41,7 @@ public class PlayersManager {
         }
 
         for (int i = 0; i < redBots; i++) {
-            var botData = PlayerData.RandomBot(botnames[blueBots-1+i]);
+            var botData = PlayerData.RandomBot(botnames[blueBots+i]);
             botData.Team = Team.Red;
             _redTeam.Add(botData);
         }

@@ -49,7 +49,15 @@ public class AbstractPilot : MonoBehaviour {
     }
 
     private void LogDestroyedToTray(AbstractPilot victim, AbstractPilot killer) {
-        GameUI.Instance.KillsTray.AddToTray(killer,victim);
+        GameUI.Instance.KillsTray.AddToTray(killer, victim);
+        if (killer != null && !killer.PlayerData.isBot) {
+            PlayerKillCountManager.Instance.AddOne();
+        }
+
+        if (victim != null && !victim.PlayerData.isBot) {
+            string killerName = killer != null && killer.PlayerData.isBot ? killer.PlayerData.Nickname : "";
+            PlayerKillCountManager.Instance.Drop(killerName);
+        }
     }
 
     protected virtual void RespawnShip() {

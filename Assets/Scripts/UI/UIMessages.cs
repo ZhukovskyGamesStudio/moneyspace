@@ -15,5 +15,9 @@ public class UIMessages : MonoBehaviour {
     private GameObject _overheatMessage;
 
     public GameObject OverheatMessage => _overheatMessage;
-    
+
+    [SerializeField]
+    private TimedMessage _timedMessage;
+
+    public TimedMessage TimedMessage => _timedMessage;
 }

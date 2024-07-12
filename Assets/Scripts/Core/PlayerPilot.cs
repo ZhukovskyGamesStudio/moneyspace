@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,11 +47,18 @@ public class PlayerPilot : AbstractPilot {
     private void OnShipDestroyed(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
         GameUI.Instance._arView.SetActive(false);
-        GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
+        StartCoroutine(OpenLbAfterDelay(2));
         ClearTarget();
-        GameUI.Instance.UiMessages.gameObject.SetActive(false);
         ShipDetectZone.Instance.ClearList();
         GameUI.Instance.warpOnSpeed.SetActive(false);
+        UpdateTargetMessageView();
+    }
+
+    private IEnumerator OpenLbAfterDelay(float delay) {
+        yield return new WaitForSeconds(delay);
+        GameUI.Instance.UiMessages.gameObject.SetActive(false);
+        GameUI.Instance.UiMessages.TimedMessage.ForceHide();
+        GameUI.Instance.LeaderboardDialog.OpenRespawnState(PlayerRespawn);
     }
 
     private void PlayerRespawn() {

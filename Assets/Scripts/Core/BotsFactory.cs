@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,9 +9,10 @@ public class BotsFactory : BaseFactory {
 
     private List<string> _botNames;
     public static BotsFactory Instance;
-    
+
     private void ParseFile() {
-        _botNames = _botNamesFile.text.Split('\n').ToList();
+        string cleaned = _botNamesFile.text.Replace("\r", "");
+        _botNames = cleaned.Split('\n').ToList();
     }
 
     public override void InitInstance() {
