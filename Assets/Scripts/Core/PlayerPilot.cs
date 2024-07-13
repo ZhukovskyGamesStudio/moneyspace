@@ -89,9 +89,11 @@ public class PlayerPilot : AbstractPilot {
             _ship.SlowdownKeyDown();
         }
 
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.M)) {
-            LoadingPanel.ShowAndLoadScene("MenuScene"); 
+            LoadingPanel.ShowAndLoadScene("MenuScene");
         }
+#endif
 
         if (Input.GetMouseButton(0)) {
             FirePrime();
