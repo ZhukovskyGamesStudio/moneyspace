@@ -12,7 +12,7 @@ public class ArShootAssist : MonoBehaviour {
     private GameObject _arShootHelper;
 
     [SerializeField]
-    private GameObject _round, _arrow;
+    private GameObject _round, _roundInside, _arrow;
 
     [Header("Target Lock")]
     [SerializeField]
@@ -95,6 +95,8 @@ public class ArShootAssist : MonoBehaviour {
         _arrow.SetActive(false);
         bool isInShootRange = CheckTargetInShootDistance(target);
         _round.SetActive(isInShootRange);
+        bool isInCloseRange = CheckTargetInCloseDistance(target);
+        _roundInside.SetActive(isInCloseRange);
         
         Vector3 ACv = targetAnchor.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
@@ -137,6 +139,11 @@ public class ArShootAssist : MonoBehaviour {
     public bool CheckTargetInShootDistance(Ship target) {
         float dist = (Camera.main.transform.position - target.transform.position).magnitude;
         return dist <= ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime * ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
+    }
+    
+    public bool CheckTargetInCloseDistance(Ship target) {
+        float dist = (Camera.main.transform.position - target.transform.position).magnitude;
+        return dist <= ShipsFactory.ShipStatsGeneralConfig.SecondLaserLifetime * ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
     }
 
     private void UpdateTargetLock() {

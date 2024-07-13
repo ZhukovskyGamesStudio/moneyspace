@@ -18,7 +18,7 @@ MonoBehaviour:
   LaserDamagePerPoint: 5
   LaserSpeed: 1200
   PrimeLaserLifetime: 3
-  SecondLaserLifetime: 1
+  SecondLaserLifetime: 0.5
   DamageFromCollision: 50
   TechicalParams:
     BotRotationSlerp: 0.01

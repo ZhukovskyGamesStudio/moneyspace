@@ -36,7 +36,7 @@ MonoBehaviour:
   ShiedRepairSpeed: 25
   OverheatFromShoot: 0.07
   ShootRecoil: 0.3
-  OverheatFromSecond: 0.07
+  OverheatFromSecond: 0.05
   SecondRecoil: 0.03
   DecreaseOverheatSpeed: 0.15
   AccelerationSpeed: 1

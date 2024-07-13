@@ -20,4 +20,9 @@ public class LaserCanon : MonoBehaviour {
         LaserBullet b = Instantiate(_laserBulletPrefab, _shootPoint.position, Quaternion.identity);
         b.Init(direction, ShipsFactory.ShipStatsGeneralConfig.LaserSpeed, gameObject.layer,lifetime, owner);
     }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.DrawWireSphere(transform.position,0.5f);
+        Gizmos.DrawLine(transform.position ,transform.position + transform.forward*5);
+    }
 }

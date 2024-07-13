@@ -505,6 +505,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _killerNameText: {fileID: 828864074804865423}
   _victimNameText: {fileID: 8387434458635942759}
+  _red: {r: 1, g: 0.3372549, b: 0.10588236, a: 1}
+  _blue: {r: 0.10980393, g: 0.6, b: 0.83921576, a: 1}
+  _player: {r: 1, g: 0.7535237, b: 0, a: 1}
   _killerShipIcon: {fileID: 8825708884440025729}
 --- !u!222 &371658215788951246
 CanvasRenderer:
