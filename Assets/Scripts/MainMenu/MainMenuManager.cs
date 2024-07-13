@@ -29,12 +29,16 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     public void WatchAdButton() {
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
         GiveCoinsAfterRewAd();
 #else
         YgHandler handler = new YgHandler();
         handler.ShowRewarded(GiveCoinsAfterRewAd);
-#endif
+#endif*/
+        
+        YgHandler handler = new YgHandler();
+        handler.ShowRewarded(GiveCoinsAfterRewAd);
+
 
         _mainMenuUI.SetData(SaveLoadManager.Profile);
         _mainMenuUI.CloseDialogs();
