@@ -5,9 +5,14 @@ public class MainMenuManager : MonoBehaviour {
     [SerializeField]
     private MainMenuUI _mainMenuUI;
 
+    private static bool isYgGameReady = false;
     private void Start() {
-        YandexGame.GameReadyAPI();
-        
+        if (!isYgGameReady) {
+            YandexGame.GameReadyAPI();
+            isYgGameReady = true;
+        }
+     
+        Cursor.lockState = CursorLockMode.Confined;
         _mainMenuUI.Init();
         _mainMenuUI.SetData(SaveLoadManager.Profile);
     }

@@ -31,6 +31,7 @@ public class EndGameRewardDialog : MonoBehaviour {
     private int _coinsRewardCount;
 
     public void Show(int killsCount, int supportCount, bool isWin) {
+        Cursor.lockState = CursorLockMode.Confined;
         _typedAudioSource.PlayOneShot(isWin ? _winAudio : _loseAudio);
         _winHeaderText.text = isWin ? "ПОБЕДА" : "ПОРАЖЕНИЕ";
         _animationHandler.ChangeWithAnimation(true);
