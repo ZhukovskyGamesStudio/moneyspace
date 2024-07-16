@@ -9,6 +9,9 @@ public class GameUI : MonoBehaviour {
     private EndGameRewardDialog _endGameDialog;
 
     [SerializeField]
+    private FtueDialog _ftueDialog;
+
+    [SerializeField]
     public ARView _arView;
 
     [SerializeField]
@@ -41,6 +44,7 @@ public class GameUI : MonoBehaviour {
     public LeaderboardDialog LeaderboardDialog => _leaderboardDialog;
 
     public EndGameRewardDialog EndGameDialog => _endGameDialog;
+    public FtueDialog FtueDialog => _ftueDialog;
 
     public static GameUI Instance;
 

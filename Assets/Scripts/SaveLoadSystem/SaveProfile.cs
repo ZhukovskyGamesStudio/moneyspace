@@ -13,6 +13,7 @@ public class SaveProfile {
     public string Nickname = "unknownPlayer";
     public List<int> BoughtIcons = new List<int>();
     public List<ShipUpgradeData> ShipUpgradeDatas = new List<ShipUpgradeData>();
+    public bool IsFtueDialogSeen = false;
 
     public static SaveProfile Load(int profileIndex) {
         string key = "saveProfile_" + profileIndex;
