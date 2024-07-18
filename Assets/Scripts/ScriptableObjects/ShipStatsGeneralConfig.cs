@@ -37,8 +37,13 @@ public class ShipStatsGeneralConfig : ScriptableObject {
     [Range(0,1)]
     public float BotEvadeDesirableSpeed;
 
+    public float BotChanceToUpgradeStat = 0.85f;
+    public float ChanceToGetPlayerAsTarget = 0.05f;
     public float BotRandomShootDelta = 10;
     public float BotRandomShootChance = 0.5f;
+    public float BotRandomShootDeltaAgainsPlayer = 10;
+    public float BotRandomShootChanceAgainsPlayer = 0.5f;   
+    
     public float BotChanceToShootWithSecondGun = 0.3f;
     public float BotRandomEvadePointDelta = 150;
     public float BotRandomChasePointDelta = 10;

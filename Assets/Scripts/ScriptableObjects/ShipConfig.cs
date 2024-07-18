@@ -55,9 +55,19 @@ public class ShipConfig : ScriptableObject {
     
     public ShipUpgradeData GetRandomizedUpgrades() {
         ShipUpgradeData shipUpgradeData = DefaultShipUpgrades.Copy;
-        shipUpgradeData.Speed = Random.Range(shipUpgradeData.Speed, SpeedMax);
-        shipUpgradeData.Shield = Random.Range(shipUpgradeData.Shield, ShieldMax);
-        shipUpgradeData.Attack = Random.Range(shipUpgradeData.Attack, AttackMax);
+        shipUpgradeData.Speed = GetRandomizedStat(shipUpgradeData.Speed, SpeedMax);
+        shipUpgradeData.Shield = GetRandomizedStat(shipUpgradeData.Shield, ShieldMax); 
+        shipUpgradeData.Attack = GetRandomizedStat(shipUpgradeData.Attack, AttackMax); 
+       
         return shipUpgradeData;
+    }
+
+    private int GetRandomizedStat(int basic, int max) {
+        float chance = ShipsFactory.ShipStatsGeneralConfig.BotChanceToUpgradeStat;
+        int upgraded = basic;
+        while (upgraded < max-1 && Random.Range(0, 1f) < chance) {
+            upgraded++;
+        }
+        return upgraded;
     }
 }

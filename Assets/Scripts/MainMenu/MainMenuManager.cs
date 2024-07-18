@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using YG;
 
@@ -32,6 +33,13 @@ public class MainMenuManager : MonoBehaviour {
         _mainMenuUI.ShipUpgradeDialog.Close();
         _mainMenuUI.PlayerSelectDialog.Close();
     }
+#if UNITY_EDITOR
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            GiveCoinsAfterRewAd();
+        }
+    }
+#endif
 
     public void WatchAdButton() {
 /*#if UNITY_EDITOR

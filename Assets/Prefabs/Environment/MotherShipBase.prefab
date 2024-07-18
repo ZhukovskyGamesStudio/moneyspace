@@ -176,7 +176,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &5526321417659470638
 MonoBehaviour:
@@ -202,6 +202,7 @@ MonoBehaviour:
   - {fileID: 4469027771075551079}
   - {fileID: 6527456857365664729}
   - {fileID: 8238275287670810169}
+  _laserLifetime: 5
 --- !u!1 &1837931058249543085
 GameObject:
   m_ObjectHideFlags: 0

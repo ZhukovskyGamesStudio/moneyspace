@@ -347,6 +347,9 @@ public class Ship : IShip {
         _takeDamageSource.Play();
         _hp -= Mathf.RoundToInt(damageThroughShield);
         OnTakeDamage?.Invoke(fromPilot);
+        if (!_owner.PlayerData.isBot) {
+            Debug.Log($"Player took {Mathf.RoundToInt(damageThroughShield)} damage!");
+        }
         if (from != null) {
             if (_damageDealers.ContainsKey(from)) {
                 _damageDealers[from] += amount;

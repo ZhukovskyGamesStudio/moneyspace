@@ -252,6 +252,7 @@ MonoBehaviour:
   _showClip: {fileID: 7400000, guid: 6edbc67ca74bc114ea0491511616157e, type: 2}
   _hideClip: {fileID: 7400000, guid: 9541e32d260cc954c9a8d67ce2b25d14, type: 2}
   _animation: {fileID: 1337003624058810264}
+  _ignoreIsOn: 0
 --- !u!111 &1337003624058810264
 Animation:
   m_ObjectHideFlags: 0
@@ -1021,7 +1022,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 3ad39582e9c89c14b8be801e9946df93, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

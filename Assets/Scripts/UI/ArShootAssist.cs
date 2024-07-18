@@ -97,30 +97,36 @@ public class ArShootAssist : MonoBehaviour {
         _round.SetActive(isInShootRange);
         bool isInCloseRange = CheckTargetInCloseDistance(target);
         _roundInside.SetActive(isInCloseRange);
-        
-        Vector3 ACv = targetAnchor.position - owner.transform.position;
-        float AC = Vector3.Magnitude(ACv);
-        float angleA = Vector3.Angle(targetAnchor.forward, ACv);
-        double cosA = Math.Cos(angleA);
-        float shipSpeed = target.ShipSpeed;
 
-        double a = (_laserSpeed * _laserSpeed - shipSpeed * shipSpeed) / (shipSpeed * shipSpeed * AC);
-        double b = 2 * cosA;
-        double c = -AC;
-
-        List<double> rootsList = QuadraticSolver.SolveEquation(a, b, c);
-        if (rootsList.Count == 0) {
-            Debug.Log("Ну и ты математик бля. Дискриминант меньше нуля,так что пошёл нахуй отсюда >:( ");
+        Vector3 posToShootAt = CalculateLaserTrajectory(target, owner);
+        if (posToShootAt == Vector3.zero) {
             return;
         }
-
-        float AB = (float)rootsList.First(r => r > 0);
-        Vector3 posToShootAt = targetAnchor.position + targetAnchor.forward * AB;
-
         Vector3 posToShootPos = Camera.main.WorldToScreenPoint(posToShootAt);
         posToShootAt.z = 0;
         LerpShootHelper(posToShootPos);
         UpdateTargetLock();
+    }
+
+    public static Vector3 CalculateLaserTrajectory(Ship target, Ship owner) {
+        Transform targetAnchor = target.GetTargetLockAnchor;
+        Vector3 ACv = targetAnchor.position - owner.transform.position;
+        float AC = Vector3.Magnitude(ACv);
+        float angleA = Vector3.Angle(targetAnchor.forward, ACv);
+        double cosA = Math.Cos(angleA);
+        float shipSpeed = target.ShipSpeed != 0 ? target.ShipSpeed : 0.000001f;
+        float laserSpeed = ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
+        double a = (laserSpeed * laserSpeed - shipSpeed * shipSpeed) / (shipSpeed * shipSpeed * AC);
+        double b = 2 * cosA;
+        double c = -AC;
+
+        if (!QuadraticSolver.SolveEquation(a, b, c, out double root)) {
+            Debug.Log("Ну и ты математик бля. Дискриминант меньше нуля,так что пошёл нахуй отсюда >:( ");
+            return Vector3.zero;
+        }
+
+        float AB = (float)root;
+        return targetAnchor.position + targetAnchor.forward * AB;
     }
 
     public static bool CheckTargetVisible(Ship target, float maxAngle = 90) {

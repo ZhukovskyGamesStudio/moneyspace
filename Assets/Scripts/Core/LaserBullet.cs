@@ -3,22 +3,25 @@ using UnityEngine;
 
 public class LaserBullet : MonoBehaviour {
     private float _speed;
-    [SerializeField]
-    private Explosion _explosion;
 
     private AbstractPilot _owner;
+    private Transform _transform;
 
-    public void Init(Vector3 dir, float speed, int layer,float lifeTime, AbstractPilot owner) {
-        transform.forward = dir;
+    public void Init(Vector3 position, Vector3 dir, float speed, int layer,float lifeTime, AbstractPilot owner) {
+        gameObject.SetActive(true);
+        _transform = transform;
+        _transform.position = position;
+        _transform.forward = dir;
         _speed = speed;
         gameObject.layer = layer;
         transform.GetChild(0).gameObject.layer = layer;
-        Destroy(gameObject, lifeTime);
+        
+        Invoke(nameof(Release), lifeTime);
         _owner = owner;
     }
 
     private void FixedUpdate() {
-        transform.position += transform.forward * _speed * Time.fixedDeltaTime;
+        _transform.position += _transform.forward * _speed * Time.fixedDeltaTime;
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -31,8 +34,14 @@ public class LaserBullet : MonoBehaviour {
             }
         }
 
+        Release();
         Explode(collision);
-        Destroy(gameObject);
+    }
+
+    private void Release() {
+        CancelInvoke();
+        StopAllCoroutines();
+        LasersPool.Instance.Release(this);
     }
 
     private int GetDamage() {
@@ -46,8 +55,6 @@ public class LaserBullet : MonoBehaviour {
     }
 
     private void Explode(Collision collision) {
-        Vector3 normal = collision.GetContact(0).normal;
-        Explosion explosion = Instantiate(_explosion, collision.GetContact(0).point, quaternion.identity);
-        explosion.transform.up = normal;
+        ExplosionsPool.Instance.Get().Init(collision);
     }
 }

@@ -33,15 +33,19 @@ public class ShipUpgradeBar : MonoBehaviour {
 
     private void SetUpgradeButton(int have, int possible, int cost) {
         if (have == possible) {
-            _upgradeButton.interactable = false;
-            _coinIcon.gameObject.SetActive(false);
-            _mainUpgradeButtonText.text = "Максимально";
-            _upgradeCostText.text = "улучшено";
+            ChangeUpgradeButtonState(false, "Максимально", "улучшено", false);
         } else {
-            _upgradeButton.interactable = true;
-            _mainUpgradeButtonText.text = "Улучшить";
-            _coinIcon.gameObject.SetActive(true);
-            _upgradeCostText.text = CoinsView.GetDottedView(cost);
+            string costText = CoinsView.GetDottedView(cost);
+            ChangeUpgradeButtonState(true, "Улучшить", costText, true);
+        }
+    }
+
+    private void ChangeUpgradeButtonState(bool isInteractable, string upperText, string costText, bool isCoinIcon) {
+        if (_upgradeButton) {
+            _upgradeButton.interactable = isInteractable;
+            _mainUpgradeButtonText.text = upperText;
+            _upgradeCostText.text = costText;
+            _coinIcon.gameObject.SetActive(isCoinIcon);
         }
     }
 }

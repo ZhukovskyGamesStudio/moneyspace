@@ -134,6 +134,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4079140217886807517, guid: 12aef06cf3edc434da64846cf86d35c1, type: 3}
   m_PrefabInstance: {fileID: 2041266129}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4053526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4053528}
+  - component: {fileID: 4053527}
+  m_Layer: 0
+  m_Name: KillTrayLinePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &4053527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4053526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dce7a3ed664294963600b5e880feb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1485277337253134260, guid: 03581240e1924c946a796e5f7386b0f1, type: 3}
+  _prewarmAmount: 5
+--- !u!4 &4053528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4053526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 75.199524, y: 0.6309204, z: -2333.8364}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4724078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494976, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
@@ -5074,8 +5120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 101118941}
   _animationHandler: {fileID: 101118940}
-  _deathSound: {fileID: 8300000, guid: 36d0db1561405eb46bac3de4c702ceaa, type: 3}
-  _killSound: {fileID: 8300000, guid: e83d144eb135088498b9e478f10fa942, type: 3}
+  _deathSound: {fileID: 8300000, guid: 6b1c523315f2a86468b0725d04f1121c, type: 3}
+  _killSound: {fileID: 8300000, guid: 51eb1bb699c420d4e8ed18dac65fe2b6, type: 3}
   _audioSource: {fileID: 101118945}
 --- !u!114 &101118945
 MonoBehaviour:
@@ -44799,8 +44845,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fac627def335fc44c8dd104f3f278c51, type: 3}
-  m_Resource: {fileID: 8300000, guid: fac627def335fc44c8dd104f3f278c51, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8a5f9ba0a75d03840b79c7b0416c2170, type: 3}
+  m_Resource: {fileID: 8300000, guid: 8a5f9ba0a75d03840b79c7b0416c2170, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.15
   m_Pitch: 1
@@ -46739,6 +46785,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
+--- !u!1 &1133531135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133531137}
+  - component: {fileID: 1133531136}
+  m_Layer: 0
+  m_Name: LasersPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1133531136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133531135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3522092a70174af08370b01ede38d5f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6512998662561676273, guid: 56a9ae1376f162e46b1a862e74f359c8, type: 3}
+  _prewarmAmount: 500
+--- !u!4 &1133531137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133531135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 772.9181, y: -313.3545, z: 958.0532}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1133640026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494976, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
@@ -61817,6 +61909,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 469044, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
   m_PrefabInstance: {fileID: 1428606693}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1548128723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548128725}
+  - component: {fileID: 1548128724}
+  m_Layer: 0
+  m_Name: ExplosionPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1548128724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548128723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26761ae5d4374584a1c9a66d9ecad9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1304415235415972541, guid: c63d4c7bf4c5b1d4baef45a2e1bc62c7, type: 3}
+  _prewarmAmount: 300
+--- !u!4 &1548128725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548128723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 75.199524, y: 0.6309204, z: -2333.8364}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1548411383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84566,3 +84704,6 @@ SceneRoots:
   - {fileID: 2074450587}
   - {fileID: 468832673}
   - {fileID: 268614377}
+  - {fileID: 1133531137}
+  - {fileID: 1548128725}
+  - {fileID: 4053528}
