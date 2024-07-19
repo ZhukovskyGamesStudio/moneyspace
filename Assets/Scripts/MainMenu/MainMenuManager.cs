@@ -16,6 +16,10 @@ public class MainMenuManager : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Confined;
         _mainMenuUI.Init();
         _mainMenuUI.SetData(SaveLoadManager.Profile);
+
+        if (SaveLoadManager.Profile.GamesWonAmount > 1) {
+            YandexGame.ReviewShow(true);
+        }
     }
 
     public void PlayButton() {

@@ -24,27 +24,23 @@ public class Ship : IShip {
 
     [SerializeField]
     private Transform _modelContainer;
-    
-    [SerializeField]
-    private Shield _shield3dView;
 
     [SerializeField]
-    private GameObject _warpOnShift;
+    private Shield _shield3dView;
 
     [Header("Sounds")]
     [SerializeField]
     private TypedAudioSource _laserSoundSource;
-    [SerializeField]
-    private TypedAudioSource _secondLaserSoundSource, _boostAudioSource, _shieldAudioSource, _takeDamageSource, _engineAudioSource;
 
     [SerializeField]
-    private AudioClip _laserSound, _secondLaserSound;
+    private TypedAudioSource _secondLaserSoundSource, _shieldAudioSource, _takeDamageSource, _engineAudioSource;
     
     private bool _recoil = false;
     private bool _isOverheated = false;
     private bool _isBouncing = false;
     private bool _isRespawning = false;
-    
+    private bool _isBoostReloading = false;
+
     private int _hp;
     private float _shipSpeed = 0;
     private float _rotationSpeed = 0;
@@ -53,23 +49,25 @@ public class Ship : IShip {
     private float _boost;
     private float _timeCounter;
     private float _MaxTimeForCounter = 15;
-  
+
     private Quaternion _randomBounceDirection;
     private Dictionary<PlayerData, int> _damageDealers = new Dictionary<PlayerData, int>();
     public float ShipSpeed => _shipSpeed;
 
     private void Start() {
-        //Cursor.visible = false;
+        if (_owner.PlayerData.isBot) {
+            _engineAudioSource.gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate() {
         if (_isRespawning) {
             return;
         }
-      
+
         RotateBy(RotateByV);
         RotateTo(RotateToQ);
-        
+
         if (_isBouncing) {
             RotateTo(_randomBounceDirection);
             RotateTo(_randomBounceDirection);
@@ -78,6 +76,7 @@ public class Ship : IShip {
         } else {
             FlyForward();
         }
+        _engineAudioSource.SetVolumePercent(_shipSpeed/GetMaxSpeed);
 
         DecreaseOverheat();
         IncreaseBoost();
@@ -86,7 +85,8 @@ public class Ship : IShip {
         _shipThrust.SetThrustLight(_shipSpeed / GetMaxSpeed);
 
         float maxRadius = MainConfigTable.Instance.MainGameConfig.FightRadius;
-        if (Math.Abs(transform.position.x) > maxRadius || Math.Abs(transform.position.y) > maxRadius || Math.Abs(transform.position.z) > maxRadius) {
+        if (Math.Abs(transform.position.x) > maxRadius || Math.Abs(transform.position.y) > maxRadius ||
+            Math.Abs(transform.position.z) > maxRadius) {
             Debug.Log($"Вы вылетели за пределы боевой зоны у вас осталось {_MaxTimeForCounter - _timeCounter} секунд что бы вернуться");
             _timeCounter += Time.fixedDeltaTime;
 
@@ -116,10 +116,12 @@ public class Ship : IShip {
         TakeDamage(ShipsFactory.ShipStatsGeneralConfig.DamageFromCollision, _owner);
         BounceFromCollision(collision.contacts[0].normal);
     }
+
     private void BounceFromCollision(Vector3 normal) {
         if (_isBouncing || !gameObject.activeSelf) {
             return;
         }
+
         _isBouncing = true;
         StartCoroutine(BounceCoroutine(normal));
     }
@@ -129,7 +131,7 @@ public class Ship : IShip {
     public bool IsRespawning => _isRespawning;
 
     private IEnumerator BounceCoroutine(Vector3 normal) {
-        _randomBounceDirection = Quaternion.Euler( normal);
+        _randomBounceDirection = Quaternion.Euler(normal);
         yield return new WaitForSeconds(1f);
         _isBouncing = false;
     }
@@ -148,6 +150,7 @@ public class Ship : IShip {
             yield return new WaitForEndOfFrame();
             animTime += Time.deltaTime;
         }
+
         Cursor.lockState = CursorLockMode.Confined;
         _isRespawning = false;
     }
@@ -181,16 +184,16 @@ public class Ship : IShip {
             _boost = 1;
         }
     }
-    
 
     public override void RotateBy(Vector3 rotVector) {
         if (rotVector == Vector3.zero) {
             return;
         }
+
         MoveModel(rotVector, Vector3.zero);
 
-        Vector3 rotDistance = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, rotVector.y * _shipConfig.VertRotationMultiplier, rotVector.z * _shipConfig.HorRotationMultiplier) *
-                              Time.deltaTime;
+        Vector3 rotDistance = new Vector3(rotVector.x * _shipConfig.VertRotationMultiplier, rotVector.y * _shipConfig.VertRotationMultiplier,
+            rotVector.z * _shipConfig.HorRotationMultiplier) * Time.deltaTime;
         transform.rotation *= Quaternion.Euler(rotDistance);
     }
 
@@ -198,8 +201,9 @@ public class Ship : IShip {
         if (quaternion == Quaternion.identity) {
             return;
         }
+
         TechicalShipParameters tech = ShipsFactory.ShipStatsGeneralConfig.TechicalParams;
-        transform.rotation = Quaternion.Slerp(transform.rotation,quaternion,tech.BotRotationSlerp);
+        transform.rotation = Quaternion.Slerp(transform.rotation, quaternion, tech.BotRotationSlerp);
     }
 
     public override float GetSpeedPercent() {
@@ -234,44 +238,48 @@ public class Ship : IShip {
         _model.localRotation = Quaternion.Slerp(_model.localRotation, Quaternion.Euler(modelRotVector), lerpStep);
 
         Vector3 modelShift = new Vector3(rotVector.y, -rotVector.x, 0);
-        Vector3 summedShift = modelShift * _shipConfig.ModelMovement +  shift;
+        Vector3 summedShift = modelShift * _shipConfig.ModelMovement + shift;
         _model.localPosition = Vector3.Slerp(_model.localPosition, summedShift, lerpStep);
     }
 
     private void FlyForward() {
         transform.position += transform.forward * (_shipSpeed * Time.fixedDeltaTime);
     }
+
     private void FlyBackward() {
         transform.position -= transform.forward * (_shipSpeed * Time.fixedDeltaTime);
     }
 
-    private float GetMaxSpeed =>  _shipUpgradeData.Speed * ShipsFactory.ShipStatsGeneralConfig.SpeedMaxPerPoint;
+    private float GetMaxSpeed => ShipsFactory.ShipStatsGeneralConfig.BaseSpeedMax + _shipUpgradeData.Speed * ShipsFactory.ShipStatsGeneralConfig.SpeedMaxPerPoint;
 
     public bool IsOverheated => _isOverheated;
 
     public override void Accelerate() {
-        _engineAudioSource.gameObject.SetActive(true);
         _shipSpeed += _shipConfig.AccelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
 
     public void SetBoost(bool isBoosting) {
-        if (_boost > 0 && isBoosting) {
-            _boostAudioSource.gameObject.SetActive(true);
+        if (_boost > 0 && isBoosting && !_isBoostReloading) {
             _shipSpeed *= _shipConfig.BoostSpeedMultiplier;
             _boost -= (_shipConfig.BoostDecreasePerSecond - _shipConfig.BoostIncreasePerSecond) * Time.deltaTime;
             if (_boost < 0) {
                 _boost = 0;
+                StartCoroutine(BoostReloadCoroutine());
             }
-        } else {
-            _boostAudioSource.gameObject.SetActive(false);
-        }
+        } 
+    }
+
+    private IEnumerator BoostReloadCoroutine() {
+        float delay = 1;
+        _isBoostReloading = true;
+        yield return new WaitForSeconds(delay);
+        _isBoostReloading = false;
     }
 
     public float GetBoostPercent => _boost;
 
     public override void Slowdown() {
-        _engineAudioSource.gameObject.SetActive(false);
         _shipSpeed -= _shipConfig.DecelerationSpeed;
         _shipSpeed = Mathf.Clamp(_shipSpeed, 0, GetMaxSpeed);
     }
@@ -292,11 +300,11 @@ public class Ship : IShip {
             _isOverheated = true;
         }
 
-        _laserSoundSource.PlayOneShot(_laserSound);
+        _laserSoundSource.Play();
 
         StartCoroutine(RecoilCoroutine(_shipConfig.ShootRecoil));
         foreach (var VARIABLE in _primeCanons) {
-            VARIABLE.Shoot(target,ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime, _owner);
+            VARIABLE.Shoot(target, ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime, _owner);
         }
     }
 
@@ -316,11 +324,12 @@ public class Ship : IShip {
             _overheat = 1;
             _isOverheated = true;
         }
-        _secondLaserSoundSource.PlayOneShot(_secondLaserSound);
+
+        _secondLaserSoundSource.Play();
 
         StartCoroutine(RecoilCoroutine(_shipConfig.SecondRecoil));
         foreach (var VARIABLE in _secondCanons) {
-            VARIABLE.Shoot(target,ShipsFactory.ShipStatsGeneralConfig.SecondLaserLifetime, _owner);
+            VARIABLE.Shoot(target, ShipsFactory.ShipStatsGeneralConfig.SecondLaserLifetime, _owner);
         }
     }
 
@@ -328,8 +337,7 @@ public class Ship : IShip {
         if (_isRespawning) {
             return;
         }
-        
-        
+
         PlayerData from = fromPilot != null ? fromPilot.PlayerData : null;
         float damageThroughShield = amount - _shield;
         _shield -= amount;
@@ -344,16 +352,18 @@ public class Ship : IShip {
         if (damageThroughShield <= 0) {
             return;
         }
+
         _takeDamageSource.Play();
         _hp -= Mathf.RoundToInt(damageThroughShield);
         OnTakeDamage?.Invoke(fromPilot);
         if (!_owner.PlayerData.isBot) {
             Debug.Log($"Player took {Mathf.RoundToInt(damageThroughShield)} damage!");
         }
+
         if (from != null) {
             if (_damageDealers.ContainsKey(from)) {
                 _damageDealers[from] += amount;
-            } else { 
+            } else {
                 _damageDealers.Add(from, amount);
             }
         }
@@ -364,6 +374,7 @@ public class Ship : IShip {
             if (from != null) {
                 from.Kills++;
             }
+
             foreach (var kvp in _damageDealers) {
                 if (kvp.Key != from) {
                     kvp.Key.Assists++;
@@ -384,6 +395,7 @@ public class Ship : IShip {
         _isBouncing = false;
         _shield3dView.HideShieldInstant();
         _boost = 1;
+        _isBoostReloading = false;
     }
 
     public override Transform GetCameraFollowTarget() {

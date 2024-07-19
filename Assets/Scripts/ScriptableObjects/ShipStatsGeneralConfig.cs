@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/ShipStatsGeneralConfig", fileName = "ShipStatsGeneralConfig", order = 0)]
 public class ShipStatsGeneralConfig : ScriptableObject {
     public int ShieldPerPoint;
+    public int BaseSpeedMax = 15;
     public int SpeedMaxPerPoint;
     public int LaserBaseDamage = 10;
     public int LaserDamagePerPoint;

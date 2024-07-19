@@ -65,6 +65,10 @@ public class ShipConfig : ScriptableObject {
     private int GetRandomizedStat(int basic, int max) {
         float chance = ShipsFactory.ShipStatsGeneralConfig.BotChanceToUpgradeStat;
         int upgraded = basic;
+        //Если это первый бой игрока - то все корабли ботов непрокачанные
+        if (SaveLoadManager.Profile.GamesPlayedAmount == 0) {
+            return basic;
+        }
         while (upgraded < max-1 && Random.Range(0, 1f) < chance) {
             upgraded++;
         }

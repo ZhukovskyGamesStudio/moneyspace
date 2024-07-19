@@ -75,9 +75,13 @@ public class BotPilot : AbstractPilot {
     }
 
     private void FindTarget() {
-        bool isTargetPlayer = Random.Range(0, 1f) < ShipsFactory.ShipStatsGeneralConfig.ChanceToGetPlayerAsTarget &&
+        bool isForceTargetPlayer = Random.Range(0, 1f) < ShipsFactory.ShipStatsGeneralConfig.ChanceToGetPlayerAsTarget &&
                               _playerData.Team != Team.Blue;
-        if (isTargetPlayer && FindFirstObjectByType<PlayerPilot>().Ship.isActiveAndEnabled) {
+        if (PlayersManager.RealPLayer.Kills == 0) {
+            isForceTargetPlayer = false;
+        }
+
+        if (isForceTargetPlayer && FindFirstObjectByType<PlayerPilot>().Ship.isActiveAndEnabled) {
             var player = FindFirstObjectByType<PlayerPilot>().Ship;
             if (player.isActiveAndEnabled) {
                 _target = player.transform;

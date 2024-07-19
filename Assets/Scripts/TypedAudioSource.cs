@@ -6,8 +6,12 @@ public class TypedAudioSource : MonoBehaviour {
     [SerializeField]
     private AudioType _type;
 
+    [SerializeField]
+    private bool _cancelIfPlaying = false; 
+    
     private AudioSource _source;
     private float _startVolume;
+    private float _volumePercent = 1;
 
     private void Awake() {
         _source = GetComponent<AudioSource>();
@@ -18,19 +22,30 @@ public class TypedAudioSource : MonoBehaviour {
         UpdateVolume();
     }
 
+    public void SetVolumePercent(float percent) {
+        _volumePercent = percent;
+    }
+
     public void UpdateVolume() {
         float multiplier = SaveLoadManager.Profile.MasterVolume * (_type == AudioType.Effect
             ? SaveLoadManager.Profile.EffectVolume
             : SaveLoadManager.Profile.MusicVolume);
-        _source.volume = _startVolume * multiplier;
+        _source.volume = _startVolume * _volumePercent * multiplier;
     }
 
     public void PlayOneShot(AudioClip clip) {
+        if (_cancelIfPlaying && _source.isPlaying) {
+            return;
+        }
         UpdateVolume();
         _source.PlayOneShot(clip);
     }
 
     public void Play() {
+        if (_cancelIfPlaying && _source.isPlaying) {
+            return;
+        }
+        UpdateVolume();
         _source.Play();
     }
 }

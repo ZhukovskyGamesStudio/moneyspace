@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using YG;
 
 public class PlayerKillCountManager : MonoBehaviour {
     public static PlayerKillCountManager Instance;
@@ -11,6 +12,10 @@ public class PlayerKillCountManager : MonoBehaviour {
 
     public void AddOne() {
         _killCount++;
+        SaveLoadManager.Profile.KillsAmount++;
+        SaveLoadManager.Save();
+        YandexGame.NewLeaderboardScores( "killsTotal", SaveLoadManager.Profile.KillsAmount);
+        
         GameUI.Instance.UiMessages.TimedMessage.PlaySound(true);
         switch (_killCount) {
             case 1:

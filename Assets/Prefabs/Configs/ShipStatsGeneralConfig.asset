@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ShipStatsGeneralConfig
   m_EditorClassIdentifier: 
   ShieldPerPoint: 50
-  SpeedMaxPerPoint: 15
+  BaseSpeedMax: 20
+  SpeedMaxPerPoint: 10
   LaserBaseDamage: 20
   LaserDamagePerPoint: 5
   LaserSpeed: 1200

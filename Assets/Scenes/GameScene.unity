@@ -5136,6 +5136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  _cancelIfPlaying: 0
 --- !u!82 &101118946
 AudioSource:
   m_ObjectHideFlags: 0
@@ -44985,6 +44986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+  _cancelIfPlaying: 0
 --- !u!4 &1080373930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 446090, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}

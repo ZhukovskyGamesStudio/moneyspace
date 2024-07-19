@@ -35,9 +35,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -36.830566, y: -257.57623}
+  m_AnchoredPosition: {x: -36.830566, y: -124.00003}
   m_SizeDelta: {x: 500, y: 267.1524}
-  m_Pivot: {x: 1, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &4328319934219219694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475808eefd3210740b499554c2b603e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _killTrayLinePrefab: {fileID: 1485277337253134260, guid: 03581240e1924c946a796e5f7386b0f1, type: 3}
   _trayHideTime: 5
 --- !u!114 &7411469679263464912
 MonoBehaviour:

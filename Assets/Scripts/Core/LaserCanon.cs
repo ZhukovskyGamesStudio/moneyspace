@@ -24,7 +24,7 @@ public class LaserCanon : MonoBehaviour {
     }
 
     private void OnDrawGizmosSelected() {
-        Gizmos.DrawWireSphere(_transform.position,0.5f);
-        Gizmos.DrawLine(_transform.position ,_transform.position + _transform.forward*5);
+        Gizmos.DrawWireSphere(transform.position,0.5f);
+        Gizmos.DrawLine(transform.position ,transform.position + transform.forward*5);
     }
 }

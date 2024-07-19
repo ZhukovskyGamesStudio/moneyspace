@@ -14,6 +14,9 @@ public class SaveProfile {
     public List<int> BoughtIcons = new List<int>();
     public List<ShipUpgradeData> ShipUpgradeDatas = new List<ShipUpgradeData>();
     public bool IsFtueDialogSeen = false;
+    public int GamesPlayedAmount = 0;
+    public int GamesWonAmount = 0;
+    public int KillsAmount = 0;
 
     public static SaveProfile Load(int profileIndex) {
         string key = "saveProfile_" + profileIndex;

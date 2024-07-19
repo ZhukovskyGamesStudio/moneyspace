@@ -1,3 +1,5 @@
+using YG;
+
 public class RespawnManager {
     private int _startingScore;
 
@@ -29,6 +31,16 @@ public class RespawnManager {
 
     private void EndGame() {
         GameManager.Instance.PilotsManager.DeactivatePilots();
-        GameUI.Instance.EndGameDialog.Show(PlayersManager.RealPLayer.Kills, PlayersManager.RealPLayer.Assists, _redTeamScore == 0);
+
+        bool isPlayerWon = _redTeamScore == 0;
+        SaveLoadManager.Profile.GamesPlayedAmount++;
+        if (isPlayerWon) {
+            SaveLoadManager.Profile.GamesWonAmount++;
+        }
+
+        SaveLoadManager.Save();
+        YandexGame.NewLeaderboardScores( "gamesWon", SaveLoadManager.Profile.GamesWonAmount);
+
+        GameUI.Instance.EndGameDialog.Show(PlayersManager.RealPLayer.Kills, PlayersManager.RealPLayer.Assists, isPlayerWon);
     }
 }
