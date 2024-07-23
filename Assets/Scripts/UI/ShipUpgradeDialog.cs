@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using YG;
 
 public class ShipUpgradeDialog : MonoBehaviour {
     [SerializeField]
@@ -55,7 +57,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
             return;
         }
 
-      
+        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
+            { "ship", _config.ShipName },
+            { "type", "speed" },
+            { "level", _upgradeData.Speed.ToString() }
+        });
+
         SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
         _upgradeData.Speed++;
         SaveLoadManager.Save();
@@ -71,7 +78,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
             return;
         }
 
-       
+        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
+            { "ship", _config.ShipName },
+            { "type", "shield" },
+            { "level", _upgradeData.Shield.ToString() }
+        });
+
         SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
         _upgradeData.Shield++;
         SaveLoadManager.Save();
@@ -87,7 +99,12 @@ public class ShipUpgradeDialog : MonoBehaviour {
             return;
         }
 
-  
+        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
+            { "ship", _config.ShipName },
+            { "type", "attack" },
+            { "level", _upgradeData.Attack.ToString() }
+        });
+
         SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
         _upgradeData.Attack++;
         SaveLoadManager.Save();

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class ShipsPanel : MonoBehaviour {
     [SerializeField]
@@ -121,5 +123,9 @@ public class ShipsPanel : MonoBehaviour {
         MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
         MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, newData);
         UpdateCostView(curShipConfig, true);
+
+        YandexMetrica.Send("buyShip", new Dictionary<string, string>() {
+            { "type", curShipConfig.ShipName }
+        });
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class PlayerSelectDialog : MonoBehaviour {
     [SerializeField]
@@ -107,6 +108,11 @@ public class PlayerSelectDialog : MonoBehaviour {
                 SaveLoadManager.Profile.CoinsAmount -= cost;
                 SaveLoadManager.Profile.BoughtIcons.Add(_selectedIconIndex);
                 SaveLoadManager.Save();
+                
+                YandexMetrica.Send("buyAvatar", new Dictionary<string, string>() {
+                    { "index",_selectedIconIndex.ToString() }
+                });
+                
                 MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
                 _selectIconToggles[_selectedIconIndex].SetIsBought(true);
                 UpdateApproveButton();

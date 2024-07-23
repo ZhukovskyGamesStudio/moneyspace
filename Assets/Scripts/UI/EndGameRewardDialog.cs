@@ -29,8 +29,10 @@ public class EndGameRewardDialog : MonoBehaviour {
     private AudioClip _winAudio, _loseAudio;
 
     private int _coinsRewardCount;
+    private bool _isWin;
 
     public void Show(int killsCount, int supportCount, bool isWin) {
+        _isWin = isWin;
         Cursor.lockState = CursorLockMode.Confined;
         _typedAudioSource.PlayOneShot(isWin ? _winAudio : _loseAudio);
         _winHeaderText.text = isWin ? "ПОБЕДА" : "ПОРАЖЕНИЕ";
@@ -52,7 +54,7 @@ public class EndGameRewardDialog : MonoBehaviour {
     }
 
     public void Collect() {
-        SaveLoadManager.Profile.CoinsAmount += _coinsRewardCount;
+        SaveLoadManager.Profile.EarnCoins(_coinsRewardCount, _isWin ? "winReward" : "loseReward");
         SaveLoadManager.Save();
         _animationHandler.ChangeWithAnimation(false);
         GameUI.Instance.LeaderboardDialog.SetEndGameState();

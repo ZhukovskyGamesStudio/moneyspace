@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using YG;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -48,5 +49,16 @@ public class SaveProfile {
                 0,
             }
         };
+    }
+
+    public void EarnCoins(int amount, string from) {
+        CoinsAmount += amount;
+
+        YandexMetrica.Send("earnCoins", new Dictionary<string, string>() {
+            { "from", from },
+            { "amount", amount.ToString() }
+        });
+
+        SaveLoadManager.Save();
     }
 }
