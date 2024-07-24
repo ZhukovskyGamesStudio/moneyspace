@@ -55,8 +55,7 @@ public class SaveProfile {
         CoinsAmount += amount;
 
         YandexMetrica.Send("earnCoins", new Dictionary<string, string>() {
-            { "from", from },
-            { "amount", amount.ToString() }
+            { "earnCoins", from }
         });
 
         SaveLoadManager.Save();

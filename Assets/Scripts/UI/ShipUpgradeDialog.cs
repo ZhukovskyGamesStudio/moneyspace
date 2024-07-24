@@ -58,9 +58,7 @@ public class ShipUpgradeDialog : MonoBehaviour {
         }
 
         YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "ship", _config.ShipName },
-            { "type", "speed" },
-            { "level", _upgradeData.Speed.ToString() }
+            { "buyUpgrade", _config.ShipName + "_speed" }
         });
 
         SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
@@ -79,9 +77,8 @@ public class ShipUpgradeDialog : MonoBehaviour {
         }
 
         YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "ship", _config.ShipName },
-            { "type", "shield" },
-            { "level", _upgradeData.Shield.ToString() }
+            { "buyUpgrade", _config.ShipName + "_shield" }
+         
         });
 
         SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
@@ -100,9 +97,7 @@ public class ShipUpgradeDialog : MonoBehaviour {
         }
 
         YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "ship", _config.ShipName },
-            { "type", "attack" },
-            { "level", _upgradeData.Attack.ToString() }
+            { "buyUpgrade", _config.ShipName + "_attack" }
         });
 
         SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);

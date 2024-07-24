@@ -110,7 +110,7 @@ public class PlayerSelectDialog : MonoBehaviour {
                 SaveLoadManager.Save();
                 
                 YandexMetrica.Send("buyAvatar", new Dictionary<string, string>() {
-                    { "index",_selectedIconIndex.ToString() }
+                    { "buyAvatar",_selectedIconIndex.ToString() }
                 });
                 
                 MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();

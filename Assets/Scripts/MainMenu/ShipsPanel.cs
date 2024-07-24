@@ -125,7 +125,7 @@ public class ShipsPanel : MonoBehaviour {
         UpdateCostView(curShipConfig, true);
 
         YandexMetrica.Send("buyShip", new Dictionary<string, string>() {
-            { "type", curShipConfig.ShipName }
+            { "buyShip", curShipConfig.ShipName }
         });
     }
 }
