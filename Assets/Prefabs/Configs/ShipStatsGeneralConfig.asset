@@ -33,12 +33,12 @@ MonoBehaviour:
   BotHuntDesirableSpeed: 0.8
   BotShootDesirableSpeed: 0.65
   BotEvadeDesirableSpeed: 1
-  BotChanceToUpgradeStat: 0.75
-  ChanceToGetPlayerAsTarget: 0.25
+  BotChanceToUpgradeStat: 0.65
+  ChanceToGetPlayerAsTarget: 0.15
   BotRandomShootDelta: 15
   BotRandomShootChance: 0.05
-  BotRandomShootDeltaAgainsPlayer: 20
-  BotRandomShootChanceAgainsPlayer: 0.35
+  BotRandomShootDeltaAgainsPlayer: 40
+  BotRandomShootChanceAgainsPlayer: 0.45
   BotChanceToShootWithSecondGun: 0.45
   BotRandomEvadePointDelta: 400
   BotRandomChasePointDelta: 5

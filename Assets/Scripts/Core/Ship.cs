@@ -43,7 +43,6 @@ public class Ship : IShip {
 
     private int _hp;
     private float _shipSpeed = 0;
-    private float _rotationSpeed = 0;
     private float _shield;
     private float _overheat;
     private float _boost;
