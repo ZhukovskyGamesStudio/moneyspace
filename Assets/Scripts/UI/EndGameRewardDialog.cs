@@ -54,8 +54,8 @@ public class EndGameRewardDialog : MonoBehaviour {
     }
 
     public void Collect() {
-        SaveLoadManager.Profile.EarnCoins(_coinsRewardCount, _isWin ? "winReward" : "loseReward");
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Instance.EarnCoins(_coinsRewardCount, _isWin ? "winReward" : "loseReward");
+        MoneyspaceSaveLoadManager.Save();
         _animationHandler.ChangeWithAnimation(false);
         GameUI.Instance.LeaderboardDialog.SetEndGameState();
     }

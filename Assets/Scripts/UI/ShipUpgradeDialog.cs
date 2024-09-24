@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using YG;
 
 public class ShipUpgradeDialog : MonoBehaviour {
     [SerializeField]
@@ -52,58 +50,51 @@ public class ShipUpgradeDialog : MonoBehaviour {
 
     public void UpgradeSpeed() {
         int cost = _config.GetSpeedCost(_upgradeData.Speed);
-        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+        if (MoneyspaceSaveLoadManager.Profile.CoinsAmount < cost) {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
 
-        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "buyUpgrade", _config.ShipName + "_speed" }
-        });
+        YGWrapper.SendYandexMetrica("buyUpgrade", _config.ShipName + "_speed");
 
-        SaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
+        MoneyspaceSaveLoadManager.Profile.CoinsAmount -= _config.GetSpeedCost(_upgradeData.Speed);
         _upgradeData.Speed++;
-        SaveLoadManager.Save();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MoneyspaceSaveLoadManager.Save();
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }
 
     public void UpgradeShield() {
         int cost = _config.GetShieldCost(_upgradeData.Shield);
-        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+        if (MoneyspaceSaveLoadManager.Profile.CoinsAmount < cost) {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
 
-        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "buyUpgrade", _config.ShipName + "_shield" }
-         
-        });
+        YGWrapper.SendYandexMetrica("buyUpgrade",_config.ShipName + "_shield");
 
-        SaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
+        MoneyspaceSaveLoadManager.Profile.CoinsAmount -= _config.GetShieldCost(_upgradeData.Shield);
         _upgradeData.Shield++;
-        SaveLoadManager.Save();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MoneyspaceSaveLoadManager.Save();
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }
 
     public void UpgradeAttack() {
         int cost = _config.GetAttackCost(_upgradeData.Attack);
-        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+        if (MoneyspaceSaveLoadManager.Profile.CoinsAmount < cost) {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         }
 
-        YandexMetrica.Send("buyUpgrade", new Dictionary<string, string>() {
-            { "buyUpgrade", _config.ShipName + "_attack" }
-        });
+        YGWrapper.SendYandexMetrica("buyUpgrade", _config.ShipName + "_attack");
 
-        SaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
+        MoneyspaceSaveLoadManager.Profile.CoinsAmount -= _config.GetAttackCost(_upgradeData.Attack);
         _upgradeData.Attack++;
-        SaveLoadManager.Save();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MoneyspaceSaveLoadManager.Save();
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
         MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         UpdateView();
     }

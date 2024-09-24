@@ -9,7 +9,7 @@ public class PlayerMainMenuView : MonoBehaviour {
     [SerializeField]
     private Image _avatarIcon;
 
-    public void UpdateData(SaveProfile profile) {
+    public void UpdateData(MoneyspaceSaveProfile profile) {
         _nicknameText.text = profile.Nickname;
         _avatarIcon.sprite = AvatarFactory.GetAvatar(profile.SelectedPlayerIcon);
     }

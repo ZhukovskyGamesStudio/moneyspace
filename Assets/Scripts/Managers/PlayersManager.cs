@@ -12,9 +12,9 @@ public class PlayersManager {
     public void LoadPlayer() {
         Team playerTeam = Team.Blue; //Random.Range(0, 2) == 0 ? Team.Blue : Team.Red;
         RealPLayer = new PlayerData();
-        RealPLayer.Nickname = SaveLoadManager.Profile.Nickname;
+        RealPLayer.Nickname = MoneyspaceSaveLoadManager.Profile.Nickname;
         RealPLayer.Team = playerTeam;
-        RealPLayer.AvatarIndex = SaveLoadManager.Profile.SelectedPlayerIcon;
+        RealPLayer.AvatarIndex = MoneyspaceSaveLoadManager.Profile.SelectedPlayerIcon;
         if (playerTeam == Team.Blue) {
             _blueTeam.Add(RealPLayer);
         } else {

@@ -60,7 +60,7 @@ public class MainMenuUI : MonoBehaviour {
         _watchAdButtonCoinsView.SetData(MainConfigTable.Instance.MainGameConfig.RewardForWatchAd);
     }
 
-    public void SetData(SaveProfile profile) {
+    public void SetData(MoneyspaceSaveProfile profile) {
         _coinsView.SetData(profile.CoinsAmount);
         _playerMainMenuView.UpdateData(profile);
     }

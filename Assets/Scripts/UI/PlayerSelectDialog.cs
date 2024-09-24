@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using YG;
 
 public class PlayerSelectDialog : MonoBehaviour {
     [SerializeField]
@@ -42,14 +41,14 @@ public class PlayerSelectDialog : MonoBehaviour {
         for (int i = 0; i < amount; i++) {
             PlayerAvatarGridView view = Instantiate(_togglePrefab, _avatarsHolder);
             _selectIconToggles.Add(view);
-            bool isBought = SaveLoadManager.Profile.BoughtIcons.Contains(i);
+            bool isBought = MoneyspaceSaveLoadManager.Profile.BoughtIcons.Contains(i);
             _selectIconToggles[i].SetData(i, isBought);
             int noZamikanie = i;
             view.Toggle.onValueChanged.AddListener(isOn => { OnToggleIcon(isOn, noZamikanie); });
             view.Toggle.group = _toggleGroup;
         }
 
-        _selectedIconIndex = SaveLoadManager.Profile.SelectedPlayerIcon;
+        _selectedIconIndex = MoneyspaceSaveLoadManager.Profile.SelectedPlayerIcon;
         _selectIconToggles[_selectedIconIndex].Toggle.isOn = true;
     }
 
@@ -68,22 +67,22 @@ public class PlayerSelectDialog : MonoBehaviour {
     }
 
     private void UpdateView() {
-        _selectedIcon.sprite = AvatarFactory.GetAvatar(SaveLoadManager.Profile.SelectedPlayerIcon);
-        _nicknameInput.SetTextWithoutNotify(SaveLoadManager.Profile.Nickname);
+        _selectedIcon.sprite = AvatarFactory.GetAvatar(MoneyspaceSaveLoadManager.Profile.SelectedPlayerIcon);
+        _nicknameInput.SetTextWithoutNotify(MoneyspaceSaveLoadManager.Profile.Nickname);
     }
 
     public void OnEndNameInput(string newValue) {
         string removedSpaces = newValue.TrimStart(' ').TrimEnd(' ');
         if (removedSpaces.Length > 5) {
-            SaveLoadManager.Profile.Nickname = removedSpaces;
-            SaveLoadManager.Save();
+            MoneyspaceSaveLoadManager.Profile.Nickname = removedSpaces;
+            MoneyspaceSaveLoadManager.Save();
         } else {
-            _nicknameInput.SetTextWithoutNotify(SaveLoadManager.Profile.Nickname);
+            _nicknameInput.SetTextWithoutNotify(MoneyspaceSaveLoadManager.Profile.Nickname);
             return;
         }
 
         UpdateView();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
     }
 
     public void OnToggleIcon(bool isOn, int iconId) {
@@ -94,7 +93,7 @@ public class PlayerSelectDialog : MonoBehaviour {
     }
 
     private void UpdateApproveButton() {
-        if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
+        if (!MoneyspaceSaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
             _approveButtonText.text = "Купить";
         } else {
             _approveButtonText.text = "Подтвердить";
@@ -102,16 +101,14 @@ public class PlayerSelectDialog : MonoBehaviour {
     }
 
     public void ApproveButton() {
-        if (!SaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
+        if (!MoneyspaceSaveLoadManager.Profile.BoughtIcons.Contains(_selectedIconIndex)) {
             int cost = MainConfigTable.Instance.MainGameConfig.IconCost[_selectedIconIndex];
-            if (SaveLoadManager.Profile.CoinsAmount >= cost) {
-                SaveLoadManager.Profile.CoinsAmount -= cost;
-                SaveLoadManager.Profile.BoughtIcons.Add(_selectedIconIndex);
-                SaveLoadManager.Save();
+            if (MoneyspaceSaveLoadManager.Profile.CoinsAmount >= cost) {
+                MoneyspaceSaveLoadManager.Profile.CoinsAmount -= cost;
+                MoneyspaceSaveLoadManager.Profile.BoughtIcons.Add(_selectedIconIndex);
+                MoneyspaceSaveLoadManager.Save();
                 
-                YandexMetrica.Send("buyAvatar", new Dictionary<string, string>() {
-                    { "buyAvatar",_selectedIconIndex.ToString() }
-                });
+                YGWrapper.SendYandexMetrica("buyAvatar",_selectedIconIndex.ToString());
                 
                 MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
                 _selectIconToggles[_selectedIconIndex].SetIsBought(true);
@@ -122,9 +119,9 @@ public class PlayerSelectDialog : MonoBehaviour {
             }
         }
 
-        SaveLoadManager.Profile.SelectedPlayerIcon = _selectedIconIndex;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.SelectedPlayerIcon = _selectedIconIndex;
+        MoneyspaceSaveLoadManager.Save();
         UpdateView();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
     }
 }

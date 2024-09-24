@@ -21,9 +21,9 @@ public class SettingsDialog : MonoBehaviour {
 
     private void Open() {
         _animationHandler.ChangeWithAnimation(true);
-        _masterSlider.SetValueWithoutNotify(SaveLoadManager.Profile.MasterVolume);
-        _effectsSlider.SetValueWithoutNotify(SaveLoadManager.Profile.EffectVolume);
-        _musicSlider.SetValueWithoutNotify(SaveLoadManager.Profile.MusicVolume);
+        _masterSlider.SetValueWithoutNotify(MoneyspaceSaveLoadManager.Profile.MasterVolume);
+        _effectsSlider.SetValueWithoutNotify(MoneyspaceSaveLoadManager.Profile.EffectVolume);
+        _musicSlider.SetValueWithoutNotify(MoneyspaceSaveLoadManager.Profile.MusicVolume);
     }
 
     public void Close() {
@@ -31,20 +31,20 @@ public class SettingsDialog : MonoBehaviour {
     }
 
     public void OnMasterVolumeChange(float percent) {
-        SaveLoadManager.Profile.MasterVolume = percent;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.MasterVolume = percent;
+        MoneyspaceSaveLoadManager.Save();
         OnVolumesChange?.Invoke();
     }
 
     public void OnSoundChange(float percent) {
-        SaveLoadManager.Profile.EffectVolume = percent;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.EffectVolume = percent;
+        MoneyspaceSaveLoadManager.Save();
         OnVolumesChange?.Invoke();
     }
 
     public void OnMusicChange(float percent) {
-        SaveLoadManager.Profile.MusicVolume = percent;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.MusicVolume = percent;
+        MoneyspaceSaveLoadManager.Save();
         OnVolumesChange?.Invoke();
     }
 }

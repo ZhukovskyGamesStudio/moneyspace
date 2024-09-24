@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using YG;
 
@@ -7,17 +6,18 @@ public class MainMenuManager : MonoBehaviour {
     private MainMenuUI _mainMenuUI;
 
     private static bool isYgGameReady = false;
+
     private void Start() {
         if (!isYgGameReady) {
             YandexGame.GameReadyAPI();
             isYgGameReady = true;
         }
-     
+
         Cursor.lockState = CursorLockMode.Confined;
         _mainMenuUI.Init();
-        _mainMenuUI.SetData(SaveLoadManager.Profile);
+        _mainMenuUI.SetData(MoneyspaceSaveLoadManager.Profile);
 
-        if (SaveLoadManager.Profile.GamesWonAmount > 1) {
+        if (MoneyspaceSaveLoadManager.Profile.GamesWonAmount > 1) {
             YandexGame.ReviewShow(true);
         }
     }
@@ -49,15 +49,14 @@ public class MainMenuManager : MonoBehaviour {
         YgHandler handler = new YgHandler();
         handler.ShowRewarded(GiveCoinsAfterRewAd);
 
-
-        _mainMenuUI.SetData(SaveLoadManager.Profile);
+        _mainMenuUI.SetData(MoneyspaceSaveLoadManager.Profile);
         _mainMenuUI.CloseDialogs();
     }
 
     private void GiveCoinsAfterRewAd() {
-        SaveLoadManager.Profile.EarnCoins(MainConfigTable.Instance.MainGameConfig.RewardForWatchAd, "menuAd");
-        SaveLoadManager.Save();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MoneyspaceSaveLoadManager.Instance.EarnCoins(MainConfigTable.Instance.MainGameConfig.RewardForWatchAd, "menuAd");
+        MoneyspaceSaveLoadManager.Save();
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
     }
 
     public void OpenPlayerData() {

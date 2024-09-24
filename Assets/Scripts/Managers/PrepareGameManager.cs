@@ -6,7 +6,7 @@ public class PrepareGameManager : MonoBehaviour {
 
     public void Start() {
         GameManager.Instance.PilotsManager = _pilotsManager;
-        if (!SaveLoadManager.Profile.IsFtueDialogSeen) {
+        if (!MoneyspaceSaveLoadManager.Profile.IsFtueDialogSeen) {
             ShowFtue();
         } else {
             InitGame();
@@ -18,8 +18,8 @@ public class PrepareGameManager : MonoBehaviour {
     }
 
     private void EndFtue() {
-        SaveLoadManager.Profile.IsFtueDialogSeen = true;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.IsFtueDialogSeen = true;
+        MoneyspaceSaveLoadManager.Save();
         InitGame();
     }
 

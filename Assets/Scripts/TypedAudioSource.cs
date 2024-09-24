@@ -27,9 +27,9 @@ public class TypedAudioSource : MonoBehaviour {
     }
 
     public void UpdateVolume() {
-        float multiplier = SaveLoadManager.Profile.MasterVolume * (_type == AudioType.Effect
-            ? SaveLoadManager.Profile.EffectVolume
-            : SaveLoadManager.Profile.MusicVolume);
+        float multiplier = MoneyspaceSaveLoadManager.Profile.MasterVolume * (_type == AudioType.Effect
+            ? MoneyspaceSaveLoadManager.Profile.EffectVolume
+            : MoneyspaceSaveLoadManager.Profile.MusicVolume);
         _source.volume = _startVolume * _volumePercent * multiplier;
     }
 

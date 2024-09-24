@@ -12,9 +12,9 @@ public class PlayerKillCountManager : MonoBehaviour {
 
     public void AddOne() {
         _killCount++;
-        SaveLoadManager.Profile.KillsAmount++;
-        SaveLoadManager.Save();
-        YandexGame.NewLeaderboardScores( "killsTotal", SaveLoadManager.Profile.KillsAmount);
+        MoneyspaceSaveLoadManager.Profile.KillsAmount++;
+        MoneyspaceSaveLoadManager.Save();
+        YandexGame.NewLeaderboardScores( "killsTotal", MoneyspaceSaveLoadManager.Profile.KillsAmount);
         
         GameUI.Instance.UiMessages.TimedMessage.PlaySound(true);
         switch (_killCount) {

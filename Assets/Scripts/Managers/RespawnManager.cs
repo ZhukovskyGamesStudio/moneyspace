@@ -33,13 +33,13 @@ public class RespawnManager {
         GameManager.Instance.PilotsManager.DeactivatePilots();
 
         bool isPlayerWon = _redTeamScore == 0;
-        SaveLoadManager.Profile.GamesPlayedAmount++;
+        MoneyspaceSaveLoadManager.Profile.GamesPlayedAmount++;
         if (isPlayerWon) {
-            SaveLoadManager.Profile.GamesWonAmount++;
+            MoneyspaceSaveLoadManager.Profile.GamesWonAmount++;
         }
 
-        SaveLoadManager.Save();
-        YandexGame.NewLeaderboardScores( "gamesWon", SaveLoadManager.Profile.GamesWonAmount);
+        MoneyspaceSaveLoadManager.Save();
+        YandexGame.NewLeaderboardScores( "gamesWon", MoneyspaceSaveLoadManager.Profile.GamesWonAmount);
 
         GameUI.Instance.EndGameDialog.Show(PlayersManager.RealPLayer.Kills, PlayersManager.RealPLayer.Assists, isPlayerWon);
     }
