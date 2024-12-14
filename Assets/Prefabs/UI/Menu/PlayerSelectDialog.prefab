@@ -325,6 +325,7 @@ MonoBehaviour:
   _showClip: {fileID: 7400000, guid: 23aab079ad4daef42857378a18bc7890, type: 2}
   _hideClip: {fileID: 7400000, guid: 7936cfab7f3acfe4d84c1dc4f0951b68, type: 2}
   _animation: {fileID: 7585876705941347354}
+  _ignoreIsOn: 0
 --- !u!1 &618867606808686236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,8 +1232,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63e1de4a898a63a48880e8828c055364, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2678662bf6a0f134582c6ee7d0e3c891, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1270,10 +1271,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 2fe57c5a6b2ab774c874cf90ec91c3f0, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: b0e8c0b6cc0b1d749ac36cfabada99bd, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 9de05ec080508aa4caf44379e7d64538, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: fa7192f33b8c6bd408314b3c543190c7, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 5b3cc691b721c274797d8949f241055c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 4d3ed3c935731a140999bcab69aae5e0, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 4d3ed3c935731a140999bcab69aae5e0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 21f7238b1973d7f499051087a6524bca, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ShipStatsGeneralConfig
   m_EditorClassIdentifier: 
   ShieldPerPoint: 50
-  SpeedMaxPerPoint: 15
+  BaseSpeedMax: 20
+  SpeedMaxPerPoint: 10
   LaserBaseDamage: 20
   LaserDamagePerPoint: 5
   LaserSpeed: 1200
@@ -21,19 +22,23 @@ MonoBehaviour:
   SecondLaserLifetime: 0.5
   DamageFromCollision: 50
   TechicalParams:
-    BotRotationSlerp: 0.01
+    BotRotationSlerp: 0.025
     DelayDropLockAfterShipMovedAwayFromCenter: 0.7
   BotShootAngle: 10
   BotMinStartShootDistance: 450
   BotMaxStartShootDistance: 900
-  BotMinAttackTime: 0.5
+  BotMinAttackTime: 4
   BotMaxAttackTime: 10
   StartEvadeDistance: 100
   BotHuntDesirableSpeed: 0.8
-  BotShootDesirableSpeed: 0.4
+  BotShootDesirableSpeed: 0.65
   BotEvadeDesirableSpeed: 1
-  BotRandomShootDelta: 25
-  BotRandomShootChance: 0.25
-  BotChanceToShootWithSecondGun: 0.05
+  BotChanceToUpgradeStat: 0.65
+  ChanceToGetPlayerAsTarget: 0.15
+  BotRandomShootDelta: 15
+  BotRandomShootChance: 0.05
+  BotRandomShootDeltaAgainsPlayer: 40
+  BotRandomShootChanceAgainsPlayer: 0.45
+  BotChanceToShootWithSecondGun: 0.45
   BotRandomEvadePointDelta: 400
   BotRandomChasePointDelta: 5

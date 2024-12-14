@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6781441706118308957}
   - component: {fileID: 6512998662561676273}
   - component: {fileID: 448862069941853493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LaserBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8072f9c364a94b1497a1835cc28ca3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosion: {fileID: 1304415235415972541, guid: c63d4c7bf4c5b1d4baef45a2e1bc62c7, type: 3}
 --- !u!54 &448862069941853493
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -72,8 +71,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  m_Constraints: 126
+  m_CollisionDetection: 3
 --- !u!1 &3491114470536509291
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +85,7 @@ GameObject:
   - component: {fileID: 1237270080648917364}
   - component: {fileID: 4868122832606891778}
   - component: {fileID: 5527010232554073590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LaserBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +134,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -179,5 +179,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}

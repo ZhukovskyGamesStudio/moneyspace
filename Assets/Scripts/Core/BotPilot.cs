@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 [ExecuteInEditMode]
 public class BotPilot : AbstractPilot {
     private Transform _target;
+    public Ship _targetShip;
 
     private BotState _state;
     private float _distToTarget;
@@ -19,8 +20,10 @@ public class BotPilot : AbstractPilot {
     private EnemyMarker _marker;
     private Coroutine _respawnCoroutine;
     private Vector3 _cachedRandomVector;
+    private Vector3 _cachedRandomShootVector;
     private float _cachedRandomValue;
     private bool _isFiringSecond;
+
     public override void Init() {
         GetShip();
         CreateMarker();
@@ -72,14 +75,30 @@ public class BotPilot : AbstractPilot {
     }
 
     private void FindTarget() {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue");
-        if (targets.Length > 0) {
-            targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
-            _target = targets[Random.Range(0, 2)].transform;
-            if (_target == null) {
-                Debug.Log("no target found!");
+        bool isForceTargetPlayer = Random.Range(0, 1f) < ShipsFactory.ShipStatsGeneralConfig.ChanceToGetPlayerAsTarget &&
+                              _playerData.Team != Team.Blue;
+        if (PlayersManager.RealPLayer.Kills == 0) {
+            isForceTargetPlayer = false;
+        }
+
+        if (isForceTargetPlayer && FindFirstObjectByType<PlayerPilot>().Ship.isActiveAndEnabled) {
+            var player = FindFirstObjectByType<PlayerPilot>().Ship;
+            if (player.isActiveAndEnabled) {
+                _target = player.transform;
+            }
+        } else {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue");
+            if (targets.Length > 0) {
+                targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
+                _target = targets[Random.Range(0, 2)].transform;
             }
         }
+        if (_target == null) {
+            Debug.Log("no target found!");
+        } else {
+            _targetShip = _target.GetComponent<Ship>();
+        }
+       
 
         RndAttackParameters();
         _state = BotState.Hunt;
@@ -87,12 +106,12 @@ public class BotPilot : AbstractPilot {
     }
 
     private void UpdateMarkerVisible() {
-        ChangeMarkerVisibility(ArShootAssist.CheckTargetVisible(_ship as Ship));
+        ChangeMarkerVisibility(ArShootAssist.CheckTargetVisible(_ship));
     }
 
     private void Update() {
         UpdateMarkerVisible();
-        
+
         if (_state == BotState.Respawn || _ship == null) {
             return;
         }
@@ -125,11 +144,12 @@ public class BotPilot : AbstractPilot {
             StopCoroutine(_attackCoroutine);
             _attackCoroutine = StartCoroutine(AttackCoroutine());
             _cachedRandomVector = Random.insideUnitSphere;
-          
+
             return;
         }
 
-        Vector3 dir = (_target.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomChasePointDelta - _ship.transform.position).normalized;
+        Vector3 dir = (_target.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomChasePointDelta -
+                       _ship.transform.position).normalized;
 
         //todo add smooth lerp rotation
         if (Vector3.Angle(_ship.transform.forward, dir) > 60 + (1 - _cachedRandomValue) * 30 &&
@@ -150,16 +170,16 @@ public class BotPilot : AbstractPilot {
             return;
         }
 
-        if (Vector3.Angle(_ship.transform.forward, _target.position - _ship.transform.position) <
+        Vector3 predictedPointToShoot = ArShootAssist.CalculateLaserTrajectory(_targetShip, _ship);
+        Vector3 shootDelta = CalculateShootDelta();
+        Vector3 summedShootPoint = predictedPointToShoot + shootDelta;
+        
+        if (Vector3.Angle(_ship.transform.forward, summedShootPoint - _ship.transform.position) <
             ShipsFactory.ShipStatsGeneralConfig.BotShootAngle) {
-            Vector3 shootDelta = Random.Range(0, 1f) < ShipsFactory.ShipStatsGeneralConfig.BotRandomShootChance
-                ? Random.insideUnitSphere * ShipsFactory.ShipStatsGeneralConfig.BotRandomShootDelta
-                : Vector3.zero;
-            Vector3 summedShootPoint = _target.position + shootDelta;
             if (_isFiringSecond) {
-                _ship.FirePrime(summedShootPoint);
-            } else {
                 _ship.FireSecond(summedShootPoint);
+            } else {
+                _ship.FirePrime(summedShootPoint);
             }
         }
 
@@ -173,14 +193,28 @@ public class BotPilot : AbstractPilot {
         RotateShip(dir);
     }
 
+    private Vector3 CalculateShootDelta() {
+        ShipStatsGeneralConfig cnfg = ShipsFactory.ShipStatsGeneralConfig;
+        bool isPlayerTarget = false;
+        if (_target.GetComponent<Ship>() != null) {
+            isPlayerTarget = !_target.GetComponent<Ship>().GetOwner().PlayerData.isBot;
+        }
+
+        float chance = isPlayerTarget ? cnfg.BotRandomShootChanceAgainsPlayer : cnfg.BotRandomShootChance;
+        bool isShootingWithDelta = Random.Range(0, 1f) < chance;
+        if (!isShootingWithDelta) {
+            return Vector3.zero;
+        }
+
+        return _cachedRandomShootVector * (isPlayerTarget ? cnfg.BotRandomShootDeltaAgainsPlayer : cnfg.BotRandomShootDelta);
+    }
+
     private IEnumerator AttackCoroutine() {
         yield return new WaitForSeconds(_attackTime);
         _state = BotState.Evade;
         FindTarget();
     }
 
-
-    
     private void Evade() {
         if (_distToTarget > _startShootDistance) {
             _state = BotState.Hunt;
@@ -193,7 +227,8 @@ public class BotPilot : AbstractPilot {
             _ship.SetBoost(_ship.GetShieldPercent() < 0.5f);
         }
 
-        Vector3 dir = _ship.transform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta - _target.position;
+        Vector3 dir = _ship.transform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta -
+                      _target.position;
         RotateShip(dir);
     }
 
@@ -216,10 +251,13 @@ public class BotPilot : AbstractPilot {
         _startShootDistance = Random.Range(cnfg.BotMinStartShootDistance, cnfg.BotMaxStartShootDistance);
         _attackTime = Random.Range(cnfg.BotMinAttackTime, cnfg.BotMaxAttackTime);
         _cachedRandomValue = Random.Range(0, 1f);
+        _cachedRandomShootVector = Random.insideUnitSphere;
         _isFiringSecond = Random.Range(0, 1f) < cnfg.BotChanceToShootWithSecondGun;
     }
 
-    private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position - (_state == BotState.Evade ? _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta : Vector3.zero));
+    private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position - (_state == BotState.Evade
+        ? _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta
+        : Vector3.zero));
 
     private void StartRespawning(AbstractPilot _, AbstractPilot __) {
         GameManager.Instance.RespawnManager.MinusPoint(_playerData.Team);
@@ -241,6 +279,7 @@ public class BotPilot : AbstractPilot {
         if (!_isActive) {
             yield break;
         }
+
         RespawnShip();
         FindTarget();
     }
@@ -252,16 +291,15 @@ public class BotPilot : AbstractPilot {
         Respawn
     }
 
-
     private void OnDrawGizmosSelected() {
         if (_ship == null) {
             return;
         }
+
         Debug.Log(_state);
         if (_target != null) {
-            Gizmos.color = PlayerData.Team == Team.Blue ? Color.blue :  Color.red;
+            Gizmos.color = PlayerData.Team == Team.Blue ? Color.blue : Color.red;
             Gizmos.DrawLine(_ship.transform.position, _target.position);
         }
-     
     }
 }

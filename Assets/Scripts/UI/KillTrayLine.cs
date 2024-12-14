@@ -13,7 +13,7 @@ public class KillTrayLine : MonoBehaviour {
     [SerializeField]
     private Image _killerShipIcon;
 
-    public void SetData(AbstractPilot killer, AbstractPilot victim) {
+    public void SetData(AbstractPilot killer, AbstractPilot victim, float hideTime) {
         if (killer) {
             _killerNameText.text = killer.PlayerData.Nickname;
             if (killer.PlayerData.isBot) {
@@ -34,5 +34,10 @@ public class KillTrayLine : MonoBehaviour {
         } else {
             _victimNameText.color = _player;
         }
+        Invoke(nameof(Release), hideTime);
+    }
+
+    private void Release() {
+        KillTrayLinePool.Instance.Release(this);
     }
 }

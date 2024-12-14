@@ -25,8 +25,8 @@ public class MotherShip : MonoBehaviour {
 
     private IEnumerator ShootCoroutine(List<LaserCanon> lasers) {
         while (true) {
-            ShootLasers(lasers);
             yield return new WaitForSeconds(_lasersDelay);
+            ShootLasers(lasers);
         }
     }
 

@@ -40,9 +40,12 @@ public class ArShootAssist : MonoBehaviour {
     [SerializeField]
     private float _minLockSize, _maxLockSize;
 
+    private static Camera _mainCamera;
+
     private void Start() {
         _laserSpeed = ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
         Deactivate();
+        _mainCamera = Camera.main;
     }
 
     public void Activate(Ship target, Ship ship) {
@@ -73,7 +76,7 @@ public class ArShootAssist : MonoBehaviour {
         Transform targetAnchor = target.GetTargetLockAnchor;
         bool isVisible = CheckTargetVisible(target, 40);
         if (!isVisible) {
-            Vector3 finPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
+            Vector3 finPos = _mainCamera.WorldToScreenPoint(targetAnchor.position);
             _arrow.SetActive(true);
             _round.SetActive(false);
             
@@ -88,7 +91,7 @@ public class ArShootAssist : MonoBehaviour {
             return;
         }
         _targetLocked.gameObject.SetActive(true);
-        Vector3 lockPos = Camera.main.WorldToScreenPoint(targetAnchor.position);
+        Vector3 lockPos = _mainCamera.WorldToScreenPoint(targetAnchor.position);
         lockPos.z = 0;
         _targetLocked.transform.position = lockPos;
         
@@ -97,30 +100,36 @@ public class ArShootAssist : MonoBehaviour {
         _round.SetActive(isInShootRange);
         bool isInCloseRange = CheckTargetInCloseDistance(target);
         _roundInside.SetActive(isInCloseRange);
-        
+
+        Vector3 posToShootAt = CalculateLaserTrajectory(target, owner);
+        if (posToShootAt == Vector3.zero) {
+            return;
+        }
+        Vector3 posToShootPos = _mainCamera.WorldToScreenPoint(posToShootAt);
+        posToShootAt.z = 0;
+        LerpShootHelper(posToShootPos);
+        UpdateTargetLock();
+    }
+
+    public static Vector3 CalculateLaserTrajectory(Ship target, Ship owner) {
+        Transform targetAnchor = target.GetTargetLockAnchor;
         Vector3 ACv = targetAnchor.position - owner.transform.position;
         float AC = Vector3.Magnitude(ACv);
         float angleA = Vector3.Angle(targetAnchor.forward, ACv);
         double cosA = Math.Cos(angleA);
-        float shipSpeed = target.ShipSpeed;
-
-        double a = (_laserSpeed * _laserSpeed - shipSpeed * shipSpeed) / (shipSpeed * shipSpeed * AC);
+        float shipSpeed = target.ShipSpeed != 0 ? target.ShipSpeed : 0.000001f;
+        float laserSpeed = ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
+        double a = (laserSpeed * laserSpeed - shipSpeed * shipSpeed) / (shipSpeed * shipSpeed * AC);
         double b = 2 * cosA;
         double c = -AC;
 
-        List<double> rootsList = QuadraticSolver.SolveEquation(a, b, c);
-        if (rootsList.Count == 0) {
+        if (!QuadraticSolver.SolveEquation(a, b, c, out double root)) {
             Debug.Log("Ну и ты математик бля. Дискриминант меньше нуля,так что пошёл нахуй отсюда >:( ");
-            return;
+            return Vector3.zero;
         }
 
-        float AB = (float)rootsList.First(r => r > 0);
-        Vector3 posToShootAt = targetAnchor.position + targetAnchor.forward * AB;
-
-        Vector3 posToShootPos = Camera.main.WorldToScreenPoint(posToShootAt);
-        posToShootAt.z = 0;
-        LerpShootHelper(posToShootPos);
-        UpdateTargetLock();
+        float AB = (float)root;
+        return targetAnchor.position + targetAnchor.forward * AB;
     }
 
     public static bool CheckTargetVisible(Ship target, float maxAngle = 90) {
@@ -131,18 +140,18 @@ public class ArShootAssist : MonoBehaviour {
         if (!target.gameObject.activeSelf) {
             return false;
         }
-        Transform cameraTr = Camera.main.transform;
+        Transform cameraTr = _mainCamera.transform;
         float angle = Vector3.Angle(cameraTr.forward, target.transform.position - cameraTr.position);
         return angle < maxAngle;
     }
 
     public bool CheckTargetInShootDistance(Ship target) {
-        float dist = (Camera.main.transform.position - target.transform.position).magnitude;
+        float dist = (_mainCamera.transform.position - target.transform.position).magnitude;
         return dist <= ShipsFactory.ShipStatsGeneralConfig.PrimeLaserLifetime * ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
     }
     
     public bool CheckTargetInCloseDistance(Ship target) {
-        float dist = (Camera.main.transform.position - target.transform.position).magnitude;
+        float dist = (_mainCamera.transform.position - target.transform.position).magnitude;
         return dist <= ShipsFactory.ShipStatsGeneralConfig.SecondLaserLifetime * ShipsFactory.ShipStatsGeneralConfig.LaserSpeed;
     }
 
@@ -152,7 +161,7 @@ public class ArShootAssist : MonoBehaviour {
         _hpSlider.value = _target.GetHpPercent();
 
 
-        Vector3 dist = _target.transform.position - Camera.main.transform.position;
+        Vector3 dist = _target.transform.position - _mainCamera.transform.position;
         float sizePercent = 1 -Math.Clamp(dist.magnitude, _minLockDistance, _maxLockDistance) / _maxLockDistance;
         _targetLocked.transform.localScale = Vector3.one * Mathf.Lerp(_minLockSize, _maxLockSize, sizePercent);
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -7,6 +6,7 @@ using UnityEngine.UI;
 public class ShipsPanel : MonoBehaviour {
     [SerializeField]
     private MenuShipsView _menuShipsView;
+
     public MenuShipsView MenuShipsView => _menuShipsView;
 
     [SerializeField]
@@ -15,7 +15,7 @@ public class ShipsPanel : MonoBehaviour {
     private int _curShipIndex;
 
     [SerializeField]
-    private GameObject _coinImage,_unboughtNameBack;
+    private GameObject _coinImage, _unboughtNameBack;
 
     [SerializeField]
     private TextMeshProUGUI _costText, _unboughtNameText;
@@ -31,7 +31,7 @@ public class ShipsPanel : MonoBehaviour {
 
     private void Init() {
         _menuShipsView.Init();
-        _curShipIndex = SaveLoadManager.Profile.SelectedShip;
+        _curShipIndex = MoneyspaceSaveLoadManager.Profile.SelectedShip;
         UpdateButtonsState(_curShipIndex);
         _menuShipsView.SetPos(_curShipIndex);
         UpdateView(_curShipIndex);
@@ -46,14 +46,14 @@ public class ShipsPanel : MonoBehaviour {
 
         MainMenuUI.Instance.ShipUpgradeDialog.Close();
 
-        SaveLoadManager.Profile.SelectedShip = _curShipIndex;
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.SelectedShip = _curShipIndex;
+        MoneyspaceSaveLoadManager.Save();
         ChangeSmallStatsViewActive(true);
     }
 
     public void UpdateView(int shipIndex) {
         ShipConfig curShipConfig = ShipsFactory.Ships[shipIndex];
-        var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
+        var upgradeData = MoneyspaceSaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
         if (upgradeData != null) {
             MainMenuUI.Instance.SetButtonPlay();
             MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, upgradeData);
@@ -62,22 +62,24 @@ public class ShipsPanel : MonoBehaviour {
             UpdateCostView(curShipConfig, false);
             MainMenuUI.Instance.SetButtonBuy(OnBuySelectedShip);
         }
-        
+
         if (upgradeData == null) {
-            upgradeData = curShipConfig.DefaultShipUpgrades; 
+            upgradeData = curShipConfig.DefaultShipUpgrades;
         }
-        MainMenuUI.Instance.PlayerHpView.SetMaxTexts(curShipConfig.MaxHp, upgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint);
+
+        MainMenuUI.Instance.PlayerHpView.SetMaxTexts(curShipConfig.MaxHp,
+            upgradeData.Shield * ShipsFactory.ShipStatsGeneralConfig.ShieldPerPoint);
     }
 
     public void ChangeSmallStatsViewActive(bool isActive) {
         if (isActive) {
             ShipConfig curShipConfig = ShipsFactory.Ships[_curShipIndex];
-            var upgradeData = SaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
+            var upgradeData = MoneyspaceSaveLoadManager.Profile.ShipUpgradeDatas.FirstOrDefault(sud => sud.Type == curShipConfig.ShipType);
             if (upgradeData == null) {
                 upgradeData = curShipConfig.DefaultShipUpgrades;
             }
-            
-            ShipsStatsSmallPanel.UpdateView(curShipConfig,upgradeData);
+
+            ShipsStatsSmallPanel.UpdateView(curShipConfig, upgradeData);
             ShipsStatsSmallPanel.ShowViaAnim(true);
         } else {
             ShipsStatsSmallPanel.ShowViaAnim(false);
@@ -96,7 +98,6 @@ public class ShipsPanel : MonoBehaviour {
             _costText.text = CoinsView.GetDottedView(config.ShipCost);
         }
     }
-    
 
     private void UpdateButtonsState(int curIndex) {
         _leftButton.interactable = curIndex != 0;
@@ -106,21 +107,22 @@ public class ShipsPanel : MonoBehaviour {
     private void OnBuySelectedShip() {
         ShipConfig curShipConfig = ShipsFactory.Ships[_curShipIndex];
         int cost = curShipConfig.ShipCost;
-        if (SaveLoadManager.Profile.CoinsAmount < cost) {
+        if (MoneyspaceSaveLoadManager.Profile.CoinsAmount < cost) {
             MainMenuUI.Instance.CoinsView.ShowNotEnoughAnimation();
             return;
         } else {
-            SaveLoadManager.Profile.CoinsAmount -= cost;
+            MoneyspaceSaveLoadManager.Profile.CoinsAmount -= cost;
             MainMenuUI.Instance.CoinsView.ShowBoughtAnimation();
         }
-        
-        
+
         ShipUpgradeData newData = curShipConfig.DefaultShipUpgrades.Copy;
-        SaveLoadManager.Profile.ShipUpgradeDatas.Add(newData);
-        SaveLoadManager.Save();
+        MoneyspaceSaveLoadManager.Profile.ShipUpgradeDatas.Add(newData);
+        MoneyspaceSaveLoadManager.Save();
         MainMenuUI.Instance.SetButtonPlay();
-        MainMenuUI.Instance.SetData(SaveLoadManager.Profile);
+        MainMenuUI.Instance.SetData(MoneyspaceSaveLoadManager.Profile);
         MainMenuUI.Instance.ShipUpgradeDialog.SetData(curShipConfig, newData);
         UpdateCostView(curShipConfig, true);
+
+        YGWrapper.SendYandexMetrica("buyShip", curShipConfig.ShipName);
     }
 }

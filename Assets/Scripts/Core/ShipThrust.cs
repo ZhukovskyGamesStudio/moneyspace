@@ -11,6 +11,13 @@ public class ShipThrust : MonoBehaviour {
     [SerializeField]
     private List<Renderer> _renderers = new List<Renderer>();
 
+    private List<Material> _materials = new List<Material>();
+    private void Awake() {
+        foreach (Renderer ren in _renderers) {
+            _materials.Add( ren.material);
+        }
+    }
+
     public void SetThrustLight(float shipSpeedPercent) {
         if (shipSpeedPercent <= 0) {
             _thrustLight.intensity = 0;
@@ -18,8 +25,8 @@ public class ShipThrust : MonoBehaviour {
             _thrustLight.intensity = _baseLightIntensity * shipSpeedPercent;
         }
 
-        foreach (var VARIABLE in _renderers) {
-            VARIABLE.material.SetFloat("_Opacity_RGB", shipSpeedPercent);
+        foreach (Material mat in _materials) {
+            mat.SetFloat("_Opacity_RGB", shipSpeedPercent);
         }
     }
 }

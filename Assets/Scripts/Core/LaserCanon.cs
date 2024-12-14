@@ -3,22 +3,24 @@ using UnityEngine;
 
 public class LaserCanon : MonoBehaviour {
     [SerializeField]
-    private LaserBullet _laserBulletPrefab;
-
-    [SerializeField]
     private Transform _shootPoint;
 
     [SerializeField]
     private float _horizontalShift = 5;
 
+    private Transform _transform;
+    private void Awake() {
+        _transform = transform;
+    }
+
     public void Shoot(Vector3 target,float lifetime, AbstractPilot owner) {
-        Vector3 point = target + transform.right * _horizontalShift;
-        Vector3 direction = point - transform.position;
+        Vector3 point = target + _transform.right * _horizontalShift;
+        Vector3 direction = point - _transform.position;
 
-        transform.forward = direction;
+        _transform.forward = direction;
 
-        LaserBullet b = Instantiate(_laserBulletPrefab, _shootPoint.position, Quaternion.identity);
-        b.Init(direction, ShipsFactory.ShipStatsGeneralConfig.LaserSpeed, gameObject.layer,lifetime, owner);
+        LaserBullet b = LasersPool.Instance.Get();
+        b.Init(_shootPoint.position, direction, ShipsFactory.ShipStatsGeneralConfig.LaserSpeed, gameObject.layer, lifetime, owner);
     }
 
     private void OnDrawGizmosSelected() {

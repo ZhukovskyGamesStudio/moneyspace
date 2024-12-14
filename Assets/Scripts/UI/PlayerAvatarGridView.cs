@@ -27,7 +27,7 @@ public class PlayerAvatarGridView : MonoBehaviour {
 
     public void SetIsBought(bool isBought) {
         int cost = MainConfigTable.Instance.MainGameConfig.IconCost[_iconIndex];
-        _grayPanel.SetActive(!isBought);
+        _grayPanel.SetActive(false);
         _text.text = isBought ? "Куплен" : CoinsView.GetDottedView(cost);
         _coinIcon.gameObject.SetActive(!isBought);
     }

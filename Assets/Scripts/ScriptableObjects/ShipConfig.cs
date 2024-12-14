@@ -10,13 +10,16 @@ public class ShipConfig : ScriptableObject {
 
     [Header("Shop Parameters")]
     public string ShipName;
+
     [TextArea]
     public string Description;
+
     public int ShipCost = 1000000;
     public float UpperShiftOnShowcase;
 
     [Header("Fight Parameters")]
     public int MaxHp;
+
     public int ShiedRepairSpeed = 10;
     public float OverheatFromShoot = 0.1f, ShootRecoil = 0.3f;
     public float OverheatFromSecond = 0.025f, SecondRecoil = 0.03f;
@@ -25,6 +28,7 @@ public class ShipConfig : ScriptableObject {
 
     [Header("Movement Parameters")]
     public float PlayerSideRotationSpeed = 35;
+
     public float HorRotationMultiplier = 1, VertRotationMultiplier = 1;
     public float BoostSpeedMultiplier = 1.5f;
     public float BoostDecreasePerSecond = 0.33f;
@@ -32,6 +36,7 @@ public class ShipConfig : ScriptableObject {
 
     [Header("Model Movement")]
     public float ModelRotation = 30f;
+
     public float ModelMovement = 30f;
     public float ModelLerp = 0.15f;
 
@@ -40,8 +45,10 @@ public class ShipConfig : ScriptableObject {
 
     [Range(1, 12)]
     public int SpeedMax;
+
     [Range(1, 12)]
     public int ShieldMax;
+
     [Range(1, 12)]
     public int AttackMax;
 
@@ -51,13 +58,28 @@ public class ShipConfig : ScriptableObject {
     public int GetShieldCost(int cur) => cur - 1 < ShieldUpgradesCost.Count ? ShieldUpgradesCost[cur - 1] : 0;
     public List<int> SpeedUpgradesCost = new List<int>();
     public int GetSpeedCost(int cur) => cur - 1 < SpeedUpgradesCost.Count ? SpeedUpgradesCost[cur - 1] : 0;
-    
-    
+
     public ShipUpgradeData GetRandomizedUpgrades() {
         ShipUpgradeData shipUpgradeData = DefaultShipUpgrades.Copy;
-        shipUpgradeData.Speed = Random.Range(shipUpgradeData.Speed, SpeedMax);
-        shipUpgradeData.Shield = Random.Range(shipUpgradeData.Shield, ShieldMax);
-        shipUpgradeData.Attack = Random.Range(shipUpgradeData.Attack, AttackMax);
+        shipUpgradeData.Speed = GetRandomizedStat(shipUpgradeData.Speed, SpeedMax);
+        shipUpgradeData.Shield = GetRandomizedStat(shipUpgradeData.Shield, ShieldMax);
+        shipUpgradeData.Attack = GetRandomizedStat(shipUpgradeData.Attack, AttackMax);
+
         return shipUpgradeData;
+    }
+
+    private int GetRandomizedStat(int basic, int max) {
+        float chance = ShipsFactory.ShipStatsGeneralConfig.BotChanceToUpgradeStat;
+        int upgraded = basic;
+        //Если это первый бой игрока - то все корабли ботов непрокачанные
+        if (MoneyspaceSaveLoadManager.Profile.GamesPlayedAmount == 0) {
+            return basic;
+        }
+
+        while (upgraded < max - 1 && Random.Range(0, 1f) < chance) {
+            upgraded++;
+        }
+
+        return upgraded;
     }
 }
