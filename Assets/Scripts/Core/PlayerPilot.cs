@@ -32,6 +32,7 @@ public class PlayerPilot : AbstractPilot {
         _ship.name = "PlayerShip";
         _ship.OnDestroyed += OnShipDestroyed;
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
+        MinimapCameraFollow.Instance.SetTarget(_ship.transform);
     }
 
     public override void Activate() {

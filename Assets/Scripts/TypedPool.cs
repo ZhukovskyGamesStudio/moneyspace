@@ -11,11 +11,8 @@ public class TypedPool<T> : MonoBehaviour where T : MonoBehaviour {
     private Queue<T> _poolQueue;
     private Transform _transform;
 
-    protected virtual void Awake() {
+    protected virtual void Start() {
         _transform = transform;
-    }
-
-    private void Start() {
         Prewarm();
     }
 

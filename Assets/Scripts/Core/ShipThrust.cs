@@ -12,7 +12,7 @@ public class ShipThrust : MonoBehaviour {
     private List<Renderer> _renderers = new List<Renderer>();
 
     private List<Material> _materials = new List<Material>();
-    private void Awake() {
+    private void Start() {
         foreach (Renderer ren in _renderers) {
             _materials.Add( ren.material);
         }

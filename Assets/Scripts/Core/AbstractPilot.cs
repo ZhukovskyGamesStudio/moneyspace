@@ -39,12 +39,19 @@ public class AbstractPilot : MonoBehaviour {
         _ship.name = _playerData.Nickname + "ship";
         _ship.tag = _playerData.Team.ToString();
         _ship.OnDestroyed += LogDestroyedToTray;
+        
+        SetChildsLayer();
+    }
 
-        var layer = LayerMask.NameToLayer(_playerData.Team == Team.Blue ? "BlueTeam" : "RedTeam");
+    private void SetChildsLayer() {
+        int layer = LayerMask.NameToLayer(_playerData.Team == Team.Blue ? "BlueTeam" : "RedTeam");
         _ship.gameObject.layer = layer;
-        var childs = _ship.GetComponentsInChildren<Transform>();
-        foreach (var VARIABLE in childs) {
-            VARIABLE.gameObject.layer = layer;
+        Transform[] children = _ship.GetComponentsInChildren<Transform>();
+        foreach (Transform child in children) {
+            if (child.gameObject.layer == LayerMask.NameToLayer("Minimap")) {
+                continue;
+            }
+            child.gameObject.layer = layer;
         }
     }
 

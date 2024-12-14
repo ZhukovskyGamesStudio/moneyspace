@@ -9,6 +9,7 @@ TagManager:
   - Red
   - Enemy
   - FxTemporaire
+  - TrackingObject
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - RedTeam
   - 3DOnTopOFUI
   - LaserBullet
-  - 
+  - Minimap
   - 
   - 
   - 

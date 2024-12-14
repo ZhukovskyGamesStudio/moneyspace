@@ -9,7 +9,7 @@ public class LaserCanon : MonoBehaviour {
     private float _horizontalShift = 5;
 
     private Transform _transform;
-    private void Awake() {
+    private void Start() {
         _transform = transform;
     }
 

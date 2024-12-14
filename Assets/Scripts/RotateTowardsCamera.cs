@@ -3,7 +3,7 @@ using UnityEngine;
 public class RotateTowardsCamera : MonoBehaviour {
     private Transform _camera;
 
-    private void Awake() {
+    private void Start() {
         _camera = Camera.main.transform;
     }
 

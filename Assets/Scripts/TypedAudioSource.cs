@@ -12,13 +12,11 @@ public class TypedAudioSource : MonoBehaviour {
     private AudioSource _source;
     private float _startVolume;
     private float _volumePercent = 1;
-
-    private void Awake() {
+    
+    private void Start() {
         _source = GetComponent<AudioSource>();
         _startVolume = _source.volume;
-    }
 
-    private void Start() {
         UpdateVolume();
     }
 
@@ -34,17 +32,19 @@ public class TypedAudioSource : MonoBehaviour {
     }
 
     public void PlayOneShot(AudioClip clip) {
-        if (_cancelIfPlaying && _source.isPlaying) {
+        if (_cancelIfPlaying && _source.isPlaying || !_source.gameObject.activeSelf) {
             return;
         }
+
         UpdateVolume();
         _source.PlayOneShot(clip);
     }
 
     public void Play() {
-        if (_cancelIfPlaying && _source.isPlaying) {
+        if (_cancelIfPlaying && _source.isPlaying || !_source.gameObject.activeSelf) {
             return;
         }
+
         UpdateVolume();
         _source.Play();
     }

@@ -5,6 +5,9 @@ public abstract class IShip : MonoBehaviour {
     [SerializeField]
     private ShipType _shipType;
 
+    [SerializeField]
+    private MinimapIcon _minimapIcon;
+    
     public ShipType ShipType => _shipType;
     
     [HideInInspector]
@@ -30,6 +33,7 @@ public abstract class IShip : MonoBehaviour {
 
     public void SetOwner(AbstractPilot data) {
         _owner = data;
+        _minimapIcon.SetTeam(_owner.PlayerData.Team);
     }
 
     public AbstractPilot GetOwner() {
