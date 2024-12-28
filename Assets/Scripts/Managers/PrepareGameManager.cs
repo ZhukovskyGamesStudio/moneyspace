@@ -1,10 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class PrepareGameManager : MonoBehaviour {
     [SerializeField]
     private PilotsManager _pilotsManager;
 
+    [SerializeField]
+    private MinimapCameraFollow _minimapCameraFollow;
+
     public void Start() {
+        StartCoroutine(StartingCoroutine());
+        //LoadingPanel.Instance.OnSceneLoaded += OnInstanceOnLoadingPanelHided;
+    }
+
+    private void OnInstanceOnLoadingPanelHided(string a) {
+       //LoadingPanel.Instance.OnSceneLoaded -= OnInstanceOnLoadingPanelHided;
+       // StartCoroutine(StartingCoroutine());
+    }
+
+    private IEnumerator StartingCoroutine() {
+        yield return StartCoroutine(_minimapCameraFollow.PrepareMinimap());
+
         GameManager.Instance.PilotsManager = _pilotsManager;
         if (!MoneyspaceSaveLoadManager.Profile.IsFtueDialogSeen) {
             ShowFtue();

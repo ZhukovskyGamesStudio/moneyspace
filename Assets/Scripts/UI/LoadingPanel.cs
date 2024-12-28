@@ -12,6 +12,9 @@ public class LoadingPanel : MonoBehaviour {
     [SerializeField]
     private Animation _animation;
 
+    public Action<string> OnSceneLoaded;
+    public Action<string> OnLoadingPanelHided;
+
     private void Awake() {
         if (Instance != null) {
             Destroy(_loadingCanvas);
@@ -19,7 +22,10 @@ public class LoadingPanel : MonoBehaviour {
         }
         DontDestroyOnLoad(_loadingCanvas);
         Instance = this;
-        SceneManager.sceneLoaded += delegate { Hide(null); };
+        SceneManager.sceneLoaded += (s, b) => {
+            OnSceneLoaded?.Invoke(s.name);
+            Hide(() => { OnLoadingPanelHided?.Invoke(s.name); });
+        };
     }
 
     public static void ShowAndLoadScene(string sceneName) {
