@@ -14,6 +14,7 @@ public class AbstractPilot : MonoBehaviour {
 
     public virtual void Activate() {
         _isActive = true;
+        MinimapIconsContainer.Instance.AddIcon(this);
     }
 
     public virtual void DeActivate() {
