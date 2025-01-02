@@ -27,11 +27,13 @@ Material:
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _EMISSION
+  - _ENVIRONMENTREFLECTIONS_OFF
   - _RECEIVE_SHADOWS_OFF
+  - _SPECULARHIGHLIGHTS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -117,7 +119,7 @@ Material:
     - _Distort: 100
     - _DstBlend: 1
     - _DstBlendAlpha: 1
-    - _EnvironmentReflections: 1
+    - _EnvironmentReflections: 0
     - _Fresnel: 15
     - _FresnelWidth: 2
     - _GlossMapScale: 1
@@ -135,7 +137,7 @@ Material:
     - _ScrollSpeedV: 2
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 1

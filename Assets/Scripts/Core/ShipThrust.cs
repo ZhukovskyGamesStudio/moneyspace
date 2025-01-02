@@ -10,15 +10,35 @@ public class ShipThrust : MonoBehaviour {
 
     [SerializeField]
     private List<Renderer> _renderers = new List<Renderer>();
+    [SerializeField]
+    private List<Renderer> _unchangableRenderers = new List<Renderer>();
 
     private List<Material> _materials = new List<Material>();
+
+    private bool _isDisabledBecauseBot;
+
     private void Start() {
         foreach (Renderer ren in _renderers) {
-            _materials.Add( ren.material);
+            _materials.Add(ren.material);
+        }
+    }
+
+    public void DisableRenderersForBot() {
+        _isDisabledBecauseBot = true;
+
+        foreach (Renderer ren in _renderers) {
+            ren.gameObject.SetActive(false);
+        }
+        foreach (Renderer ren in _unchangableRenderers) {
+            ren.gameObject.SetActive(false);
         }
     }
 
     public void SetThrustLight(float shipSpeedPercent) {
+        if (_isDisabledBecauseBot) {
+            return;
+        }
+
         if (shipSpeedPercent <= 0) {
             _thrustLight.intensity = 0;
         } else {

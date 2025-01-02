@@ -140,7 +140,16 @@ public class ArShootAssist : MonoBehaviour {
         if (!target.gameObject.activeSelf) {
             return false;
         }
+        
         Transform cameraTr = _mainCamera.transform;
+        Vector3 directionToTarget = target.transform.position - cameraTr.position;
+       
+        float dot = Vector3.Dot(cameraTr.forward, directionToTarget.normalized);
+        
+        // Convert maxAngle to the cosine of the angle (because cos(angle) is faster than computing the angle)
+        float maxCosine = Mathf.Cos(Mathf.Deg2Rad * maxAngle);
+        return dot > maxCosine;
+        
         float angle = Vector3.Angle(cameraTr.forward, target.transform.position - cameraTr.position);
         return angle < maxAngle;
     }

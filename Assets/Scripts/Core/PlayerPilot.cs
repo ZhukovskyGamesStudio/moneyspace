@@ -14,8 +14,12 @@ public class PlayerPilot : AbstractPilot {
     private float _minRotationMuliplier = 0.1f;
 
     private Ship _curTarget;
+    private Camera _mainCam;
+    
+    
 
     public override void Init() {
+        _mainCam = Camera.main;
         GetShip();
         RespawnShip();
     }
@@ -203,7 +207,7 @@ public class PlayerPilot : AbstractPilot {
 
     private void FirePrime() {
         Vector3 screenPos = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Ray ray = _mainCam.ScreenPointToRay(screenPos);
 
         Vector3 point = ray.GetPoint(10000);
         _ship.FirePrime(point);
@@ -211,7 +215,7 @@ public class PlayerPilot : AbstractPilot {
 
     private void FireSecond() {
         Vector3 screenPos = _isMouseTarget ? Input.mousePosition : new Vector3(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Ray ray = _mainCam.ScreenPointToRay(screenPos);
         Vector3 point = ray.GetPoint(10000);
         _ship.FireSecond(point);
     }

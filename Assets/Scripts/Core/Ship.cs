@@ -56,6 +56,7 @@ public class Ship : IShip {
     private void Start() {
         if (_owner.PlayerData.isBot) {
             _engineAudioSource.gameObject.SetActive(false);
+            _shipThrust.DisableRenderersForBot();
         }
     }
 
