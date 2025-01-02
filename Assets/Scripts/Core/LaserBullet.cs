@@ -2,26 +2,28 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class LaserBullet : MonoBehaviour {
-    private float _speed;
-
     private AbstractPilot _owner;
     private Transform _transform;
+    private Vector3 _calculatedForward;
 
-    public void Init(Vector3 position, Vector3 dir, float speed, int layer,float lifeTime, AbstractPilot owner) {
+    [SerializeField]
+    private Rigidbody _rb;
+
+    public void Init(Vector3 position, Vector3 dir, float speed, int layer, float lifeTime, AbstractPilot owner) {
         gameObject.SetActive(true);
         _transform = transform;
         _transform.position = position;
         _transform.forward = dir;
-        _speed = speed;
+        _calculatedForward = _transform.forward * speed;
         gameObject.layer = layer;
         transform.GetChild(0).gameObject.layer = layer;
-        
+
         Invoke(nameof(Release), lifeTime);
         _owner = owner;
     }
 
     private void FixedUpdate() {
-        _transform.position += _transform.forward * _speed * Time.fixedDeltaTime;
+        _transform.position += _calculatedForward * Time.fixedDeltaTime;
     }
 
     private void OnCollisionEnter(Collision collision) {

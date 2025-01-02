@@ -70,8 +70,9 @@ public class BotPilot : AbstractPilot {
     }
 
     private void ChangeMarkerVisibility(bool isActive) {
-        if (_marker)
-            _marker.gameObject.SetActive(isActive);
+        if (_marker) {
+            _marker.SetActiveness(isActive);
+        }
     }
 
     private void FindTarget() {
@@ -89,7 +90,7 @@ public class BotPilot : AbstractPilot {
         } else {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(_playerData.Team == Team.Blue ? "Red" : "Blue");
             if (targets.Length > 0) {
-                targets = targets.OrderBy(t => (t.transform.position - _ship.transform.position).magnitude).ToArray();
+                targets = targets.OrderBy(t => (t.transform.position - _shipTransform.position).magnitude).ToArray();
                 _target = targets[Random.Range(0, 2)].transform;
             }
         }
@@ -149,10 +150,10 @@ public class BotPilot : AbstractPilot {
         }
 
         Vector3 dir = (_target.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomChasePointDelta -
-                       _ship.transform.position).normalized;
+                       _shipTransform.position).normalized;
 
         //todo add smooth lerp rotation
-        if (Vector3.Angle(_ship.transform.forward, dir) > 60 + (1 - _cachedRandomValue) * 30 &&
+        if (Vector3.Angle(_shipTransform.forward, dir) > 60 + (1 - _cachedRandomValue) * 30 &&
             _shipSpeed > ShipsFactory.ShipStatsGeneralConfig.BotHuntDesirableSpeed + _cachedRandomValue / 5) {
             _ship.Slowdown();
         } else if (_shipSpeed < 1) {
@@ -174,7 +175,7 @@ public class BotPilot : AbstractPilot {
         Vector3 shootDelta = CalculateShootDelta();
         Vector3 summedShootPoint = predictedPointToShoot + shootDelta;
         
-        if (Vector3.Angle(_ship.transform.forward, summedShootPoint - _ship.transform.position) <
+        if (Vector3.Angle(_shipTransform.forward, summedShootPoint - _shipTransform.position) <
             ShipsFactory.ShipStatsGeneralConfig.BotShootAngle) {
             if (_isFiringSecond) {
                 _ship.FireSecond(summedShootPoint);
@@ -189,7 +190,7 @@ public class BotPilot : AbstractPilot {
             _ship.Slowdown();
         }
 
-        Vector3 dir = _target.position - _ship.transform.position;
+        Vector3 dir = _target.position - _shipTransform.position;
         RotateShip(dir);
     }
 
@@ -227,17 +228,17 @@ public class BotPilot : AbstractPilot {
             _ship.SetBoost(_ship.GetShieldPercent() < 0.5f);
         }
 
-        Vector3 dir = _ship.transform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta -
+        Vector3 dir = _shipTransform.position + _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta -
                       _target.position;
         RotateShip(dir);
     }
 
     private void RotateShip(Vector3 to) {
         to = to.normalized;
-        float distFromCenter = Vector3.Distance(_ship.transform.position, Vector3.zero);
+        float distFromCenter = Vector3.Distance(_shipTransform.position, Vector3.zero);
         if (distFromCenter > MainConfigTable.Instance.MainGameConfig.FightRadius) {
             float rotPercent = (distFromCenter - MainConfigTable.Instance.MainGameConfig.FightRadius) / 100;
-            Vector3 dirToCenter = -_ship.transform.position.normalized;
+            Vector3 dirToCenter = -_shipTransform.position.normalized;
             to = Vector3.Lerp(to, dirToCenter, rotPercent);
         }
 
@@ -255,7 +256,7 @@ public class BotPilot : AbstractPilot {
         _isFiringSecond = Random.Range(0, 1f) < cnfg.BotChanceToShootWithSecondGun;
     }
 
-    private float CalculateDist() => Vector3.Magnitude(_target.position - _ship.transform.position - (_state == BotState.Evade
+    private float CalculateDist() => Vector3.Magnitude(_target.position - _shipTransform.position - (_state == BotState.Evade
         ? _cachedRandomVector * ShipsFactory.ShipStatsGeneralConfig.BotRandomEvadePointDelta
         : Vector3.zero));
 
@@ -299,7 +300,7 @@ public class BotPilot : AbstractPilot {
         Debug.Log(_state);
         if (_target != null) {
             Gizmos.color = PlayerData.Team == Team.Blue ? Color.blue : Color.red;
-            Gizmos.DrawLine(_ship.transform.position, _target.position);
+            Gizmos.DrawLine(_shipTransform.position, _target.position);
         }
     }
 }

@@ -21,9 +21,9 @@ public class ShipsFactory : BaseFactory {
         Instance = this;
     }
 
-    public static IShip GetShip(ShipType type) {
+    public static Ship GetShip(ShipType type) {
         IShip shipPrefab = Instance._shipsConfigsList.First(s => s.ShipType == type).Prefab;
-        return Instantiate(shipPrefab);
+        return Instantiate(shipPrefab) as Ship;
     }
 }
 

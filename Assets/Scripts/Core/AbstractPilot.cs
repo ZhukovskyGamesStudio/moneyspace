@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class AbstractPilot : MonoBehaviour {
     protected Ship _ship;
+    protected Transform _shipTransform;
     protected PlayerData _playerData;
     protected bool _isActive = false;
     public PlayerData PlayerData => _playerData;
@@ -33,10 +34,11 @@ public class AbstractPilot : MonoBehaviour {
     }
 
     protected virtual void GetShip() {
-        _ship = ShipsFactory.GetShip(GetShipType()) as Ship;
+        _ship = ShipsFactory.GetShip(GetShipType());
+        _shipTransform = _ship.transform;
         _ship.SetOwner(this);
         _ship.gameObject.SetActive(false);
-        _ship.transform.SetParent(transform);
+        _shipTransform.SetParent(transform);
         _ship.name = _playerData.Nickname + "ship";
         _ship.tag = _playerData.Team.ToString();
         _ship.OnDestroyed += LogDestroyedToTray;
@@ -71,7 +73,7 @@ public class AbstractPilot : MonoBehaviour {
     protected virtual void RespawnShip() {
         Transform spawnPoint = SpawnPoints.GetRandomSpawnPoint(_playerData.Team);
         transform.SetParent(spawnPoint);
-        _ship.transform.position = spawnPoint.position + Random.insideUnitSphere * 50;
+        _shipTransform.position = spawnPoint.position + Random.insideUnitSphere * 50;
         _ship.gameObject.SetActive(true);
         _ship.Respawn();
     }

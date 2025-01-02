@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class PlayerPilot : AbstractPilot {
         _ship.name = "PlayerShip";
         _ship.OnDestroyed += OnShipDestroyed;
         CameraFollow.Instance.SetTarget(_ship.GetCameraFollowTarget());
-        MinimapCameraFollow.Instance.SetTarget(_ship.transform);
+        MinimapCameraFollow.Instance.SetTarget(_shipTransform);
     }
 
     public override void Activate() {
@@ -117,7 +118,9 @@ public class PlayerPilot : AbstractPilot {
                 ClearTarget();
             }
         }
-        
+    }
+
+    private void LateUpdate() {
         UpdateArSliders();
         UpdateTargetMessageView();
         UpdateSpeedAndRotation();
@@ -199,7 +202,7 @@ public class PlayerPilot : AbstractPilot {
     private Ship TryAcquireTarget() {
         bool canHaveTarget = ShipDetectZone.Instance.HasShipsToTarget();
         if (!canHaveTarget) {
-            return GameManager.Instance.PilotsManager.GetClosesOppositeTeamShip(_ship.transform.position, true, _curTarget);
+            return GameManager.Instance.PilotsManager.GetClosesOppositeTeamShip(_shipTransform.position, true, _curTarget);
         }
 
         return ShipDetectZone.Instance.GetClosestShip();

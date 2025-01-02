@@ -94,3 +94,4 @@ MonoBehaviour:
   _maxUpShift: 30
   _minDistance: 100
   _maxDistance: 1000
+  _image: {fileID: 1121344080221814310}

@@ -99,17 +99,13 @@ public class Ship : IShip {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        Rigidbody rb = collision.collider.attachedRigidbody;
-        if (rb == null) {
-            return;
-        }
-
         if (_isBouncing || _isRespawning) {
             return;
         }
-
+        
         //столкновение с лазерами обрабатываются на стороне лазера
-        if (rb.GetComponent<LaserBullet>() != null) {
+        Rigidbody rb = collision.collider.attachedRigidbody;
+        if (rb != null && rb.GetComponent<LaserBullet>() != null) {
             return;
         }
 
