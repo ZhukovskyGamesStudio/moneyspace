@@ -64,7 +64,7 @@ public class EndGameRewardDialog : MonoBehaviour {
 #if UNITY_EDITOR
         DoubleCoinsAfterRewAd();
 #else
-        YgHandler handler = new YgHandler();
+        YgRewardedHandler handler = new YgRewardedHandler();
         handler.ShowRewarded(DoubleCoinsAfterRewAd);
 #endif
     }
