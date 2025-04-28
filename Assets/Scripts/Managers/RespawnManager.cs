@@ -1,5 +1,3 @@
-using YG;
-
 public class RespawnManager {
     private int _startingScore;
 
@@ -39,7 +37,7 @@ public class RespawnManager {
         }
 
         MoneyspaceSaveLoadManager.Save();
-        YandexGame.NewLeaderboardScores( "gamesWon", MoneyspaceSaveLoadManager.Profile.GamesWonAmount);
+        YGWrapper.SendLeaderboardScore("gamesWon", MoneyspaceSaveLoadManager.Profile.GamesWonAmount);
 
         GameUI.Instance.EndGameDialog.Show(PlayersManager.RealPLayer.Kills, PlayersManager.RealPLayer.Assists, isPlayerWon);
     }

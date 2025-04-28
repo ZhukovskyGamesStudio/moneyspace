@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using YG;
 
 public class PlayerKillCountManager : MonoBehaviour {
     public static PlayerKillCountManager Instance;
@@ -14,7 +13,7 @@ public class PlayerKillCountManager : MonoBehaviour {
         _killCount++;
         MoneyspaceSaveLoadManager.Profile.KillsAmount++;
         MoneyspaceSaveLoadManager.Save();
-        YandexGame.NewLeaderboardScores( "killsTotal", MoneyspaceSaveLoadManager.Profile.KillsAmount);
+        YGWrapper.SendLeaderboardScore( "killsTotal", MoneyspaceSaveLoadManager.Profile.KillsAmount);
         
         GameUI.Instance.UiMessages.TimedMessage.PlaySound(true);
         switch (_killCount) {

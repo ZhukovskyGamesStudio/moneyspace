@@ -1,24 +1,18 @@
 using UnityEngine;
-using YG;
 
 public class MainMenuManager : MonoBehaviour {
     [SerializeField]
     private MainMenuUI _mainMenuUI;
 
-    private static bool isYgGameReady = false;
-
     private void Start() {
-        if (!isYgGameReady) {
-            YandexGame.GameReadyAPI();
-            isYgGameReady = true;
-        }
+        YGWrapper.GameReady();
 
         Cursor.lockState = CursorLockMode.Confined;
         _mainMenuUI.Init();
         _mainMenuUI.SetData(MoneyspaceSaveLoadManager.Profile);
 
         if (MoneyspaceSaveLoadManager.Profile.GamesWonAmount > 1) {
-            YandexGame.ReviewShow(true);
+            YGWrapper.ReviewShow();
         }
     }
 
@@ -46,8 +40,8 @@ public class MainMenuManager : MonoBehaviour {
 #endif
 
     public void WatchAdButton() {
-        YgHandler handler = new YgHandler();
-        handler.ShowRewarded(GiveCoinsAfterRewAd);
+        YgRewardedHandler rewardedHandler = new YgRewardedHandler();
+        rewardedHandler.ShowRewarded(GiveCoinsAfterRewAd);
 
         _mainMenuUI.SetData(MoneyspaceSaveLoadManager.Profile);
         _mainMenuUI.CloseDialogs();
